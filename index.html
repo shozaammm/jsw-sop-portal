@@ -4165,7 +4165,445 @@ body.view-intro-active .chapter-nav {
     visibility: hidden !important;
   }
   .manual-foot { padding-bottom: 64px; }
-  </style>
+  
+/* === HR PORTAL ALIGNED REFINEMENTS === */
+.jitter-dock-wrap {
+  position: fixed;
+  left: 0; right: 0; bottom: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 990;
+  pointer-events: none;
+  animation: jswFadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
+}
+.jitter-dock {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  background: rgba(18, 17, 15, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 40px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.22);
+  transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
+}
+.jitter-dock:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+.jitter-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 4px;
+}
+.jitter-logo {
+  height: 17px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+.jitter-pill-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.14);
+}
+.jitter-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.07);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.jitter-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--gold, #C5A059);
+  transform: scale(1.06);
+}
+.jitter-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.jitter-current {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.jitter-current:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.jitter-ch-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gold, #C5A059);
+  text-transform: uppercase;
+}
+.jitter-ch-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+/* Home Index Table of Contents */
+.home-index {
+  max-width: 1180px;
+  margin: 40px auto 60px auto;
+  padding: 0 24px;
+}
+.hx-head {
+  margin-bottom: 32px;
+}
+.hx-brand-wrap {
+  margin-bottom: 18px;
+}
+.hx-eyebrow {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  color: var(--gold, #C5A059);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hx-title {
+  font-family: var(--font-display, 'Manrope', sans-serif);
+  font-size: 28px;
+  font-weight: 800;
+  color: #161513;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.hx-rule {
+  width: 44px;
+  height: 2px;
+  background: #161513;
+  margin-top: 14px;
+}
+.hx-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.hx-group {
+  background: #FFFFFF;
+  border: 1px solid var(--line-200, #E4E1DA);
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+}
+.hx-group-label {
+  font-family: var(--font-display, 'Manrope', sans-serif);
+  font-size: 13px;
+  font-weight: 800;
+  color: #161513;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hx-part-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px;
+  padding: 2px 7px;
+  background: rgba(197, 160, 89, 0.15);
+  color: var(--gold, #C5A059);
+  border-radius: 4px;
+}
+.hx-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: #FAF9F6;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+.hx-row:last-child {
+  margin-bottom: 0;
+}
+.hx-row:hover {
+  background: #FFFFFF;
+  border-color: var(--gold, #C5A059);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.hx-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 800;
+  color: #161513;
+  background: #EFECE6;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.hx-name {
+  font-family: var(--font-display, 'Manrope', sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: #161513;
+  flex: 1;
+}
+.hx-arrow {
+  font-size: 16px;
+  color: var(--gold, #C5A059);
+  opacity: 0.7;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.hx-row:hover .hx-arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+/* Process Flow Step Cards */
+.rf-step-card {
+  background: #ffffff;
+  border: 1px solid rgba(22, 21, 19, 0.12);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+.rf-step-card:hover {
+  border-color: var(--gold, #C5A059);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -4px rgba(22, 21, 19, 0.08);
+}
+.rf-step-card.is-active {
+  border-color: var(--gold, #C5A059) !important;
+  outline: 2px solid var(--gold, #C5A059) !important;
+  outline-offset: 2px;
+  box-shadow: 0 14px 30px -8px rgba(197, 160, 89, 0.4) !important;
+  background: #FFFFFF !important;
+}
+.rf-step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.rf-step-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold, #C5A059);
+  background: rgba(197, 160, 89, 0.12);
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+}
+.rf-step-role {
+  font-size: 11px;
+  font-weight: 700;
+  color: #161513;
+  background: #F4F3EF;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(22, 21, 19, 0.08);
+}
+.rf-step-text {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #454340;
+  line-height: 1.5;
+}
+
+/* Standards Table */
+.proc-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #FFFFFF;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(22, 21, 19, 0.1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+}
+.proc-table thead tr {
+  background: #161513;
+}
+.proc-table thead th {
+  color: #FFFFFF;
+  font-family: var(--font-display, 'Manrope', sans-serif);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 2px solid var(--gold, #C5A059);
+}
+.proc-table tbody tr {
+  border-bottom: 1px solid rgba(22, 21, 19, 0.08);
+  transition: background 0.18s ease;
+}
+.proc-table tbody tr:hover {
+  background: #FAF9F6;
+}
+.proc-table tbody tr.active-row {
+  background: #FFFCF5;
+}
+.proc-table tbody td {
+  padding: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #2D2B28;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(22, 21, 19, 0.07);
+}
+
+/* High-Contrast Role Directory */
+.role-directory {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  border: 1px solid rgba(22, 21, 19, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #FFFFFF;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  min-height: 520px;
+}
+.rd-detail {
+  padding: 32px 36px;
+  color: #161513 !important;
+}
+.rd-detail h3, .rd-detail-title {
+  color: #161513 !important;
+  font-family: var(--font-display, 'Manrope', sans-serif);
+  font-size: 24px;
+  font-weight: 800;
+  margin: 4px 0 0 0;
+  letter-spacing: -0.02em;
+}
+.rd-detail-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--gold, #C5A059);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.rd-meta-row {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+  padding: 14px 18px;
+  background: #FAF9F6;
+  border-radius: 10px;
+  border: 1px solid rgba(22, 21, 19, 0.06);
+}
+.rd-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.rd-meta-item span {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #78756E;
+}
+.rd-meta-item strong {
+  font-size: 14px;
+  color: #161513;
+  font-weight: 700;
+}
+.rd-detail .subhead {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  color: #161513;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+.rd-detail p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #2D2B28;
+}
+.rd-role-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  color: #161513;
+}
+.rd-role-btn:hover {
+  background: #FFFFFF;
+  border-color: rgba(22, 21, 19, 0.1);
+}
+.rd-role-btn.active {
+  background: #161513;
+  border-color: #161513;
+}
+.rd-role-btn.active .rd-role-name {
+  color: #FFFFFF !important;
+}
+.rd-role-btn.active .rd-role-dept {
+  color: #DFBE7A !important;
+}
+
+/* Card & Typography Contrast */
+.jsw-card-clean h3, .card-title-lg {
+  color: #161513 !important;
+}
+.jsw-card-clean p, .jsw-card-clean li {
+  color: #2D2B28 !important;
+}
+.kpi-card h3 {
+  color: #161513 !important;
+}
+.kpi-card p {
+  color: #2D2B28 !important;
+}
+
+</style>
 
   <script>
   try {
@@ -4331,6 +4769,50 @@ body.view-intro-active .chapter-nav {
       </div>
     </div>
 
+    <!-- ============ SOP TABLE OF CONTENTS (HOME VIEW) ============ -->
+    <section class="home-index" id="homeIndex">
+      <div class="hx-head">
+        <div class="hx-brand-wrap">
+          <img class="hx-brand-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABLAAAALcCAYAAAD3x0nUAAAiIElEQVR42u3d65LbtpqGUdGV+79l7h+2t2VZRwoAX+Bbq2oqzkwmh24IBB6D6G3f9wsAAAAApPrhSwAAAABAMgELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGj/+RIAAABAnP3mzzdfEipzAgsAAACy7G/+76AMAQsAAACAaAIWAAAA5HDSCu4QsAAAAACI5hJ3AAAAGM9JK/iAE1gAAAAwlngFH3ICCwAAAPppFas2X0oqcwILAAAA+nDSChoRsAAAAKAPp6agEQELAAAA+hOz4AsCFgAAAPSxP/g18CGXuAMAAMBxPcOUU1vwi4AFAAAAx/SKV8IV3BCwAAAA4HMt4tV28/cSruABAQsAAADOJVzBCy5xBwAAACCagAUAAABANK8QAgAAwHM9Lmv32iB8QMACAACAn3Zf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iCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKL9D+hny2G9zSV1AAAAAElFTkSuQmCC" alt="JSW" style="height: 36px; width: auto; object-fit: contain;">
+        </div>
+        <div class="hx-eyebrow">JSW MOTORS APEX · A PLAYBOOK FOR EXPERIENCE EXCELLENCE</div>
+        <h2 class="hx-title">SOP Structure &amp; Table of Contents</h2>
+        <div class="hx-rule"></div>
+      </div>
+      <div class="hx-groups">
+        <div class="hx-group">
+          <div class="hx-group-label"><span class="hx-part-num">PART 01</span> Foundational Standards</div>
+          <button type="button" class="hx-row" onclick="goToView(1)">
+            <span class="hx-num">01</span>
+            <span class="hx-name">Foundational Elements</span>
+            <span class="hx-arrow">&rarr;</span>
+          </button>
+        </div>
+        <div class="hx-group">
+          <div class="hx-group-label"><span class="hx-part-num">PART 02</span> Operating Execution &amp; Touchpoints</div>
+          <button type="button" class="hx-row" onclick="goToView(2)">
+            <span class="hx-num">02</span>
+            <span class="hx-name">Process Flow &amp; Standards</span>
+            <span class="hx-arrow">&rarr;</span>
+          </button>
+          <button type="button" class="hx-row" onclick="goToView(3)">
+            <span class="hx-num">03</span>
+            <span class="hx-name">Arrival Roles &amp; Stakeholders</span>
+            <span class="hx-arrow">&rarr;</span>
+          </button>
+        </div>
+        <div class="hx-group">
+          <div class="hx-group-label"><span class="hx-part-num">PART 03</span> Governance &amp; Quantitative Evaluation</div>
+          <button type="button" class="hx-row" onclick="goToView(4)">
+            <span class="hx-num">04</span>
+            <span class="hx-name">Success Metrics</span>
+            <span class="hx-arrow">&rarr;</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
     <!-- ============ SECTION 1: FOUNDATIONAL PILLARS ============ -->
     <section class="chap" id="sec-foundations">
       <div class="chap-head reveal">
@@ -4439,109 +4921,95 @@ body.view-intro-active .chapter-nav {
       <div class="prose reveal">
         
         <!-- Interactive Flowchart Card -->
-        <div class="flowchart-container search-target">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <div>
-              <span class="card-kicker">Interactive Operating Flow</span>
-              <h3 style="font-family: var(--font-display); font-size: 21px; font-weight: 800; color: #161513; margin: 4px 0 0 0;">Process Flow</h3>
-            </div>
-            <span class="card-badge">CLICK STEP TO FILTER TABLE BELOW</span>
-          </div>
-
-          <p style="font-size: 14.5px; font-weight: 600; color: #161513; margin-top: 10px; margin-bottom: 6px;">
-            Click on the process flow step for more details:
-          </p>
-
-          <!-- 3 Steps Exactly matching JSW SOP Elements (1).docx -->
-          <div class="flow-3-steps">
-            
-            <!-- Step 1 Node -->
-            <div class="flow-step-card is-active" id="node-step-1" onclick="flowClickStep(1)" title="Click to filter Step 1 in Table below">
-              <div>
-                <div class="step-header-box">
-                  <span class="step-tag">STEP 1</span>
-                  <span class="active-pulse-badge">OPEN</span>
-                </div>
-                <div class="step-role-title">Sales Manager</div>
-                <div class="step-desc-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        <div class="rf-flow search-target">
+          <div class="rf-phase">
+            <div class="rf-phase-header">
+              <div class="rf-phase-title">
+                <span class="rf-phase-badge">STEPS 01–03</span>
+                Process Flow
               </div>
-              <div>
-                <div class="step-enablers-row">
+              <span class="card-badge">CLICK STEP TO FILTER TABLE BELOW</span>
+            </div>
+            
+            <div style="padding: 16px 20px 10px 20px; font-size: 14.5px; font-weight: 600; color: #161513;">
+              Click on the process flow step for more details:
+            </div>
+
+            <!-- 3 Steps Exactly matching JSW SOP Elements (1).docx -->
+            <div class="rf-steps-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 0 20px 20px 20px;">
+              
+              <!-- Step 1 Node -->
+              <div class="rf-step-card is-active" id="node-step-1" onclick="flowClickStep(1)" title="Click to filter Step 1 in Table below">
+                <div class="rf-step-top">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="rf-step-num">01</span>
+                    <span class="rf-step-role">Sales Manager</span>
+                  </div>
+                  <span class="active-pulse-badge" id="pulse-1">ACTIVE</span>
+                </div>
+                <div class="rf-step-text" style="font-size: 13.5px; color: #454340; line-height: 1.5; margin-top: 4px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div>
+                <div class="step-enablers-row" style="margin-top: auto; padding-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
                   <span class="enabler-pill">Tool 1</span>
                   <span class="enabler-pill">Checklist 1</span>
                 </div>
-                <div class="step-action-hint">
-                  <span>FILTER TABLE</span>
-                  <span>▶</span>
-                </div>
               </div>
-            </div>
 
-            <!-- Step 2 Node -->
-            <div class="flow-step-card" id="node-step-2" onclick="flowClickStep(2)" title="Click to filter Step 2 in Table below">
-              <div>
-                <div class="step-header-box">
-                  <span class="step-tag">STEP 2</span>
-                  <span class="active-pulse-badge">OPEN</span>
+              <!-- Step 2 Node -->
+              <div class="rf-step-card" id="node-step-2" onclick="flowClickStep(2)" title="Click to filter Step 2 in Table below">
+                <div class="rf-step-top">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="rf-step-num">02</span>
+                    <span class="rf-step-role">Hostess</span>
+                  </div>
+                  <span class="active-pulse-badge" id="pulse-2" style="display: none;">ACTIVE</span>
                 </div>
-                <div class="step-role-title">Hostess</div>
-                <div class="step-desc-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-              </div>
-              <div>
-                <div class="step-enablers-row">
+                <div class="rf-step-text" style="font-size: 13.5px; color: #454340; line-height: 1.5; margin-top: 4px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div>
+                <div class="step-enablers-row" style="margin-top: auto; padding-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
                   <span class="enabler-pill">Tool 2</span>
                   <span class="enabler-pill">Tool 3</span>
                 </div>
-                <div class="step-action-hint">
-                  <span>FILTER TABLE</span>
-                  <span>▶</span>
-                </div>
               </div>
-            </div>
 
-            <!-- Step 3 Node -->
-            <div class="flow-step-card" id="node-step-3" onclick="flowClickStep(3)" title="Click to filter Step 3 in Table below">
-              <div>
-                <div class="step-header-box">
-                  <span class="step-tag">STEP 3</span>
-                  <span class="active-pulse-badge">OPEN</span>
+              <!-- Step 3 Node -->
+              <div class="rf-step-card" id="node-step-3" onclick="flowClickStep(3)" title="Click to filter Step 3 in Table below">
+                <div class="rf-step-top">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="rf-step-num">03</span>
+                    <span class="rf-step-role">Sales Consultant</span>
+                  </div>
+                  <span class="active-pulse-badge" id="pulse-3" style="display: none;">ACTIVE</span>
                 </div>
-                <div class="step-role-title">Sales Consultant</div>
-                <div class="step-desc-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-              </div>
-              <div>
-                <div class="step-enablers-row">
+                <div class="rf-step-text" style="font-size: 13.5px; color: #454340; line-height: 1.5; margin-top: 4px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div>
+                <div class="step-enablers-row" style="margin-top: auto; padding-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
                   <span class="enabler-pill">Checklist 2</span>
                   <span class="enabler-pill">Checklist 3</span>
                 </div>
-                <div class="step-action-hint">
-                  <span>FILTER TABLE</span>
-                  <span>▶</span>
-                </div>
               </div>
+
             </div>
-
-          </div>
-
-          <!-- Document Author Specification Note -->
-          <div style="margin-top: 20px; padding: 12px 16px; background: rgba(197, 160, 89, 0.09); border-left: 3px solid var(--gold); border-radius: 6px; font-size: 13.5px; color: #2D2B28;">
-            <strong>Specification Requirement:</strong> "Soham, as we click on each step from the flowchart, the table below should open up. Only the particular step row should open, not all steps. Eg Click on Step 1 from flowchart - step 1 row from the table below opens. Click on step 2 from the flowchart - step 1 row disappears and step 2 row opens."
           </div>
         </div>
 
         <!-- THE JSW PROCESS STANDARDS TABLE -->
         <div id="sec-standards" style="margin-top: 36px;">
           
-          <div class="standards-filter-banner" id="standardsBanner">
-            <div class="sfb-left">
-              <span class="sfb-badge" id="sfbBadge">STEP 1 EXCLUSIVE</span>
-              <span class="sfb-text" id="sfbText">Step 1 (Sales Manager) opened. Step 2 and Step 3 rows disappeared.</span>
+          <div class="standards-filter-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 12px; padding: 12px 18px; background: #161513; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.12);">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-family: var(--font-display); font-weight: 800; font-size: 13.5px; letter-spacing: 0.05em; color: #FFFFFF; text-transform: uppercase;">The JSW Process Standards</span>
+              <span class="sfb-badge" id="sfbBadge" style="font-family: var(--font-mono); font-size: 11px; padding: 3px 9px; border-radius: 6px; background: var(--gold); color: #161513; font-weight: 700; letter-spacing: 0.04em;">STEP 1 EXCLUSIVE</span>
+              <span id="sfbText" style="font-size: 13px; color: #DFBE7A; font-weight: 600;">Sales Manager</span>
             </div>
-            <div class="sfb-btns">
-              <button class="sfb-btn active" id="btnFilter1" onclick="flowClickStep(1)">STEP 1</button>
-              <button class="sfb-btn" id="btnFilter2" onclick="flowClickStep(2)">STEP 2</button>
-              <button class="sfb-btn" id="btnFilter3" onclick="flowClickStep(3)">STEP 3</button>
-              <button class="sfb-btn" id="btnFilterAll" onclick="showAllTableSteps()" style="border-color: var(--gold); color: #FFF;">SHOW ALL</button>
+            <div class="sfb-btns" style="display: flex; gap: 6px;">
+              <button class="sfb-btn active" id="btnFilter1" onclick="flowClickStep(1)" type="button">STEP 1</button>
+              <button class="sfb-btn" id="btnFilter2" onclick="flowClickStep(2)" type="button">STEP 2</button>
+              <button class="sfb-btn" id="btnFilter3" onclick="flowClickStep(3)" type="button">STEP 3</button>
+              <button class="sfb-btn" id="btnFilterAll" onclick="showAllTableSteps()" type="button" style="border-color: var(--gold); color: #DFBE7A;">SHOW ALL</button>
             </div>
           </div>
 
@@ -4930,7 +5398,36 @@ body.view-intro-active .chapter-nav {
     </section>
 
     <!-- ============ FOOTER ============ -->
-    <footer class="manual-foot">
+    
+  <!-- Jitter-inspired Floating Glass Capsule Dock -->
+  <div class="jitter-dock-wrap" id="jitterDock">
+    <div class="jitter-dock">
+      <div class="jitter-brand" onclick="goHome()" style="cursor:pointer;" title="Home / Table of Contents">
+        <img class="jitter-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABLAAAALcCAYAAAD3x0nUAAAiIElEQVR42u3d65LbtpqGUdGV+79l7h+2t2VZRwoAX+Bbq2oqzkwmh24IBB6D6G3f9wsAAAAApPrhSwAAAABAMgELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGgCFgAAAADRBCwAAAAAoglYAAAAAEQTsAAAAACIJmABAAAAEE3AAgAAACCagAUAAABANAELAAAAgGj/+RIAAABAnP3mzzdfEipzAgsAAACy7G/+76AMAQsAAACAaAIWAAAA5HDSCu4QsAAAAACI5hJ3AAAAGM9JK/iAE1gAAAAwlngFH3ICCwAAAPppFas2X0oqcwILAAAA+nDSChoRsAAAAKAPp6agEQELAAAA+hOz4AsCFgAAAPSxP/g18CGXuAMAAMBxPcOUU1vwi4AFAAAAx/SKV8IV3BCwAAAA4HMt4tV28/cSruABAQsAAADOJVzBCy5xBwAAACCagAUAAABANK8QAgAAwHM9Lmv32iB8QMACAACAn3Zf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iCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKIJWAAAAABEE7AAAAAAiCZgAQAAABBNwAIAAAAgmoAFAAAAQDQBCwAAAIBoAhYAAAAA0QQsAAAAAKL9D+hny2G9zSV1AAAAAElFTkSuQmCC" alt="JSW">
+        <span class="jitter-pill-divider"></span>
+      </div>
+      <button class="jitter-btn jitter-prev" id="jitterPrev" title="Previous Section" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <div class="jitter-current" id="jitterCurrent" title="Click to view all sections">
+        <span class="jitter-ch-num" id="jitterChNum">MANUAL</span>
+        <span class="jitter-ch-title" id="jitterChTitle">Table of Contents</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </div>
+      <button class="jitter-btn jitter-next" id="jitterNext" title="Next Section" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <span class="jitter-pill-divider"></span>
+      <button class="jitter-btn" id="jitterSearchBtn" title="Search topics &amp; elements" type="button" onclick="toggleSearchModal(true)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="jitter-btn jitter-top" title="Top of page" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+      </button>
+    </div>
+  </div>
+
+<footer class="manual-foot">
       <div class="manual-foot-inner">
         <div class="manual-foot-top">
           <div class="manual-foot-logo" style="display:flex; align-items:center; gap:16px;">
@@ -5410,19 +5907,24 @@ body.view-intro-active .chapter-nav {
     // 1. Reading Progress Line & Dynamic Canvas Fade
     window.addEventListener('scroll', function() {
       var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var scrolled = (window.scrollY / h) * 100;
+      var scrolled = h > 0 ? (window.scrollY / h) * 100 : 0;
       var prog = document.getElementById('topbarProgress');
-      if (prog) prog.style.width = scrolled + '%';
+      if (prog && typeof current !== 'undefined' && current === 0) {
+        prog.style.width = scrolled + '%';
+      }
 
-      // Hide particle canvas when scrolled past cover to avoid any bleed
+      // Hide particle canvas when scrolled past cover to avoid bleed
       var canvas = document.getElementById('introParticlesCanvas');
       if (canvas) {
         if (window.scrollY > window.innerHeight * 0.85) {
           canvas.style.opacity = '0';
           canvas.style.visibility = 'hidden';
         } else {
-          canvas.style.opacity = '1';
-          canvas.style.visibility = 'visible';
+          var isHome = (typeof current === 'undefined' || current === 0);
+          if (isHome) {
+            canvas.style.opacity = '1';
+            canvas.style.visibility = 'visible';
+          }
         }
       }
     }, { passive: true });
@@ -5455,7 +5957,6 @@ body.view-intro-active .chapter-nav {
         var nextBtn = document.querySelector('.rd-role-btn[data-role="' + i + '"]');
         if (nextBtn){
           nextBtn.classList.add('active');
-          // nextBtn.scrollIntoView({block: 'nearest'});
         }
 
         activeRoleIndex = i;
@@ -5466,102 +5967,97 @@ body.view-intro-active .chapter-nav {
       });
     })();
 
-    function openRoleInDirectory(roleIdx) {
-      if (typeof goToView === 'function') goToView(3);
+    window.openRoleInDirectory = function(roleIdx) {
+      if (typeof goToView === 'function') goToView(3, 'sec-roledir');
       window.rdSelect(roleIdx);
-      var sec = document.getElementById('sec-roledir');
-      if (sec) sec.scrollIntoView({ behavior: 'smooth' });
-    }
+    };
 
     // 3. Process Flowchart Step Filter Engine
     // Strictly fulfills comment:
     // "Soham, as we click on each step from the flowchart, the table below should open up. Only the particular step row should open, not all steps.
     // Eg Click on Step 1 from flowchart - step 1 row from the table below opens.
     // Click on step 2 from the flowchart - step 1 row disappears and step 2 row opens."
-    function flowClickStep(stepNum) {
-      // Update active highlight on flowchart nodes
-      document.querySelectorAll('.flow-step-card').forEach(function(el){
-        el.classList.remove('is-active');
-      });
-      var targetNode = document.getElementById('node-step-' + stepNum);
-      if (targetNode) targetNode.classList.add('is-active');
-
-      // Update filter banner buttons
-      document.querySelectorAll('.sfb-btn').forEach(function(b){ b.classList.remove('active'); });
-      var currentBtn = document.getElementById('btnFilter' + stepNum);
-      if (currentBtn) currentBtn.classList.add('active');
-
-      // Update banner badge and text
-      var badge = document.getElementById('sfbBadge');
-      var noticeText = document.getElementById('sfbText');
-      var roleNames = { 1: 'Sales Manager', 2: 'Hostess', 3: 'Sales Consultant' };
-      
-      if (badge) badge.textContent = 'STEP ' + stepNum + ' EXCLUSIVE';
-      if (noticeText) {
-        var otherSteps = [1, 2, 3].filter(function(s){ return s !== stepNum; }).join(' and ');
-        noticeText.textContent = 'Step ' + stepNum + ' (' + roleNames[stepNum] + ') opened. Step ' + otherSteps + ' rows disappeared.';
+    window.flowClickStep = function(stepNum) {
+      for (var i = 1; i <= 3; i++) {
+        var card = document.getElementById('node-step-' + i);
+        var pulse = document.getElementById('pulse-' + i);
+        var btn = document.getElementById('btnFilter' + i);
+        if (card) card.classList.toggle('is-active', i === stepNum);
+        if (pulse) pulse.style.display = (i === stepNum ? 'inline-block' : 'none');
+        if (btn) btn.classList.toggle('active', i === stepNum);
       }
+      var btnAll = document.getElementById('btnFilterAll');
+      if (btnAll) btnAll.classList.remove('active');
 
-      // Hide all table rows, display ONLY the clicked step row!
+      var roles = { 1: 'Sales Manager', 2: 'Hostess', 3: 'Sales Consultant' };
+      var sfbBadge = document.getElementById('sfbBadge');
+      var sfbText = document.getElementById('sfbText');
+      if (sfbBadge) sfbBadge.textContent = 'STEP ' + stepNum + ' EXCLUSIVE';
+      if (sfbText) sfbText.textContent = roles[stepNum] || ('Step ' + stepNum);
+
       var rows = document.querySelectorAll('#standardsTable tbody tr');
-      rows.forEach(function(row){
+      rows.forEach(function(row) {
         var rowStep = parseInt(row.getAttribute('data-step'), 10);
         if (rowStep === stepNum) {
-          row.style.display = ''; // opens up!
+          row.style.display = '';
           row.classList.add('active-row');
         } else {
-          row.style.display = 'none'; // disappears as requested!
+          row.style.display = 'none';
           row.classList.remove('active-row');
         }
       });
 
-      // Also sync corresponding role in Role Directory
-      window.rdSelect(stepNum - 1);
+      var roleMapping = { 1: 0, 2: 3, 3: 4 };
+      if (roleMapping.hasOwnProperty(stepNum) && typeof window.rdSelect === 'function') {
+        window.rdSelect(roleMapping[stepNum]);
+      }
 
-      // Smooth scroll to Standards section only if out of viewport
       var sec = document.getElementById('sec-standards');
       if (sec) {
         var rect = sec.getBoundingClientRect();
-        if (rect.top > window.innerHeight - 60 || rect.bottom < 120) {
+        if (rect.top < 80 || rect.bottom > window.innerHeight) {
           sec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
       }
-    }
+    };
 
-    function showAllTableSteps() {
-      var badge = document.getElementById('sfbBadge');
-      var noticeText = document.getElementById('sfbText');
-      if (badge) badge.textContent = 'ALL STEPS SHOWN';
-      if (noticeText) noticeText.textContent = 'All 3 process standard rows (Step 1, Step 2, Step 3) are visible.';
-
-      document.querySelectorAll('.flow-step-card').forEach(function(el){
-        el.classList.remove('is-active');
-      });
-      document.querySelectorAll('.sfb-btn').forEach(function(b){ b.classList.remove('active'); });
+    window.showAllTableSteps = function() {
+      for (var i = 1; i <= 3; i++) {
+        var card = document.getElementById('node-step-' + i);
+        var pulse = document.getElementById('pulse-' + i);
+        var btn = document.getElementById('btnFilter' + i);
+        if (card) card.classList.remove('is-active');
+        if (pulse) pulse.style.display = 'none';
+        if (btn) btn.classList.remove('active');
+      }
       var btnAll = document.getElementById('btnFilterAll');
       if (btnAll) btnAll.classList.add('active');
 
-      // Display all table rows
+      var sfbBadge = document.getElementById('sfbBadge');
+      var sfbText = document.getElementById('sfbText');
+      if (sfbBadge) sfbBadge.textContent = 'ALL STEPS SHOWN';
+      if (sfbText) sfbText.textContent = 'Showing Steps 1–3';
+
       var rows = document.querySelectorAll('#standardsTable tbody tr');
-      rows.forEach(function(row){
+      rows.forEach(function(row) {
         row.style.display = '';
         row.classList.remove('active-row');
       });
 
       var sec = document.getElementById('sec-standards');
       if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    };
 
     // 4. Dropdown Menu Trigger
-    function toggleMenu(force) {
+    window.toggleMenu = function(force) {
       var dropdown = document.getElementById('menuDropdown');
       if (!dropdown) return;
       var show = force !== undefined ? force : !dropdown.classList.contains('show');
       dropdown.classList.toggle('show', show);
-    }
+    };
 
     // 5. Global Search Modal (CMD + K)
-    function toggleSearchModal(force) {
+    window.toggleSearchModal = function(force) {
       var modal = document.getElementById('searchModal');
       if (!modal) return;
       var show = force !== undefined ? force : !modal.classList.contains('show');
@@ -5570,26 +6066,26 @@ body.view-intro-active .chapter-nav {
         var input = document.getElementById('searchInput');
         if (input) { input.focus(); input.select(); }
       }
-    }
+    };
 
-    function handleModalBackdropClick(event, modalId) {
+    window.handleModalBackdropClick = function(event, modalId) {
       if (event.target && event.target.id === modalId) {
-        toggleSearchModal(false);
+        window.toggleSearchModal(false);
       }
-    }
+    };
 
     document.addEventListener('keydown', function(e) {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        toggleSearchModal();
+        window.toggleSearchModal();
       }
       if (e.key === 'Escape') {
-        toggleSearchModal(false);
-        toggleMenu(false);
+        window.toggleSearchModal(false);
+        window.toggleMenu(false);
       }
     });
 
-    function handleLiveSearch(query) {
+    window.handleLiveSearch = function(query) {
       var res = document.getElementById('searchResults');
       if (!res) return;
       var q = query.trim().toLowerCase();
@@ -5624,14 +6120,14 @@ body.view-intro-active .chapter-nav {
       });
       res.innerHTML = html;
       window._searchMatches = matches;
-    }
+    };
 
     window.jumpToSearchResult = function(idx) {
       if (window._searchMatches && window._searchMatches[idx]) {
         var target = window._searchMatches[idx].el;
-        toggleSearchModal(false);
-        if (typeof revealElementView === 'function') revealElementView(target);
-        showAllTableSteps();
+        window.toggleSearchModal(false);
+        if (typeof window.revealElementView === 'function') window.revealElementView(target);
+        window.showAllTableSteps();
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
         target.style.outline = '2px solid var(--gold)';
         target.style.outlineOffset = '4px';
@@ -5640,37 +6136,42 @@ body.view-intro-active .chapter-nav {
     };
 
     // 6. Quantitative Formula Calculators
-    function evalKpi1() {
+    window.evalKpi1 = function() {
       var a = parseFloat(document.getElementById('in_a').value) || 0;
       var b = parseFloat(document.getElementById('in_b').value) || 0;
       var c = parseFloat(document.getElementById('in_c').value) || 0;
       var y = parseFloat(document.getElementById('in_y').value) || 1;
       var res = (a + b + c) / y;
-      document.getElementById('kpi1_val').textContent = res.toFixed(2);
-    }
+      var el = document.getElementById('kpi1_val');
+      if (el) el.textContent = res.toFixed(2);
+    };
 
-    function evalKpi2() {
+    window.evalKpi2 = function() {
       var x = parseFloat(document.getElementById('in_x').value) || 0;
       var y = parseFloat(document.getElementById('in_y2').value) || 1;
       var res = (x / y) * 100;
-      document.getElementById('kpi2_val').textContent = res.toFixed(2) + '%';
-    }
+      var el = document.getElementById('kpi2_val');
+      if (el) el.textContent = res.toFixed(2) + '%';
+    };
 
-    // 7. Paged Section Views — menu + prev/next navigation (HR-portal style)
+    // 7. Section Views & Full Jitter Dock Navigation System (HR Portal Architecture)
+    var current = 0;
+
     (function() {
       var VIEWS = [
-        { name: 'Cover',                        ids: ['cover', 'heroStripWrapper'] },
-        { name: 'Foundational Elements',        ids: ['sec-foundations'] },
-        { name: 'Process Flow & Standards',     ids: ['process-flow'] },
-        { name: 'Arrival Roles & Stakeholders', ids: ['sec-roledir'] },
-        { name: 'Success Metrics',              ids: ['sec-metrics'] }
+        { name: 'Table of Contents',             num: 'MANUAL',     ids: ['cover', 'heroStripWrapper', 'homeIndex'] },
+        { name: 'Foundational Elements',        num: 'SECTION 01', ids: ['sec-foundations'] },
+        { name: 'Process Flow & Standards',     num: 'SECTION 02', ids: ['process-flow'] },
+        { name: 'Arrival Roles & Stakeholders', num: 'SECTION 03', ids: ['sec-roledir'] },
+        { name: 'Success Metrics',              num: 'SECTION 04', ids: ['sec-metrics'] }
       ];
+
       var ID_TO_VIEW = {
-        'cover': 0, 'heroStripWrapper': 0,
-        'sec-foundations': 1,
-        'process-flow': 2, 'sec-process-flow': 2, 'sec-standards': 2, 'standardsTable': 2,
-        'sec-roledir': 3,
-        'sec-metrics': 4
+        'cover': 0, 'heroStripWrapper': 0, 'homeIndex': 0,
+        'sec-foundations': 1, 'foundations': 1,
+        'process-flow': 2, 'sec-process-flow': 2, 'sec-standards': 2, 'standardsTable': 2, 'standards': 2,
+        'sec-roledir': 3, 'roledir': 3, 'roles': 3,
+        'sec-metrics': 4, 'metrics': 4
       };
 
       VIEWS.forEach(function(v){
@@ -5683,7 +6184,7 @@ body.view-intro-active .chapter-nav {
         });
       }
 
-      // Build a prev / next bar at the end of each section view
+      // Build previous / next chapter-nav bars for inside each section
       var navBars = [];
       for (var i = 1; i < VIEWS.length; i++) {
         (function(i){
@@ -5697,7 +6198,7 @@ body.view-intro-active .chapter-nav {
           prev.className = 'cn-btn cn-prev';
           prev.innerHTML =
             '<span class="cn-kicker"><span class="cn-arrow">&lsaquo;</span> ' +
-            (i === 1 ? 'Back to' : 'Previous section') + '</span>' +
+            (i === 1 ? 'Back to Contents' : 'Previous Section') + '</span>' +
             '<span class="cn-title">' + esc(VIEWS[i-1].name) + '</span>';
           prev.addEventListener('click', function(){ window.goToView(i-1); });
 
@@ -5708,7 +6209,7 @@ body.view-intro-active .chapter-nav {
             next.setAttribute('disabled', '');
           } else {
             next.innerHTML =
-              '<span class="cn-kicker">Next section <span class="cn-arrow">&rsaquo;</span></span>' +
+              '<span class="cn-kicker">Next Section <span class="cn-arrow">&rsaquo;</span></span>' +
               '<span class="cn-title">' + esc(VIEWS[i+1].name) + '</span>';
             next.addEventListener('click', function(){ window.goToView(i+1); });
           }
@@ -5720,19 +6221,38 @@ body.view-intro-active .chapter-nav {
         })(i);
       }
 
-      var current = 0;
-
-      function setActiveMarkers(idx){
-        document.querySelectorAll('.hero-cell, .dropdown-item').forEach(function(a){
-          var href = (a.getAttribute('href') || '').replace('#', '');
-          a.classList.toggle('active', ID_TO_VIEW[href] === idx);
-        });
+      function updateChrome(idx){
+        // Update topbar center
         var tc = document.getElementById('tbCenter');
         if (tc) {
           tc.textContent = (idx === 0)
             ? 'JSW MOTORS APEX · ARRIVAL AND WELCOME'
             : 'JSW MOTORS APEX · ' + VIEWS[idx].name.toUpperCase();
         }
+
+        // Update topbar progress
+        var tp = document.getElementById('topbarProgress');
+        if (tp) {
+          var pct = idx === 0 ? 0 : Math.round((idx / 4) * 100);
+          tp.style.width = pct + '%';
+        }
+
+        // Update Jitter Dock capsule
+        var jNum = document.getElementById('jitterChNum');
+        var jTitle = document.getElementById('jitterChTitle');
+        var jPrev = document.getElementById('jitterPrev');
+        var jNext = document.getElementById('jitterNext');
+
+        if (jNum) jNum.textContent = VIEWS[idx].num;
+        if (jTitle) jTitle.textContent = VIEWS[idx].name;
+        if (jPrev) jPrev.disabled = (idx === 0);
+        if (jNext) jNext.disabled = (idx === VIEWS.length - 1);
+
+        // Update menu active states
+        document.querySelectorAll('.hero-cell, .dropdown-item').forEach(function(a){
+          var href = (a.getAttribute('href') || '').replace('#', '');
+          a.classList.toggle('active', ID_TO_VIEW[href] === idx);
+        });
       }
 
       window.goToView = function(idx, subId){
@@ -5756,10 +6276,17 @@ body.view-intro-active .chapter-nav {
         }
         if (typeof window.toggleIntroParticles === 'function') window.toggleIntroParticles(isHome);
 
-        if (typeof toggleMenu === 'function') toggleMenu(false);
-        setActiveMarkers(idx);
+        if (typeof window.toggleMenu === 'function') window.toggleMenu(false);
+        updateChrome(idx);
 
+        // Trigger TVS banner zoom
         VIEWS[idx].els.forEach(function(el){
+          var thumb = el.querySelector ? el.querySelector('.ch-thumb') : null;
+          if (thumb) {
+            thumb.classList.remove('in-view');
+            void thumb.offsetWidth;
+            thumb.classList.add('in-view');
+          }
           el.classList.remove('view-anim-enter');
           void el.offsetWidth;
           el.classList.add('view-anim-enter');
@@ -5790,6 +6317,26 @@ body.view-intro-active .chapter-nav {
         }
       };
 
+      // Wire up Jitter Dock buttons
+      var jitterPrevBtn = document.getElementById('jitterPrev');
+      if (jitterPrevBtn) {
+        jitterPrevBtn.addEventListener('click', function(){
+          if (current > 0) window.goToView(current - 1);
+        });
+      }
+      var jitterNextBtn = document.getElementById('jitterNext');
+      if (jitterNextBtn) {
+        jitterNextBtn.addEventListener('click', function(){
+          if (current < VIEWS.length - 1) window.goToView(current + 1);
+        });
+      }
+      var jitterCurrBtn = document.getElementById('jitterCurrent');
+      if (jitterCurrBtn) {
+        jitterCurrBtn.addEventListener('click', function(){
+          window.toggleMenu();
+        });
+      }
+
       function viewFromHash(){
         var id = (location.hash || '').replace('#', '');
         return ID_TO_VIEW.hasOwnProperty(id) ? ID_TO_VIEW[id] : 0;
@@ -5800,7 +6347,9 @@ body.view-intro-active .chapter-nav {
         if (target !== current) window.goToView(target);
       });
 
-      window.goToView(viewFromHash());
+      // Initial view resolution
+      var initial = viewFromHash();
+      window.goToView(initial, (location.hash || '').replace('#', ''));
     })();
   </script>
 
