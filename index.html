@@ -5170,77 +5170,46 @@ body.view-intro-active .chapter-nav {
   transform: translateY(-1px);
 }
 
-/* APEX Framework Double-Bezel Grid */
-.apex-framework-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-top: 38px;
+/* Refined Editorial Document Metadata Bar (Replaces bulky card grid) */
+.hero-meta-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
   position: relative;
   z-index: 2;
 }
-.afg-shell {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 4px;
-  border-radius: 18px;
-  transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.28s ease, background 0.28s ease;
-}
-.afg-shell:hover {
-  background: rgba(197, 160, 89, 0.06);
-  border-color: rgba(197, 160, 89, 0.32);
-  transform: translateY(-2px);
-}
-.afg-card {
-  background: rgba(18, 19, 23, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
-  padding: 16px 18px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  height: 100%;
+.hmb-item {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
-.afg-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-.afg-metric {
+.hmb-label {
   font-family: var(--font-mono, monospace);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--gold-lite, #DFBE7A);
-  letter-spacing: -0.5px;
-  line-height: 1;
-}
-.afg-tag {
-  font-family: var(--font-mono, monospace);
-  font-size: 9px;
+  font-size: 9.5px;
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.38);
 }
-.afg-title {
-  font-family: var(--font-display, inherit);
-  font-size: 13.5px;
-  font-weight: 600;
-  color: #F0EEE6;
-  margin-bottom: 4px;
+.hmb-val {
+  font-family: var(--font-mono, monospace);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--gold-lite, #DFBE7A);
 }
-.afg-desc {
-  font-size: 11px;
-  line-height: 1.45;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: auto;
+.hmb-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.12);
 }
-@media (max-width: 960px) {
-  .apex-framework-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 580px) {
-  .apex-framework-grid { grid-template-columns: 1fr; }
+@media (max-width: 768px) {
+  .hmb-divider { display: none; }
+  .hero-meta-bar { gap: 14px 28px; }
 }
 .jitter-cur-divider {
   width: 1px;
@@ -5607,47 +5576,26 @@ button:active:not([disabled]),
           </a>
         </div>
 
-        <!-- APEX Framework Overview Grid (Double-Bezel Architecture) -->
-        <div class="apex-framework-grid">
-          <div class="afg-shell">
-            <div class="afg-card">
-              <div class="afg-header">
-                <span class="afg-metric">04</span>
-                <span class="afg-tag">LIFECYCLE</span>
-              </div>
-              <div class="afg-title">Core Journey Phases</div>
-              <div class="afg-desc">Arrival &amp; Welcome, Discovery, Test Drive &amp; Booking, Handover Delivery.</div>
-            </div>
+        <!-- Refined Editorial Document Metadata Bar (Replaces bulky card grid) -->
+        <div class="hero-meta-bar">
+          <div class="hmb-item">
+            <span class="hmb-label">CLASSIFICATION</span>
+            <span class="hmb-val">OFFICIAL OPERATING STANDARD</span>
           </div>
-          <div class="afg-shell">
-            <div class="afg-card">
-              <div class="afg-header">
-                <span class="afg-metric">100%</span>
-                <span class="afg-tag">BENCHMARK</span>
-              </div>
-              <div class="afg-title">Precision Hospitality</div>
-              <div class="afg-desc">Zero-compromise grooming, greeting etiquette, and physical dealership ambience.</div>
-            </div>
+          <div class="hmb-divider"></div>
+          <div class="hmb-item">
+            <span class="hmb-label">ORGANISATION</span>
+            <span class="hmb-val">JSW MOTORS EXPERIENCE EXCELLENCE</span>
           </div>
-          <div class="afg-shell">
-            <div class="afg-card">
-              <div class="afg-header">
-                <span class="afg-metric">06</span>
-                <span class="afg-tag">SYSTEMS</span>
-              </div>
-              <div class="afg-title">Operational Enablers</div>
-              <div class="afg-desc">Standardized tools, digital DMS touchpoints, and daily role checklists.</div>
-            </div>
+          <div class="hmb-divider"></div>
+          <div class="hmb-item">
+            <span class="hmb-label">GOVERNANCE</span>
+            <span class="hmb-val">PRECISION AUDIT PROTOCOL</span>
           </div>
-          <div class="afg-shell">
-            <div class="afg-card">
-              <div class="afg-header">
-                <span class="afg-metric">LIVE</span>
-                <span class="afg-tag">GOVERNANCE</span>
-              </div>
-              <div class="afg-title">Interactive Evaluator</div>
-              <div class="afg-desc">Real-time role-based audit scoring, KPI tracking, and compliance evaluation.</div>
-            </div>
+          <div class="hmb-divider"></div>
+          <div class="hmb-item">
+            <span class="hmb-label">EDITION</span>
+            <span class="hmb-val">APEX 2026 EDITION</span>
           </div>
         </div>
       </div>
