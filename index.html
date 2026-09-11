@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSW Motors APEX — A Playbook for Experience Excellence | Arrival and Welcome [SAMPLE CHAPTER]</title>
+  <title>JSW Motors APEX — A Playbook for Experience Excellence | Customer Arrival &amp; Welcome Protocol</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -5247,6 +5247,184 @@ body.view-intro-active .chapter-nav {
   height: 12px;
   background: rgba(255, 255, 255, 0.22);
   margin: 0 2px;
+}
+
+/* ==========================================================================
+   AGENCY-TIER EXECUTIVE DESIGN ENHANCEMENTS
+   (High-End Visual Design · Emil Design Eng · Interface Design · Minimalist UI)
+   ========================================================================== */
+
+:root {
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 1. Global Haptic Micro-Interactions & Spring Physics */
+button:active:not([disabled]), 
+.c1m-btn:active, 
+.hero-btn-primary:active, 
+.hero-btn-secondary:active, 
+.cn-btn:active, 
+.rd-role-btn:active, 
+.hx-row:active {
+  transform: scale(0.975) !important;
+}
+
+/* 2. Floating Smart Menu: High-End Glass & Micro-Interactions */
+.ch1-smart-menu {
+  background: rgba(18, 19, 23, 0.88) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  transition: opacity 0.28s var(--ease-spring), transform 0.28s var(--ease-spring) !important;
+}
+.c1m-btn {
+  transition: all 0.22s var(--ease-spring) !important;
+  border-radius: 9999px !important;
+}
+.c1m-btn:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #FFFFFF !important;
+}
+.c1m-btn.active {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+.c1m-btn.active .c1m-dot {
+  box-shadow: 0 0 8px rgba(197, 160, 89, 0.8) !important;
+}
+
+/* 3. Doppelrand (Double-Bezel) Cards Architecture */
+.jsw-card-clean, .kpi-card {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(228, 225, 218, 0.9) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 10px 28px -6px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+  transition: transform 0.28s var(--ease-spring), box-shadow 0.28s var(--ease-spring), border-color 0.28s ease !important;
+}
+.jsw-card-clean:hover, .kpi-card:hover {
+  transform: translateY(-3px) translateZ(0) !important;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.09), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+}
+
+/* 4. Interactive Flowchart Steps: Elimination of Harsh Outlines */
+.flow-step-card {
+  border-radius: 14px !important;
+  border: 1px solid rgba(228, 225, 218, 0.9) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 8px 24px -4px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+  transition: transform 0.28s var(--ease-spring), box-shadow 0.28s var(--ease-spring), border-color 0.28s ease, background 0.28s ease !important;
+}
+.flow-step-card:hover {
+  transform: translateY(-3px) !important;
+  border-color: var(--gold, #C5A059) !important;
+  box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+.flow-step-card.is-active {
+  background: #FFFDF9 !important;
+  border-color: var(--gold, #C5A059) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 1.5px var(--gold, #C5A059), 0 16px 36px -6px rgba(197, 160, 89, 0.25) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* 5. Standards Table: Refined Left-Aligned Craft Interface */
+.standards-table-wrapper {
+  border-radius: 14px !important;
+  border: 1px solid rgba(228, 225, 218, 0.9) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 12px 32px -6px rgba(0, 0, 0, 0.05) !important;
+}
+.proc-table th {
+  background: #141312 !important;
+  padding: 16px 20px !important;
+  letter-spacing: 1.5px !important;
+}
+.proc-table td {
+  padding: 18px 20px !important;
+  transition: background-color 0.2s ease !important;
+}
+.proc-table tbody tr:hover td {
+  background: #FAF9F6 !important;
+}
+.proc-table tr.active-row td {
+  background: #FFFBF2 !important;
+}
+
+/* 6. Success Metrics & Formula Sandboxes */
+.formula-banner {
+  background: #141312 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-left: 3px solid var(--gold, #C5A059) !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+.formula-box {
+  background: #F8F7F4 !important;
+  border: 1px solid rgba(228, 225, 218, 0.95) !important;
+  border-radius: 12px !important;
+}
+.fb-field input {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(200, 196, 188, 0.85) !important;
+  border-radius: 8px !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-weight: 600 !important;
+  padding: 7px 12px !important;
+  font-size: 14px !important;
+  color: #161513 !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+.fb-field input:focus {
+  outline: none !important;
+  border-color: var(--gold, #C5A059) !important;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.18) !important;
+}
+.fb-result {
+  background: #161513 !important;
+  color: #FFFFFF !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+.fb-res-val {
+  color: var(--gold-lite, #DFBE7A) !important;
+  font-weight: 800 !important;
+  font-family: var(--font-mono, monospace) !important;
+}
+
+/* 7. Table of Contents Fluid Kinetic Interaction */
+.hx-row {
+  transition: transform 0.24s var(--ease-spring), background-color 0.2s ease, border-color 0.2s ease !important;
+}
+.hx-row:hover {
+  transform: translateX(6px) !important;
+}
+.hx-arrow {
+  display: inline-block !important;
+  transform: translateX(-4px) !important;
+  opacity: 0 !important;
+  transition: transform 0.24s var(--ease-spring), opacity 0.24s var(--ease-spring) !important;
+  color: var(--gold, #C5A059) !important;
+}
+.hx-row:hover .hx-arrow {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* 8. Bottom Chapter Nav Buttons */
+.chapter-nav .cn-btn {
+  border-radius: 12px !important;
+  transition: transform 0.28s var(--ease-spring), box-shadow 0.28s var(--ease-spring), border-color 0.24s ease !important;
+}
+.chapter-nav .cn-prev:hover {
+  transform: translateX(-5px) !important;
+  box-shadow: 0 10px 26px -6px rgba(0, 0, 0, 0.08) !important;
+}
+.chapter-nav .cn-next:hover {
+  transform: translateX(5px) !important;
+  box-shadow: 0 10px 26px -6px rgba(0, 0, 0, 0.08) !important;
 }
 </style>
 
