@@ -4665,9 +4665,9 @@ body.view-intro-active .chapter-nav {
 }
 .rf-flowchart {
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 0;
-  padding: 0 20px 20px 20px;
+  padding: 30px 20px 20px 20px;
   background: #F6F6F5;
   overflow-x: auto;
 }
@@ -4676,10 +4676,36 @@ body.view-intro-active .chapter-nav {
   min-width: 190px;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+/* Node marker: the circular badge that sits on the flow line above each process card,
+   so the eye reads a connected sequence of nodes rather than a row of separate cards. */
+.rf-node-marker {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--gold, #C5A059);
+  color: #161513;
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px auto;
+  box-shadow: 0 0 0 4px #F6F6F5;
+  position: relative;
+  z-index: 2;
+}
+.rf-step-card {
+  flex: 1;
 }
 .rf-connector {
-  flex: 0 0 36px;
+  flex: 0 0 40px;
   position: relative;
+  align-self: flex-start;
+  margin-top: 15px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4690,32 +4716,82 @@ body.view-intro-active .chapter-nav {
   left: 0;
   right: 0;
   top: 50%;
-  height: 2px;
+  height: 3px;
   transform: translateY(-50%);
-  background: repeating-linear-gradient(to right, var(--gold, #C5A059) 0 6px, transparent 6px 11px);
+  background: var(--gold, #C5A059);
 }
 .rf-connector svg {
   position: relative;
   z-index: 1;
+  width: 18px;
+  height: 18px;
+  color: #161513;
+  background: var(--gold, #C5A059);
+  border-radius: 50%;
+  padding: 4px;
+  box-sizing: content-box;
+}
+
+/* Decision node: a true rotated-diamond symbol (the standard flowchart shape for a
+   branch/decision point) rather than another rectangular card, so it reads visually
+   distinct from the process-step nodes on either side of it. */
+.rf-decision-wrap {
+  align-items: center;
+  text-align: center;
+  padding-top: 45px;
+}
+.rf-diamond {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  background: rgba(197, 160, 89, 0.14);
+  border: 2px solid var(--gold, #C5A059);
+  transform: rotate(45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+.rf-diamond svg {
   width: 20px;
   height: 20px;
   color: var(--gold, #C5A059);
-  background: #F6F6F5;
-  border-radius: 50%;
-  padding: 3px;
-  box-sizing: content-box;
+  transform: rotate(-45deg);
+}
+.rf-decision-tag {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold, #C5A059);
+  margin-bottom: 6px;
+}
+.rf-decision-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #161513;
+  line-height: 1.35;
+}
+.rf-decision-sub {
+  font-size: 11px;
+  color: var(--grey-500);
+  margin-top: 4px;
 }
 @media (max-width: 860px) {
   .rf-flowchart {
     flex-direction: column;
     overflow-x: visible;
+    padding-top: 20px;
   }
   .rf-connector {
     flex-basis: 30px;
     width: 100%;
-  }
-  .rf-connector svg {
-    transform: rotate(90deg);
+    align-self: center;
+    margin-top: 0;
+    height: 30px;
   }
   .rf-connector::before {
     left: 50%;
@@ -4723,9 +4799,11 @@ body.view-intro-active .chapter-nav {
     top: 0;
     bottom: 0;
     height: auto;
-    width: 2px;
+    width: 3px;
     transform: translateX(-50%);
-    background: repeating-linear-gradient(to bottom, var(--gold, #C5A059) 0 6px, transparent 6px 11px);
+  }
+  .rf-decision-wrap {
+    padding-top: 0;
   }
 }
 
@@ -5875,7 +5953,9 @@ button:active:not([disabled]),
             <div class="rf-flowchart">
 
               <!-- Step 1 Node -->
-              <div class="rf-step-card rf-node" id="node-step-1" onclick="flowClickStep(1)" title="Click to view Step 1 standard below">
+              <div class="rf-node">
+              <div class="rf-node-marker">01</div>
+              <div class="rf-step-card" id="node-step-1" onclick="flowClickStep(1)" title="Click to view Step 1 standard below">
                 <div class="rf-step-top">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <span class="rf-step-num">01</span>
@@ -5891,19 +5971,20 @@ button:active:not([disabled]),
                   <span class="enabler-pill">Checklist 1</span>
                 </div>
               </div>
+              </div>
 
               <div class="rf-connector" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </div>
 
-              <!-- Decision Node from SmartArt -->
-              <div class="rf-step-card rf-decision-node rf-node" style="flex: 0 1 170px;">
-                <div style="width: 32px; height: 32px; background: rgba(197, 160, 89, 0.15); border: 1px solid var(--gold); transform: rotate(45deg); display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(-45deg); width: 14px; height: 14px; color: var(--gold);"><polyline points="9 18 15 12 9 6"/></svg>
+              <!-- Decision Node from SmartArt: real flowchart diamond, not a card -->
+              <div class="rf-node rf-decision-wrap" style="flex: 0 1 150px;">
+                <div class="rf-diamond">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                 </div>
-                <span style="font-family: var(--font-mono); font-size: 10.5px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;">DECISION</span>
-                <div style="font-size: 12.5px; font-weight: 700; color: #161513; line-height: 1.35;">Customer Allocation</div>
-                <div style="font-size: 11px; color: var(--grey-500); margin-top: 4px;">Hostess Routing</div>
+                <span class="rf-decision-tag">DECISION</span>
+                <div class="rf-decision-title">Customer Allocation</div>
+                <div class="rf-decision-sub">Hostess Routing</div>
               </div>
 
               <div class="rf-connector" aria-hidden="true">
@@ -5911,7 +5992,9 @@ button:active:not([disabled]),
               </div>
 
               <!-- Step 2 Node -->
-              <div class="rf-step-card rf-node" id="node-step-2" onclick="flowClickStep(2)" title="Click to view Step 2 standard below">
+              <div class="rf-node">
+              <div class="rf-node-marker">02</div>
+              <div class="rf-step-card" id="node-step-2" onclick="flowClickStep(2)" title="Click to view Step 2 standard below">
                 <div class="rf-step-top">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <span class="rf-step-num">02</span>
@@ -5927,13 +6010,16 @@ button:active:not([disabled]),
                   <span class="enabler-pill">Tool 3</span>
                 </div>
               </div>
+              </div>
 
               <div class="rf-connector" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </div>
 
               <!-- Step 3 Node -->
-              <div class="rf-step-card rf-node" id="node-step-3" onclick="flowClickStep(3)" title="Click to view Step 3 standard below">
+              <div class="rf-node">
+              <div class="rf-node-marker">03</div>
+              <div class="rf-step-card" id="node-step-3" onclick="flowClickStep(3)" title="Click to view Step 3 standard below">
                 <div class="rf-step-top">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <span class="rf-step-num">03</span>
@@ -5949,13 +6035,16 @@ button:active:not([disabled]),
                   <span class="enabler-pill">Checklist 3</span>
                 </div>
               </div>
+              </div>
 
               <div class="rf-connector" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </div>
 
               <!-- Step 4 Node -->
-              <div class="rf-step-card rf-node" id="node-step-4" onclick="flowClickStep(4)" title="Click to view Step 4 standard below">
+              <div class="rf-node">
+              <div class="rf-node-marker">04</div>
+              <div class="rf-step-card" id="node-step-4" onclick="flowClickStep(4)" title="Click to view Step 4 standard below">
                 <div class="rf-step-top">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <span class="rf-step-num">04</span>
@@ -5969,6 +6058,7 @@ button:active:not([disabled]),
                 <div class="step-enablers-row" style="margin-top: auto; padding-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
                   <span class="enabler-pill">Checklist 3</span>
                 </div>
+              </div>
               </div>
 
             </div>
