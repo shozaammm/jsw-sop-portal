@@ -4732,32 +4732,35 @@ body.view-intro-active .chapter-nav {
   box-sizing: content-box;
 }
 
-/* Decision node: a true rotated-diamond symbol (the standard flowchart shape for a
-   branch/decision point) rather than another rectangular card, so it reads visually
-   distinct from the process-step nodes on either side of it. */
-.rf-decision-wrap {
-  align-items: center;
-  text-align: center;
-  padding-top: 45px;
-}
-.rf-diamond {
-  width: 64px;
-  height: 64px;
-  flex-shrink: 0;
+/* Decision node: the marker itself is a rotated-diamond (the standard flowchart shape
+   for a branch/decision point) sized and positioned in the exact same slot as the
+   circular step markers, so it sits on the connector track instead of floating below
+   it. Its caption sits in a card matching the step cards, keeping every node's top
+   edge aligned in one row. */
+.rf-node-marker.rf-diamond-marker {
+  width: 26px;
+  height: 26px;
+  margin-top: 2px;
+  border-radius: 4px;
   background: rgba(197, 160, 89, 0.14);
   border: 2px solid var(--gold, #C5A059);
+  box-shadow: 0 0 0 4px #F6F6F5;
   transform: rotate(45deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
 }
-.rf-diamond svg {
-  width: 20px;
-  height: 20px;
+.rf-diamond-marker svg {
+  width: 12px;
+  height: 12px;
   color: var(--gold, #C5A059);
   transform: rotate(-45deg);
+}
+.rf-decision-card {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid rgba(22, 21, 19, 0.12);
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+  text-align: center;
 }
 .rf-decision-tag {
   display: block;
@@ -4767,7 +4770,7 @@ body.view-intro-active .chapter-nav {
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--gold, #C5A059);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .rf-decision-title {
   font-size: 13px;
@@ -4801,9 +4804,6 @@ body.view-intro-active .chapter-nav {
     height: auto;
     width: 3px;
     transform: translateX(-50%);
-  }
-  .rf-decision-wrap {
-    padding-top: 0;
   }
 }
 
@@ -5977,14 +5977,16 @@ button:active:not([disabled]),
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </div>
 
-              <!-- Decision Node from SmartArt: real flowchart diamond, not a card -->
-              <div class="rf-node rf-decision-wrap" style="flex: 0 1 150px;">
-                <div class="rf-diamond">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-                </div>
+              <!-- Decision Node from SmartArt: diamond marker sits on the same track as the step circles -->
+              <div class="rf-node" style="flex: 0 1 150px;">
+              <div class="rf-node-marker rf-diamond-marker">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+              <div class="rf-decision-card">
                 <span class="rf-decision-tag">DECISION</span>
                 <div class="rf-decision-title">Customer Allocation</div>
                 <div class="rf-decision-sub">Hostess Routing</div>
+              </div>
               </div>
 
               <div class="rf-connector" aria-hidden="true">
