@@ -6031,6 +6031,40 @@ button:active:not([disabled]),
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
   }
 
+  /* Executive Dark Footer Chassis (Fixes Screenshot Visibility) */
+  .manual-foot {
+    background: #141312 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    padding: 38px var(--edge, 24px) 46px !important;
+    color: #FFFFFF !important;
+    position: relative;
+    z-index: 10;
+  }
+  .manual-foot-inner {
+    max-width: var(--content-max, 1200px);
+    margin: 0 auto;
+  }
+  .manual-foot-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .manual-foot-brand-title {
+    font-family: var(--font-mono, monospace);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #FFFFFF !important;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .manual-foot-sub {
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.65) !important;
+    letter-spacing: 0.3px;
+  }
+
 </style>
 
 </head>
@@ -6721,11 +6755,14 @@ button:active:not([disabled]),
       <div class="manual-foot-inner">
         <div class="manual-foot-top">
           <div style="display:flex; align-items:center; gap:16px;">
-            <img src="assets/jsw_logo_white_hd.png" alt="JSW" style="height: 24px; width: auto; object-fit: contain; opacity: 0.9;">
-            <div style="width:1px; height:20px; background:rgba(255,255,255,0.2);"></div>
-            <div style="font-family:var(--font-mono); font-size:11.5px; color:rgba(255,255,255,0.75); letter-spacing:1.2px; text-transform:uppercase;">
+            <img src="assets/jsw_logo_white_hd.png" alt="JSW" style="height: 24px; width: auto; object-fit: contain;">
+            <div style="width:1px; height:20px; background:rgba(255,255,255,0.25);"></div>
+            <div class="manual-foot-brand-title">
               APEX · A PLAYBOOK FOR EXPERIENCE EXCELLENCE
             </div>
+          </div>
+          <div class="manual-foot-sub">
+            Dealer Partner Network Operating &amp; Governance Guide
           </div>
         </div>
       </div>
