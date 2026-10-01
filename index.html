@@ -361,6 +361,27 @@
 
 /* ============ TOKENS ============ */
 :root{
+  --tx-a: url("assets/textures/cover-photo.jpg");
+  --tx-b: url("assets/textures/paper-texture.jpg");
+  --g-0: #FEFEFE;
+  --g-1: #EAEAEA;
+  --g-2: #E5E5E5;
+  --g-3: #C8C8C8;
+  --g-4: #BABABA;
+  --g-5: #909090;
+  --g-6: #717171;
+  --g-7: #5B5B5B;
+  --g-8: #505050;
+  --g-9: #363636;
+  --g-10: #2B2B2B;
+  --g-11: #1B1B1B;
+  --g-12: #0A0A0A;
+  --paper: #ECEAE4;
+  --paper-card: #FFFFFF;
+  --line-100: #E2E0D8;
+  --line-200: #D3D0C7;
+  --ink: #161513;
+
   --white:#FFFFFF;
   --paper:#F6F6F5;
   --line-100:#E6E5E3;
@@ -5545,6 +5566,369 @@ button:active:not([disabled]),
     };
   </script>
 
+
+<style id="jsw-v3-design-language">
+  /* ============================================================
+     JSW HR & SOP Unified Design Language (Monochrome & Grey Scale)
+     Inspired by jsw-hr-portal/v3.html & Apple/Linear Design Tokens
+     ============================================================ */
+
+  html {
+    background: #E4E4E2 !important;
+  }
+
+  html body {
+    background: transparent !important;
+    color: #161513;
+  }
+
+  /* Fixed Architectural Textured Ground from v3.html */
+  html body::before {
+    content: '';
+    position: fixed;
+    left: 0; right: 0; top: 0;
+    height: 100vh; height: 100lvh;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(rgba(244, 244, 242, 0.88), rgba(244, 244, 242, 0.88)), var(--tx-b) center / cover no-repeat;
+    transform: translateZ(0);
+  }
+
+  /* Main & Sections inherit transparent ground */
+  .main {
+    background: transparent !important;
+  }
+  section.chap {
+    background: transparent !important;
+  }
+  section.chap.alt {
+    background: transparent !important;
+  }
+  .home-index {
+    background: transparent !important;
+  }
+
+  /* Architectural Pure White Cards sitting over textured grey ground */
+  .jsw-card-clean, 
+  .kpi-card, 
+  .hx-group, 
+  .flowchart-container, 
+  .proc-table-wrap {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(22, 21, 19, 0.08) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+  }
+
+  /* Cover Section Styling with Atmospheric Photo & Grid */
+  .cover {
+    position: relative;
+    overflow: hidden;
+    background: #141312 !important;
+    color: #FFFFFF !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    isolation: isolate;
+  }
+  .cover-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--tx-a);
+    background-size: cover;
+    background-position: center 32%;
+    filter: grayscale(100%) contrast(1.1) brightness(0.35);
+    opacity: 0.7;
+  }
+
+  /* Fixed Hero Buttons - High Contrast, Tactical, Beautifully Visible (ss1.png fix) */
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    position: relative;
+    z-index: 5;
+  }
+
+  .hero-btn-primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    background: #FFFFFF !important;
+    color: #161513 !important;
+    padding: 8px 10px 8px 24px !important;
+    border-radius: 9999px !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.4) !important;
+  }
+  .hero-btn-primary:hover {
+    background: #F3F4F6 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5), 0 0 0 1.5px rgba(255, 255, 255, 0.6) !important;
+  }
+  .hero-btn-primary span {
+    color: #161513 !important;
+    font-weight: 700 !important;
+  }
+  .hero-btn-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    background: #161513 !important;
+    color: #FFFFFF !important;
+    transition: transform 0.2s !important;
+    flex-shrink: 0 !important;
+  }
+  .hero-btn-icon svg {
+    width: 16px !important;
+    height: 16px !important;
+    stroke: #FFFFFF !important;
+    color: #FFFFFF !important;
+  }
+  .hero-btn-primary:hover .hero-btn-icon {
+    transform: translateX(3px) !important;
+  }
+
+  .hero-btn-secondary {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 13px 24px !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    color: #FFFFFF !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 9999px !important;
+    text-decoration: none !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+    transition: all 0.22s ease !important;
+  }
+  .hero-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.24) !important;
+    border-color: #FFFFFF !important;
+    color: #FFFFFF !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4) !important;
+  }
+  .hero-btn-secondary svg {
+    width: 17px !important;
+    height: 17px !important;
+    stroke: #FFFFFF !important;
+    color: #FFFFFF !important;
+  }
+  .hero-btn-secondary span {
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+  }
+
+  /* Fixed Formula & Calculation Overlaps (ss2.png fix) */
+  .formula-banner {
+    background: #F3F1EC !important;
+    border-left: 3.5px solid #161513 !important;
+    border-radius: 0 8px 8px 0 !important;
+    padding: 14px 18px !important;
+    margin-bottom: 14px !important;
+  }
+  .formula-label {
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #686868 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.2px !important;
+    margin-bottom: 6px !important;
+  }
+  .formula-code {
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    color: #161513 !important; /* Bold visible dark ink text on light paper */
+  }
+
+  .formula-box {
+    background: #FFFFFF !important;
+    border: 1px solid var(--line-200, #E4E1DA) !important;
+    border-radius: 10px !important;
+    padding: 18px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  }
+  .fb-head-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 12px !important;
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    color: #161513 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+  }
+  .fb-field label {
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #505050 !important;
+    text-transform: uppercase !important;
+  }
+  .fb-field input {
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #161513 !important;
+    background: #F8F8F7 !important;
+    border: 1.5px solid #D2D2D2 !important;
+    border-radius: 6px !important;
+    padding: 7px 10px !important;
+    outline: none !important;
+  }
+  .fb-field input:focus {
+    border-color: #161513 !important;
+    background: #FFFFFF !important;
+  }
+  .fb-result {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: #161513 !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+    padding: 12px 18px !important;
+    margin-top: 14px !important;
+  }
+  .fb-res-label {
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #BABABA !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+  }
+  .fb-res-val {
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    color: #FFFFFF !important; /* Bright crisp white on dark background */
+  }
+
+  /* Table and Flowchart High-Contrast Polish */
+  .proc-table thead th {
+    background: #161513 !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid #161513 !important;
+  }
+  .proc-table tbody td {
+    color: #161513 !important;
+    border-bottom: 1px solid var(--line-100) !important;
+  }
+  .proc-table tbody tr.active-row td {
+    background: #F0EFEA !important;
+    border-top: 2px solid #161513 !important;
+    border-bottom: 2px solid #161513 !important;
+  }
+  .card-kicker {
+    color: var(--grey-500, #686868) !important;
+    font-weight: 700 !important;
+  }
+
+  /* Chapter 1 Smart Navigation Bar - Floating Executive Glass Capsule */
+  .ch1-smart-menu {
+    background: rgba(18, 19, 23, 0.92) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  }
+  .c1m-btn {
+    color: rgba(255, 255, 255, 0.75) !important;
+  }
+  .c1m-btn:hover {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+  .c1m-btn.active {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  }
+  .c1m-btn.active .c1m-dot {
+    background: #FFFFFF !important;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* High-Contrast Interactive Elements & Badges Fixes */
+  .rf-phase-badge,
+  .tna-banner-badge,
+  .inc-role-badge {
+    background: #161513 !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+  .inc-tab-btn.active {
+    background: #161513 !important;
+    color: #FFFFFF !important;
+  }
+  .flow-step-card.is-active .step-tag {
+    background: #161513 !important;
+    color: #FFFFFF !important;
+  }
+  .proc-table tr.active-row .proc-step-num {
+    background: #161513 !important;
+    color: #FFFFFF !important;
+  }
+  .fnd-btn:hover, .fnd-btn.active {
+    background: #161513 !important;
+    color: #FFFFFF !important;
+    border-color: #161513 !important;
+  }
+  .rf-connector svg {
+    color: #FFFFFF !important;
+    background: #161513 !important;
+    stroke: #FFFFFF !important;
+  }
+  .sfb-badge, #sfbBadge {
+    background: #FFFFFF !important;
+    color: #161513 !important;
+    font-weight: 800 !important;
+  }
+  #sfbText {
+    color: rgba(255, 255, 255, 0.75) !important;
+  }
+  .sfb-btn {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+  }
+  .sfb-btn:hover, .sfb-btn.active {
+    background: #FFFFFF !important;
+    color: #161513 !important;
+    border-color: #FFFFFF !important;
+    font-weight: 800 !important;
+  }
+  #btnFilterAll {
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    color: #FFFFFF !important;
+  }
+  #btnFilterAll:hover, #btnFilterAll.active {
+    background: #FFFFFF !important;
+    color: #161513 !important;
+    border-color: #FFFFFF !important;
+  }
+
+</style>
+
 </head>
 <body>
 
@@ -5553,7 +5937,9 @@ button:active:not([disabled]),
     <div class="topbar-progress" id="topbarProgress"></div>
     <div class="tb-left">
       <button class="tb-brand" onclick="goHome()" title="APEX" aria-label="APEX Home">
-        <span style="font-family: var(--font-display); font-size: 15px; font-weight: 800; letter-spacing: 2px; color: #FFFFFF;">APEX</span>
+        <img src="assets/jsw_logo_white_hd.png" alt="JSW" class="tb-logo" style="height: 22px; width: auto; object-fit: contain;">
+        <span style="width: 1px; height: 16px; background: rgba(255, 255, 255, 0.25); margin: 0 10px;"></span>
+        <span style="font-family: var(--font-display); font-size: 14px; font-weight: 800; letter-spacing: 2px; color: #FFFFFF;">APEX</span>
       </button>
     </div>
 
@@ -5579,6 +5965,7 @@ button:active:not([disabled]),
   <div class="menu-dropdown" id="menuDropdown">
     <div class="menu-dropdown-header">
       <div class="md-brand-block">
+        <img src="assets/jsw_logo_white_hd.png" alt="JSW" style="height: 28px; width: auto; object-fit: contain; margin-bottom: 8px;">
         <div class="md-brand-text">
           <span class="md-brand-title">APEX</span>
           <span class="md-brand-sub">Sales SOP Navigation</span>
@@ -5679,6 +6066,9 @@ button:active:not([disabled]),
         <rect width="100%" height="100%" fill="url(#gridpat)"/>
       </svg>
       <div class="cover-inner reveal in">
+        <div class="hero-brand-logo" style="margin-bottom: 20px;">
+          <img src="assets/jsw_logo_white_hd.png" alt="JSW Motors" style="height: 36px; width: auto; object-fit: contain;">
+        </div>
         <h1 class="hero-title">
           <span class="ht-line solid">APEX</span>
         </h1>
@@ -5705,6 +6095,9 @@ button:active:not([disabled]),
     <!-- ============ SOP TABLE OF CONTENTS (HOME VIEW) ============ -->
     <section class="home-index" id="homeIndex">
       <div class="hx-head">
+        <div class="hx-brand-wrap" style="margin-bottom: 14px;">
+          <img src="assets/jsw_logo_black_hd.png" alt="JSW" style="height: 32px; width: auto; object-fit: contain;">
+        </div>
         <div class="hx-eyebrow">APEX · A PLAYBOOK FOR EXPERIENCE EXCELLENCE</div>
         <h2 class="hx-title">Table of Contents</h2>
         <div class="hx-rule"></div>
@@ -6010,15 +6403,15 @@ button:active:not([disabled]),
           <div class="standards-filter-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 12px; padding: 12px 18px; background: #161513; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.12);">
             <div style="display: flex; align-items: center; gap: 12px;">
               <span style="font-family: var(--font-display); font-weight: 800; font-size: 13.5px; letter-spacing: 0.05em; color: #FFFFFF; text-transform: uppercase;">The JSW Process Standards</span>
-              <span class="sfb-badge" id="sfbBadge" style="font-family: var(--font-mono); font-size: 11px; padding: 3px 9px; border-radius: 6px; background: var(--gold); color: #161513; font-weight: 700; letter-spacing: 0.04em;">SELECT A STEP</span>
-              <span id="sfbText" style="font-size: 13px; color: #454340; font-weight: 600;">Click a step in the flowchart above</span>
+              <span class="sfb-badge" id="sfbBadge" style="font-family: var(--font-mono); font-size: 11px; padding: 3px 9px; border-radius: 6px; background: #FFFFFF; color: #161513; font-weight: 800; letter-spacing: 0.04em;">SELECT A STEP</span>
+              <span id="sfbText" style="font-size: 13px; color: rgba(255, 255, 255, 0.75); font-weight: 600;">Click a step in the flowchart above</span>
             </div>
             <div class="sfb-btns" style="display: flex; gap: 6px; flex-wrap: wrap;">
               <button class="sfb-btn" id="btnFilter1" onclick="flowClickStep(1)" type="button">STEP 1</button>
               <button class="sfb-btn" id="btnFilter2" onclick="flowClickStep(2)" type="button">STEP 2</button>
               <button class="sfb-btn" id="btnFilter3" onclick="flowClickStep(3)" type="button">STEP 3</button>
               <button class="sfb-btn" id="btnFilter4" onclick="flowClickStep(4)" type="button">STEP 4</button>
-              <button class="sfb-btn" id="btnFilterAll" onclick="showAllTableSteps()" type="button" style="border-color: #161513; color: #454340;">SHOW ALL</button>
+              <button class="sfb-btn" id="btnFilterAll" onclick="showAllTableSteps()" type="button" style="border-color: rgba(255, 255, 255, 0.35); color: #FFFFFF;">SHOW ALL</button>
             </div>
           </div>
 
@@ -6142,7 +6535,7 @@ button:active:not([disabled]),
 
             <div class="formula-banner">
               <div class="formula-label">Formula</div>
-              <div class="formula-code">Formula: (a+b+c)/y</div>
+              <div class="formula-code">(a + b + c) / y</div>
             </div>
 
             <!-- KPI 1 Interactive Sandbox -->
@@ -6187,7 +6580,7 @@ button:active:not([disabled]),
 
             <div class="formula-banner">
               <div class="formula-label">Formula</div>
-              <div class="formula-code">Formula: (x/y)*100</div>
+              <div class="formula-code">(x / y) * 100</div>
             </div>
 
             <!-- KPI 2 Interactive Sandbox -->
@@ -6223,9 +6616,12 @@ button:active:not([disabled]),
 <footer class="manual-foot">
       <div class="manual-foot-inner">
         <div class="manual-foot-top">
-          
-          <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--gold-lite); letter-spacing:1.2px; text-transform:uppercase;">
-            APEX · A PLAYBOOK FOR EXPERIENCE EXCELLENCE
+          <div style="display:flex; align-items:center; gap:16px;">
+            <img src="assets/jsw_logo_white_hd.png" alt="JSW" style="height: 24px; width: auto; object-fit: contain; opacity: 0.9;">
+            <div style="width:1px; height:20px; background:rgba(255,255,255,0.2);"></div>
+            <div style="font-family:var(--font-mono); font-size:11.5px; color:rgba(255,255,255,0.75); letter-spacing:1.2px; text-transform:uppercase;">
+              APEX · A PLAYBOOK FOR EXPERIENCE EXCELLENCE
+            </div>
           </div>
         </div>
       </div>
