@@ -6065,6 +6065,279 @@ button:active:not([disabled]),
     letter-spacing: 0.3px;
   }
 
+  /* ============================================================
+     Phone & Mobile Responsiveness System (Apple / HR Portal UX)
+     ============================================================ */
+  @media (max-width: 768px) {
+    :root {
+      --edge: 16px !important;
+    }
+    html, body {
+      overflow-x: hidden !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .topbar {
+      padding: 0 16px !important;
+      height: 52px !important;
+    }
+    .tb-brand .tb-logo {
+      height: 20px !important;
+    }
+    .tb-brand span[style*="letter-spacing: 2px"] {
+      font-size: 13px !important;
+    }
+    .tb-action-btn span {
+      display: none !important;
+    }
+    .tb-action-btn {
+      padding: 8px 10px !important;
+      min-width: 36px;
+      justify-content: center;
+    }
+    
+    /* Cover Section on Phone */
+    .cover {
+      padding: 56px var(--edge, 16px) 44px !important;
+    }
+    .cover .cover-inner {
+      max-width: 100% !important;
+    }
+    .cover .hero-title {
+      font-size: clamp(32px, 8.5vw, 48px) !important;
+      line-height: 1.12 !important;
+    }
+    .cover .hero-desc {
+      font-size: 15px !important;
+      margin-top: 8px !important;
+    }
+    .cover .hero-subtext {
+      font-size: 13.5px !important;
+      line-height: 1.5 !important;
+    }
+    .hero-cta-group {
+      margin-top: 24px !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 10px !important;
+    }
+    .hero-btn-primary {
+      width: 100% !important;
+      justify-content: space-between !important;
+      padding: 10px 14px 10px 20px !important;
+      font-size: 13.5px !important;
+    }
+    .hero-btn-secondary {
+      width: 100% !important;
+      justify-content: center !important;
+      padding: 12px 18px !important;
+      font-size: 13.5px !important;
+    }
+
+    /* Chapter 1 Floating Smart Menu on Phone */
+    .ch1-smart-menu {
+      top: calc(var(--topbar-h, 52px) + 6px) !important;
+      max-width: calc(100vw - 20px) !important;
+      padding: 4px 6px !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      gap: 3px !important;
+    }
+    .c1m-btn {
+      padding: 6px 10px !important;
+      font-size: 11px !important;
+      white-space: nowrap !important;
+      min-height: 32px !important;
+    }
+
+    /* Sections Padding & Spacing */
+    section.chap {
+      padding: 40px var(--edge, 16px) !important;
+    }
+    .chap-head {
+      margin-bottom: 22px !important;
+    }
+    .sec-title {
+      font-size: 22px !important;
+      line-height: 1.25 !important;
+    }
+
+    /* Bento Cards on Phone */
+    .jsw-card-clean, .kpi-card {
+      padding: 18px 16px !important;
+      border-radius: 12px !important;
+      margin-bottom: 14px !important;
+    }
+    .card-title-lg {
+      font-size: 17.5px !important;
+    }
+
+    /* Process Flowchart Responsive Phone Experience */
+    .rf-flow {
+      padding: 0 !important;
+      border: none !important;
+      background: transparent !important;
+    }
+    .rf-phase {
+      padding: 14px !important;
+      border-radius: 12px !important;
+    }
+    .rf-phase-header {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 8px !important;
+      margin-bottom: 14px !important;
+    }
+    .rf-flowchart {
+      flex-direction: column !important;
+      padding: 12px 8px !important;
+      overflow-x: visible !important;
+      gap: 0 !important;
+    }
+    .rf-node {
+      width: 100% !important;
+      min-width: 0 !important;
+      flex: none !important;
+    }
+    .rf-step-card {
+      width: 100% !important;
+      padding: 16px !important;
+      border-radius: 10px !important;
+    }
+    .rf-connector {
+      flex-basis: 34px !important;
+      width: 100% !important;
+      height: 34px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .rf-connector svg {
+      transform: rotate(90deg) !important;
+    }
+    .rf-connector::before {
+      left: 50% !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      width: 2px !important;
+      height: auto !important;
+      transform: translateX(-50%) !important;
+    }
+    .rf-decision-diamond {
+      width: 100% !important;
+      clip-path: none !important;
+      border-radius: 10px !important;
+      padding: 14px 16px !important;
+      margin: 0 !important;
+    }
+
+    /* Standards Table on Phone */
+    .standards-filter-header {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      padding: 14px !important;
+      gap: 12px !important;
+    }
+    .standards-filter-header > div:first-child {
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+    }
+    .sfb-btns {
+      width: 100% !important;
+      display: flex !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      gap: 6px !important;
+      padding-bottom: 4px !important;
+    }
+    .sfb-btn {
+      white-space: nowrap !important;
+      padding: 6px 12px !important;
+      font-size: 11px !important;
+      flex-shrink: 0 !important;
+    }
+    .standards-table-wrapper {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      border-radius: 10px !important;
+      margin-top: 10px !important;
+    }
+    .proc-table {
+      min-width: 620px !important;
+    }
+    .proc-table th, .proc-table td {
+      padding: 12px 14px !important;
+      font-size: 13px !important;
+    }
+
+    /* KPI Sandbox Inputs on Phone */
+    .fb-inputs-row {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 10px !important;
+    }
+    .fb-field input {
+      font-size: 16px !important; /* Prevents iOS auto-zoom on input focus */
+      min-height: 44px !important;
+    }
+    .fb-result {
+      padding: 12px 14px !important;
+    }
+    .fb-res-val {
+      font-size: 18px !important;
+    }
+
+    /* Table of Contents Section on Phone */
+    .home-index {
+      padding: 44px var(--edge, 16px) 64px !important;
+    }
+    .hx-head {
+      margin-bottom: 28px !important;
+    }
+    .hx-title {
+      font-size: 24px !important;
+    }
+    .hx-group-content {
+      padding: 14px !important;
+    }
+    .hx-row {
+      padding: 12px 10px !important;
+      gap: 10px !important;
+    }
+    .hx-row-title {
+      font-size: 13.5px !important;
+    }
+
+    /* Menu Dropdown on Phone */
+    .menu-dropdown {
+      width: calc(100vw - 20px) !important;
+      right: 10px !important;
+      top: calc(var(--topbar-h, 52px) + 6px) !important;
+      max-height: calc(100vh - 70px) !important;
+      padding: 14px !important;
+    }
+
+    /* Footer on Phone */
+    .manual-foot {
+      padding: 32px var(--edge, 16px) 40px !important;
+    }
+    .manual-foot-top {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 12px !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tb-brand span[style*="width: 1px"] {
+      margin: 0 6px !important;
+    }
+    .tb-brand span[style*="letter-spacing: 2px"] {
+      font-size: 12px !important;
+    }
+    .c1m-btn span:last-child {
+      font-size: 10.5px !important;
+    }
+  }
+
 </style>
 
 </head>
