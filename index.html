@@ -5005,9 +5005,6 @@ body.view-intro-active .chapter-nav {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(22, 21, 19, 0.15);
 }
 .md-ch1-badge {
   font-family: var(--font-mono, monospace);
@@ -6135,9 +6132,6 @@ button:active:not([disabled]),
     padding: 14px !important;
     margin-bottom: 16px !important;
   }
-  .md-ch1-head {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
-  }
   .md-ch1-badge {
     font-family: var(--font-mono, monospace) !important;
     font-size: 10px !important;
@@ -6519,6 +6513,18 @@ button:active:not([disabled]),
     }
   }
 
+
+/* Mobile overflow fixes: let grid/flex children shrink so text wraps instead of being cut */
+@media (max-width: 900px) {
+  .kpi-bento, .bento-grid-2 { grid-template-columns: minmax(0, 1fr) !important; }
+  .kpi-card, .jsw-card-clean, .fb-field, .prose > * { min-width: 0; max-width: 100%; }
+  .kpi-card h3, .kpi-card p, .card-title-lg { overflow-wrap: anywhere; }
+}
+@media (max-width: 480px) {
+  .ch1-smart-menu { gap: 2px !important; padding: 4px 5px !important; }
+  .ch1-smart-menu .c1m-btn { padding: 6px 9px !important; font-size: 11px !important; gap: 5px !important; white-space: nowrap; }
+  .ch1-smart-menu .c1m-sep { display: none !important; }
+}
 </style>
 
 </head>
@@ -6566,35 +6572,12 @@ button:active:not([disabled]),
       <button type="button" class="md-close-btn" onclick="toggleMenu(false)" title="Close menu">&times;</button>
     </div>
     <div id="menuGrid">
-      <!-- Active Chapter 1 Group -->
+      <!-- Chapter 1 -->
       <div class="md-ch1-card">
-        <div class="md-ch1-head">
+        <a class="md-ch1-head dropdown-item" href="#sec-foundations" onclick="goToView(1, 'sec-foundations'); return false;" style="text-decoration:none;">
           <span class="md-ch1-badge">CHAPTER 01</span>
           <span class="md-ch1-title">Arrival &amp; Welcome</span>
-        </div>
-        <div class="md-sub-links">
-          <a class="md-sub-item dropdown-item" href="#sec-foundations" onclick="goToView(1, 'sec-foundations'); return false;">
-            <div class="md-sub-content">
-              <span class="md-sub-title">Foundational Elements</span>
-              <span class="md-sub-desc">Customer Expectations · Objective · Differentiator · Enablers</span>
-            </div>
-            <span class="md-sub-arrow">&rsaquo;</span>
-          </a>
-          <a class="md-sub-item dropdown-item" href="#process-flow" onclick="goToView(2, 'process-flow'); return false;">
-            <div class="md-sub-content">
-              <span class="md-sub-title">Process Flow &amp; Standards</span>
-              <span class="md-sub-desc">Step Flowchart · JSW Process Standards Table</span>
-            </div>
-            <span class="md-sub-arrow">&rsaquo;</span>
-          </a>
-          <a class="md-sub-item dropdown-item" href="#sec-metrics" onclick="goToView(3, 'sec-metrics'); return false;">
-            <div class="md-sub-content">
-              <span class="md-sub-title">Success Metrics</span>
-              <span class="md-sub-desc">KPI Formula Sandboxes</span>
-            </div>
-            <span class="md-sub-arrow">&rsaquo;</span>
-          </a>
-        </div>
+        </a>
       </div>
 
       <!-- Upcoming Chapters -->
@@ -6627,7 +6610,7 @@ button:active:not([disabled]),
   <nav class="ch1-smart-menu" id="ch1SmartMenu" aria-label="Chapter 1 Quick Navigation">
     <button type="button" class="c1m-btn active" data-target="sec-foundations" data-view="1" onclick="jumpToCh1Section('sec-foundations', 1)">
       <span class="c1m-dot"></span>
-      <span>Chapter 1</span>
+      <span>Arrival &amp; Welcome</span>
     </button>
     <div class="c1m-sep"></div>
     <button type="button" class="c1m-btn" data-target="process-flow" data-view="2" onclick="jumpToCh1Section('process-flow', 2)">
@@ -6727,7 +6710,7 @@ button:active:not([disabled]),
       </div>
 
       <div class="prose reveal">
-        <div class="role-chips"><span class="role-chip">Security Guard</span><span class="role-chip">Valet</span><span class="role-chip">Hostess</span><span class="role-chip">Sales Consultant</span><span class="role-chip-note">(and Sales Manager)</span></div>
+        <div class="role-chips"><span class="role-chip">Security Guard</span><span class="role-chip">Valet</span><span class="role-chip">Hostess</span><span class="role-chip">Sales Consultant</span><span class="role-chip">Sales Manager</span></div>
         
         <div class="bento-grid-2">
           
@@ -7074,7 +7057,7 @@ button:active:not([disabled]),
       </div>
 
       <div class="prose reveal">
-        <div class="role-chips"><span class="role-chip">Security Guard</span><span class="role-chip">Valet</span><span class="role-chip">Hostess</span><span class="role-chip">Sales Consultant</span><span class="role-chip-note">(and Sales Manager)</span></div>
+        <div class="role-chips"><span class="role-chip">Security Guard</span><span class="role-chip">Valet</span><span class="role-chip">Hostess</span><span class="role-chip">Sales Consultant</span><span class="role-chip">Sales Manager</span></div>
 
         <div class="kpi-bento">
           
