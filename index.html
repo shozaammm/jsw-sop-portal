@@ -6517,6 +6517,7 @@ button:active:not([disabled]),
 /* Mobile overflow fixes: let grid/flex children shrink so text wraps instead of being cut */
 @media (max-width: 900px) {
   .kpi-bento, .bento-grid-2 { grid-template-columns: minmax(0, 1fr) !important; }
+  .bento-grid-2 > *, .kpi-bento > * { grid-column: 1 / -1 !important; }
   .kpi-card, .jsw-card-clean, .fb-field, .prose > * { min-width: 0; max-width: 100%; }
   .kpi-card h3, .kpi-card p, .card-title-lg { overflow-wrap: anywhere; }
 }
@@ -6524,6 +6525,10 @@ button:active:not([disabled]),
   .ch1-smart-menu { gap: 2px !important; padding: 4px 5px !important; }
   .ch1-smart-menu .c1m-btn { padding: 6px 9px !important; font-size: 11px !important; gap: 5px !important; white-space: nowrap; }
   .ch1-smart-menu .c1m-sep { display: none !important; }
+}
+@media (max-width: 480px) {
+  .checklist-dl-row { flex-wrap: wrap; gap: 6px; }
+  .checklist-dl-row .checklist-badge { white-space: nowrap; }
 }
 </style>
 
