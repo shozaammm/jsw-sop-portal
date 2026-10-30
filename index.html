@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APEX — A Playbook for Experience Excellence | Customer Arrival &amp; Welcome</title>
+  <title>Standard Operating Procedures - Sales</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -6781,6 +6781,17 @@ body.pf-lock { overflow: hidden; }
 }
 
 </style>
+<style id="brand-title">
+.tb-brand-name { font-family: var(--font-display); font-size: 14px; font-weight: 800; letter-spacing: .02em; color: #fff; line-height: 1.15; white-space: nowrap; }
+.menu-dropdown .md-brand-title { font-family: var(--font-display) !important; font-size: 16px !important; font-weight: 800 !important; letter-spacing: .01em !important; text-transform: none !important; line-height: 1.3 !important; }
+.cover .hero-title { margin-top: 0; }
+.cover .ht-line { font-size: clamp(36px, 6.4vw, 84px); letter-spacing: -1.5px; line-height: .98; }
+.cover .hero-subtext { margin-top: 18px; }
+.manual-foot-brand-title { letter-spacing: .08em; }
+@media (max-width: 520px) {
+  .tb-brand-name { font-size: 12px; white-space: normal; max-width: calc(100vw - 190px); }
+}
+</style>
 </head>
 <body>
 
@@ -6788,16 +6799,10 @@ body.pf-lock { overflow: hidden; }
   <header class="topbar">
     <div class="topbar-progress" id="topbarProgress"></div>
     <div class="tb-left">
-      <button class="tb-brand" onclick="goHome()" title="APEX" aria-label="APEX Home">
-        <img src="assets/jsw_logo_white_hd.png" alt="JSW" class="tb-logo" style="height: 22px; width: auto; object-fit: contain;">
-        <span style="width: 1px; height: 16px; background: rgba(255, 255, 255, 0.25); margin: 0 10px;"></span>
-        <span style="font-family: var(--font-display); font-size: 14px; font-weight: 800; letter-spacing: 2px; color: #FFFFFF;">APEX</span>
-      </button>
+      <button class="tb-brand" onclick="goHome()" title="Standard Operating Procedures - Sales" aria-label="Standard Operating Procedures - Sales, home"><span class="tb-brand-name">Standard Operating Procedures - Sales</span></button>
     </div>
 
-    <div class="tb-center" id="tbCenter">
-      Sales SOP Manual
-    </div>
+    <div class="tb-center" id="tbCenter"></div>
 
     <div class="tb-right">
       <div class="tb-actions">
@@ -6817,10 +6822,8 @@ body.pf-lock { overflow: hidden; }
   <div class="menu-dropdown" id="menuDropdown">
     <div class="menu-dropdown-header">
       <div class="md-brand-block">
-        <img src="assets/jsw_logo_white_hd.png" alt="JSW" style="height: 28px; width: auto; object-fit: contain; margin-bottom: 8px;">
         <div class="md-brand-text">
-          <span class="md-brand-title">APEX</span>
-          <span class="md-brand-sub">Sales SOP Navigation</span>
+          <span class="md-brand-title">Standard Operating Procedures - Sales</span>
         </div>
       </div>
       <button type="button" class="md-close-btn" onclick="toggleMenu(false)" title="Close menu">&times;</button>
@@ -6828,7 +6831,7 @@ body.pf-lock { overflow: hidden; }
     <div id="menuGrid">
       <!-- Chapters -->
       <div class="md-ch1-card"><a class="md-ch1-head dropdown-item" data-ch="2" href="#sec-foundations-2" onclick="goToView(1); return false;" style="text-decoration:none;"><span class="md-ch1-badge">CHAPTER 02</span><span class="md-ch1-title">Welcome and Hospitality</span></a></div>
-      <div class="md-upcoming-section"><div class="md-upcoming-label">Upcoming SOP Chapters</div><div class="md-upcoming-list"><div class="md-upcoming-item"><span class="md-up-num">01</span><span class="md-up-title">Lead Management</span><span class="md-up-badge">Soon</span></div><div class="md-upcoming-item"><span class="md-up-num">03</span><span class="md-up-title">Needs Analysis and Product Demonstration</span><span class="md-up-badge">Soon</span></div><div class="md-upcoming-item"><span class="md-up-num">04</span><span class="md-up-title">Test Drive</span><span class="md-up-badge">Soon</span></div></div></div>
+      <div class="md-upcoming-section"><div class="md-upcoming-label">Upcoming SOP Chapters</div><div class="md-upcoming-list"><div class="md-upcoming-item"><span class="md-up-num">01</span><span class="md-up-title">Lead Management</span><span class="md-up-badge">Soon</span></div><div class="md-upcoming-item"><span class="md-up-num">03</span><span class="md-up-title">Needs Analysis and Product Demonstration</span><span class="md-up-badge">Soon</span></div><div class="md-upcoming-item"><span class="md-up-num">04</span><span class="md-up-title">Test Drive</span><span class="md-up-badge">Soon</span></div><div class="md-upcoming-item"><span class="md-up-num">05</span><span class="md-up-title">Quotation</span><span class="md-up-badge">Soon</span></div><div class="md-upcoming-item"><span class="md-up-num">06</span><span class="md-up-title">Booking</span><span class="md-up-badge">Soon</span></div><div class="md-upcoming-item"><span class="md-up-num">07</span><span class="md-up-title">Delivery and Home Demo</span><span class="md-up-badge">Soon</span></div><div class="md-upcoming-item"><span class="md-up-num">&ndash;</span><span class="md-up-title">Complaint Management</span><span class="md-up-badge">Soon</span></div><div class="md-upcoming-item"><span class="md-up-num">&ndash;</span><span class="md-up-title">Sustaining the JSW Motors Standard</span><span class="md-up-badge">Soon</span></div></div></div>
     </div>
   </div>
 
@@ -6863,13 +6866,9 @@ body.pf-lock { overflow: hidden; }
         <rect width="100%" height="100%" fill="url(#gridpat)"/>
       </svg>
       <div class="cover-inner reveal in">
-        <div class="hero-brand-logo" style="margin-bottom: 20px;">
-          <img src="assets/jsw_logo_white_hd.png" alt="JSW Motors" style="height: 36px; width: auto; object-fit: contain;">
-        </div>
         <h1 class="hero-title">
-          <span class="ht-line solid">APEX</span>
+          <span class="ht-line solid">Standard Operating Procedures - Sales</span>
         </h1>
-        <p class="hero-desc">A Playbook for Experience Excellence</p>
         <p class="hero-subtext">Comprehensive operational protocols across the complete customer lifecycle.</p>
 
         <!-- Executive CTA Group (Island Architecture with Button-in-Button Trailing Icon) -->
@@ -6886,7 +6885,6 @@ body.pf-lock { overflow: hidden; }
           </a>
         </div>
         </div>
-      <span class="hero-ghost">APEX</span>
     </header>
 
     <!-- ============ SOP TABLE OF CONTENTS (HOME VIEW) ============ -->
@@ -6897,10 +6895,18 @@ body.pf-lock { overflow: hidden; }
       </div>
       <div class="hx-groups">
         <div class="hx-group">
+          <button type="button" class="hx-row" disabled><span class="hx-num">&ndash;</span><span class="hx-name">Framework and Philosophy</span><span class="hx-soon">Coming soon</span></button>
+          <button type="button" class="hx-row" disabled><span class="hx-num">&ndash;</span><span class="hx-name">How to Read the Manual</span><span class="hx-soon">Coming soon</span></button>
+          <button type="button" class="hx-row" disabled><span class="hx-num">&ndash;</span><span class="hx-name">Customer Journey</span><span class="hx-soon">Coming soon</span></button>
           <button type="button" class="hx-row" disabled><span class="hx-num">01</span><span class="hx-name">Chapter 1 · Lead Management</span><span class="hx-soon">Coming soon</span></button>
           <button type="button" class="hx-row" onclick="goToView(1)"><span class="hx-num">02</span><span class="hx-name">Chapter 2 · Welcome and Hospitality</span><span class="hx-arrow">&rarr;</span></button>
           <button type="button" class="hx-row" disabled><span class="hx-num">03</span><span class="hx-name">Chapter 3 · Needs Analysis and Product Demonstration</span><span class="hx-soon">Coming soon</span></button>
           <button type="button" class="hx-row" disabled><span class="hx-num">04</span><span class="hx-name">Chapter 4 · Test Drive</span><span class="hx-soon">Coming soon</span></button>
+          <button type="button" class="hx-row" disabled><span class="hx-num">05</span><span class="hx-name">Chapter 5 · Quotation</span><span class="hx-soon">Coming soon</span></button>
+          <button type="button" class="hx-row" disabled><span class="hx-num">06</span><span class="hx-name">Chapter 6 · Booking</span><span class="hx-soon">Coming soon</span></button>
+          <button type="button" class="hx-row" disabled><span class="hx-num">07</span><span class="hx-name">Chapter 7 · Delivery and Home Demo</span><span class="hx-soon">Coming soon</span></button>
+          <button type="button" class="hx-row" disabled><span class="hx-num">&ndash;</span><span class="hx-name">Complaint Management</span><span class="hx-soon">Coming soon</span></button>
+          <button type="button" class="hx-row" disabled><span class="hx-num">&ndash;</span><span class="hx-name">Sustaining the JSW Motors Standard</span><span class="hx-soon">Coming soon</span></button>
         </div>
       </div>
     </section>
@@ -6915,10 +6921,8 @@ body.pf-lock { overflow: hidden; }
       <div class="manual-foot-inner">
         <div class="manual-foot-top">
           <div style="display:flex; align-items:center; gap:16px;">
-            <img src="assets/jsw_logo_white_hd.png" alt="JSW" style="height: 24px; width: auto; object-fit: contain;">
-            <div style="width:1px; height:20px; background:rgba(255,255,255,0.25);"></div>
             <div class="manual-foot-brand-title">
-              APEX · A PLAYBOOK FOR EXPERIENCE EXCELLENCE
+              Standard Operating Procedures - Sales
             </div>
           </div>
           <div class="manual-foot-sub">
@@ -7327,7 +7331,7 @@ body.pf-lock { overflow: hidden; }
       function updateChrome(idx) {
         var v = VIEWS[idx];
         var tc = document.getElementById('tbCenter');
-        if (tc) tc.textContent = 'Sales SOP Manual';
+        if (tc) tc.textContent = '';
 
         var tp = document.getElementById('topbarProgress');
         if (tp) tp.style.width = (idx === 0 ? 0 : Math.round((idx / (VIEWS.length - 1)) * 100)) + '%';
@@ -7346,8 +7350,8 @@ body.pf-lock { overflow: hidden; }
         });
 
         document.title = idx === 0
-          ? 'APEX — A Playbook for Experience Excellence'
-          : 'Chapter ' + v.ch + ' · ' + chapterName(v.ch) + ' — APEX';
+          ? 'Standard Operating Procedures - Sales'
+          : 'Chapter ' + v.ch + ' · ' + chapterName(v.ch) + ' — Standard Operating Procedures - Sales';
       }
 
       window.goToView = function(idx, subId) {
