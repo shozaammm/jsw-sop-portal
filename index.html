@@ -6532,6 +6532,222 @@ button:active:not([disabled]),
 }
 </style>
 
+<style id="pf-split-layout">
+/* ============================================================
+   Process flow split view: flowchart left, standards panel right.
+   Phones (<960px): the panel becomes a bottom sheet.
+   ============================================================ */
+.pf-split {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 24px;
+  align-items: start;
+  animation: none !important;
+  transform: none !important;
+}
+.pf-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 13px 18px; background: #161513; color: #fff; border-radius: 12px 12px 0 0;
+}
+.pf-bar-title { font-weight: 800; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; line-height: 1.3; }
+.pf-bar-hint { font-family: var(--font-mono); font-size: 10.5px; color: rgba(255,255,255,.7); letter-spacing: .02em; }
+.pf-bar-actions { display: flex; gap: 8px; align-items: center; }
+
+.pf-chart {
+  background: #fff; border: 1px solid var(--line-200); border-radius: 12px; min-width: 0;
+  box-shadow: 0 12px 30px -16px rgba(22,21,19,.18);
+}
+.pf-chart-body { padding: 22px 18px 26px; display: flex; flex-direction: column; align-items: stretch; }
+
+/* tabs (chapter 2 has two flows) */
+.pf-tabs { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line-100); }
+.pf-tab {
+  appearance: none; background: #FAFAF9; border: 0; border-right: 1px solid var(--line-100); cursor: pointer;
+  text-align: left; padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; font: inherit; color: var(--grey-500);
+  border-bottom: 3px solid transparent; transition: background .2s, color .2s, border-color .2s;
+}
+.pf-tab:last-child { border-right: 0; }
+.pf-tab-k { font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .04em; }
+.pf-tab-t { font-size: 13px; font-weight: 600; line-height: 1.35; }
+.pf-tab.is-on { background: #fff; color: #161513; border-bottom-color: #161513; }
+.pf-tab:hover:not(.is-on) { background: #fff; color: #161513; }
+
+/* nodes */
+.pf-group-label { font-size: 12px; font-weight: 700; color: var(--grey-500); margin: 0 0 10px; }
+.pf-sources { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pf-sources > .pf-node { height: 100%; }
+.pf-node {
+  appearance: none; position: relative; width: 100%; text-align: left; font: inherit; color: #161513;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px;
+  background: #fff; border: 1px solid var(--line-200); border-radius: 10px; padding: 11px 14px;
+  line-height: 1.4; font-size: 13.5px; cursor: pointer;
+  transition: border-color .18s, background .18s, color .18s, box-shadow .18s;
+  min-width: 0; overflow-wrap: anywhere;
+}
+.pf-node:hover { border-color: #161513; box-shadow: 0 6px 16px -8px rgba(22,21,19,.3); }
+.pf-node:focus-visible, .pf-decision:focus-visible, .pf-tab:focus-visible, .pf-showall:focus-visible, .pf-close:focus-visible {
+  outline: 2px solid #161513; outline-offset: 2px;
+}
+.pf-no { font-family: var(--font-mono); font-size: 11px; font-weight: 700; background: #EFEEEB; border-radius: 5px; padding: 1px 7px; flex: none; }
+.pf-node-text { font-weight: 600; flex: 1 1 140px; min-width: 0; }
+.pf-who-tag { flex: none; font-size: 11px; font-weight: 600; color: var(--grey-500); border: 1px solid var(--line-200); border-radius: 999px; padding: 0 8px; margin-left: auto; }
+.pf-star { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%; background: #FFF4D6; border: 1px solid #E8B84A; color: #B7791F; font-size: 12px; line-height: 20px; text-align: center; }
+.pf-node.is-active, .pf-decision.is-active { background: #161513; border-color: #161513; color: #fff; }
+.pf-node.is-active .pf-no { background: rgba(255,255,255,.18); color: #fff; }
+.pf-node.is-active .pf-who-tag { color: rgba(255,255,255,.75); border-color: rgba(255,255,255,.3); }
+.pf-node.is-active:hover { box-shadow: none; }
+.pf-grey { background: #EFEEEB; border-style: dashed; }
+.pf-system { background: #EAF2FF; border: 1px dashed #2A63C8; color: #17407F; font-style: italic; }
+.pf-system .pf-who-tag { border-color: #2A63C8; color: #2A63C8; }
+.pf-static { cursor: default; }
+.pf-static:hover { border-color: var(--line-200); box-shadow: none; }
+.pf-sub-step { margin-left: 22px; width: calc(100% - 22px); }
+.pf-sub-step::before { content: ''; position: absolute; left: -12px; top: 50%; width: 12px; border-top: 1px solid var(--grey-300); }
+.pf-start { background: #161513; color: #fff; border-radius: 10px; padding: 12px 14px; font-weight: 700; font-size: 13px; text-align: center; line-height: 1.4; }
+
+.pf-link { align-self: center; width: 2px; height: 18px; background: var(--grey-300); position: relative; flex: none; }
+.pf-link::after { content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-top: 5px solid var(--grey-300); border-bottom: 0; }
+.pf-link-dash { background: none; border-left: 2px dashed #2A63C8; }
+.pf-link-dash::after { border-top-color: #2A63C8; }
+.pf-sub-step + .pf-link, .pf-link + .pf-sub-step { }
+
+.pf-decision {
+  appearance: none; font: inherit; color: #161513; text-align: left; cursor: pointer;
+  display: flex; align-items: center; gap: 10px; align-self: center; max-width: 100%;
+  background: #FFF9E8; border: 1.5px solid #E8B84A; border-radius: 999px; padding: 9px 18px 9px 14px;
+  font-weight: 700; font-size: 13px; line-height: 1.35; transition: background .18s, color .18s, border-color .18s;
+}
+button.pf-decision:hover { border-color: #161513; }
+.pf-decision.pf-static { cursor: default; }
+.pf-dia { width: 11px; height: 11px; background: #E8B84A; transform: rotate(45deg); flex: none; }
+.pf-decision.is-active .pf-dia { background: #fff; }
+
+.pf-branches { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+.pf-branch { display: flex; flex-direction: column; align-items: stretch; min-width: 0; border-top: 2px solid var(--grey-300); padding-top: 14px; position: relative; }
+.pf-no-br { border-top-color: #C23B30; }
+.pf-yes-br { border-top-color: #1F8A4C; }
+.pf-br-tag { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 10.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; background: #fff; padding: 0 8px; line-height: 18px; }
+.pf-no-br .pf-br-tag { color: #C23B30; }
+.pf-yes-br .pf-br-tag { color: #1F8A4C; }
+.pf-skip { align-self: center; width: 2px; flex: 1; min-height: 28px; background: #1F8A4C; opacity: .45; }
+.pf-branch .pf-node { padding: 10px 12px; font-size: 13px; }
+
+.pf-ends { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pf-end { background: #EFEEEB; border: 1px solid var(--line-200); border-radius: 10px; padding: 11px 14px; font-size: 13px; font-weight: 700; text-align: center; line-height: 1.4; }
+.pf-end-wide { background: #161513; color: #fff; border-color: #161513; }
+
+/* standards panel */
+.pf-panel {
+  background: #fff; border: 1px solid var(--line-200); border-radius: 12px; min-width: 0;
+  position: sticky; top: calc(var(--topbar-h) + 78px);
+  max-height: calc(100vh - var(--topbar-h) - 102px); max-height: calc(100dvh - var(--topbar-h) - 102px);
+  display: flex; flex-direction: column; overflow: hidden;
+  box-shadow: 0 12px 30px -16px rgba(22,21,19,.18);
+}
+.pf-panel-bar { flex: none; flex-wrap: nowrap; }
+.pf-panel-body { overflow-y: auto; overscroll-behavior: contain; padding: 18px; display: flex; flex-direction: column; gap: 16px; flex: 1 1 auto; min-height: 220px; -webkit-overflow-scrolling: touch; }
+.pf-showall {
+  appearance: none; background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.4); border-radius: 6px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .04em; padding: 6px 11px; cursor: pointer; white-space: nowrap;
+}
+.pf-showall:hover { background: rgba(255,255,255,.14); border-color: #fff; }
+.pf-close { display: none; appearance: none; background: transparent; border: 1px solid rgba(255,255,255,.4); color: #fff; width: 32px; height: 32px; border-radius: 6px; font-size: 20px; line-height: 1; cursor: pointer; }
+.pf-split:not(.is-all) .pf-panel:has(.pf-card:not([hidden])) .pf-close { display: inline-block; }
+
+.pf-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; color: var(--grey-500); padding: 40px 16px; flex: 1; }
+.pf-empty[hidden] { display: none; }
+.pf-empty p { font-size: 14px; max-width: 26ch; line-height: 1.5; margin: 0; }
+.pf-empty-ico { width: 38px; height: 38px; border: 1.5px dashed var(--grey-300); border-radius: 10px; position: relative; }
+.pf-empty-ico::after { content: ''; position: absolute; inset: 11px 12px; border-right: 2px solid var(--grey-300); border-bottom: 2px solid var(--grey-300); transform: rotate(-45deg) translate(-2px,-2px); }
+
+.pf-card { border: 1px solid var(--line-200); border-radius: 12px; padding: 16px 18px 18px; background: #FAFAF9; display: flex; flex-direction: column; gap: 14px; }
+.pf-card[hidden] { display: none; }
+.pf-card-head { display: flex; gap: 10px; align-items: flex-start; }
+.pf-card-no { font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; background: #161513; color: #fff; border-radius: 6px; padding: 3px 9px; flex: none; margin-top: 1px; }
+.pf-card h4 { font-size: 15.5px; font-weight: 800; line-height: 1.35; letter-spacing: -.01em; margin: 0; overflow-wrap: anywhere; }
+.pf-field { display: flex; flex-direction: column; gap: 6px; }
+.pf-label { font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--grey-500); }
+.pf-who { font-weight: 700; font-size: 14px; }
+.pf-how { font-size: 14px; line-height: 1.6; color: var(--grey-700); display: flex; flex-direction: column; gap: 8px; overflow-wrap: anywhere; }
+.pf-how ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+.pf-how p { margin: 0; }
+.pf-how .pf-sub { padding-left: 18px; font-size: 13.5px; }
+.pf-how .pf-note { font-weight: 700; color: #161513; }
+.pf-how blockquote { margin: 0; padding: 10px 14px; border: 1px solid var(--line-200); background: #fff; border-radius: 8px; font-style: italic; color: #161513; }
+.pf-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pf-chip { font-size: 12.5px; font-weight: 600; background: #fff; border: 1px solid var(--line-200); border-radius: 6px; padding: 4px 10px; }
+
+/* overview + metrics */
+.pf-chip-rows { display: flex; flex-direction: column; gap: 4px; }
+.pf-chip-row { display: flex; flex-direction: column; gap: 2px; }
+.pf-row-label { font-size: 12px; font-weight: 700; color: var(--grey-500); }
+.pf-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.pf-list li { position: relative; padding-left: 16px; font-size: 14.5px; color: var(--grey-700); line-height: 1.55; }
+.pf-list li::before { content: ''; position: absolute; left: 0; top: .62em; width: 6px; height: 6px; background: #161513; border-radius: 50%; }
+.pf-p { font-size: 14.5px; line-height: 1.65; color: var(--grey-700); margin: 0; }
+.pf-bento .pf-span2 { grid-column: 1 / -1 !important; }
+.pf-bento .pf-span2 .pf-list { margin: 10px 0 14px; }
+.pf-dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 10px; }
+.pf-dl .checklist-dl-row { gap: 10px; align-items: center; }
+.pf-owner-line { font-weight: 700; font-size: 15px; }
+.pf-kpis { align-items: stretch; }
+.pf-kpis .kpi-card { display: flex; flex-direction: column; gap: 14px; }
+.pf-owner { font-size: 11.5px; font-weight: 700; color: var(--grey-500); }
+.pf-kpi-title { font-size: 19px; font-weight: 800; line-height: 1.3; letter-spacing: -.01em; margin: 0; }
+.pf-formula { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; background: #F8F7F4; border: 1px solid var(--line-200); border-radius: 8px; padding: 12px 14px; font-size: 13.5px; line-height: 1.45; }
+.pf-f-l { font-weight: 700; }
+.pf-f-t { color: var(--grey-700); flex: 1 1 200px; }
+.pf-frac { display: inline-flex; flex-direction: column; align-items: stretch; text-align: center; flex: 1 1 200px; min-width: 0; }
+.pf-num { padding-bottom: 5px; border-bottom: 1.5px solid #161513; color: var(--grey-700); }
+.pf-den { padding-top: 5px; color: var(--grey-700); }
+.pf-f-x { font-family: var(--font-mono); font-weight: 700; }
+
+/* phone / tablet: bottom sheet */
+body.pf-lock { overflow: hidden; }
+@media (max-width: 959px) {
+  .pf-split { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .pf-panel {
+    position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 420;
+    max-height: 82vh; max-height: 82dvh; border-radius: 16px 16px 0 0; border-bottom: 0;
+    transform: translateY(104%); visibility: hidden;
+    transition: transform .3s cubic-bezier(.16,1,.3,1), visibility 0s linear .3s;
+    box-shadow: 0 -18px 40px rgba(0,0,0,.28);
+  }
+  .pf-panel.is-open { transform: none; visibility: visible; transition: transform .3s cubic-bezier(.16,1,.3,1), visibility 0s; }
+  .pf-panel .pf-bar { border-radius: 16px 16px 0 0; }
+  .pf-panel-body { padding: 16px 16px calc(20px + env(safe-area-inset-bottom)); min-height: 0; }
+  .pf-close { display: inline-block !important; }
+  .pf-panel.is-open { box-shadow: 0 -18px 40px rgba(0,0,0,.28), 0 0 0 100vmax rgba(10,10,10,.5); }
+  body.pf-lock .ch1-smart-menu { opacity: 0; pointer-events: none; }
+  .pf-chart-body { padding: 18px 14px 22px; }
+  .pf-bar-hint { display: none; }
+  .pf-bar:not(.pf-panel-bar) { border-radius: 12px 12px 0 0; }
+  .pf-chart .pf-bar-hint { display: block; flex-basis: 100%; }
+}
+@media (max-width: 520px) {
+  .pf-sources, .pf-ends { grid-template-columns: 1fr; }
+  .pf-branches { grid-template-columns: 1fr; gap: 22px; }
+  .pf-tabs { grid-template-columns: 1fr; }
+  .pf-tab { border-right: 0; border-bottom: 1px solid var(--line-100); }
+  .pf-tab.is-on { border-bottom: 3px solid #161513; }
+  .pf-sub-step { margin-left: 16px; width: calc(100% - 16px); }
+  .pf-kpi-title { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-panel { transition: none !important; }
+}
+.pf-flow { display: flex; flex-direction: column; align-items: stretch; }
+.pf-flow[hidden] { display: none; }
+.ch1-smart-menu .c1m-label { color: rgba(255,255,255,.65); }
+/* overflow-x:hidden on .main made it a scroll container and broke the sticky panel; clip does not */
+.main { overflow-x: clip !important; overflow-y: visible !important; }
+@media (max-width: 520px) {
+  .ch1-smart-menu .c1m-label { display: none; }
+  .ch1-smart-menu { gap: 2px; padding: 5px 6px; }
+  .ch1-smart-menu .c1m-btn { padding-left: 10px; padding-right: 10px; font-size: 12.5px; }
+}
+
+</style>
 </head>
 <body>
 
@@ -6577,23 +6793,10 @@ button:active:not([disabled]),
       <button type="button" class="md-close-btn" onclick="toggleMenu(false)" title="Close menu">&times;</button>
     </div>
     <div id="menuGrid">
-      <!-- Chapter 1 -->
-      <div class="md-ch1-card">
-        <a class="md-ch1-head dropdown-item" href="#sec-foundations" onclick="goToView(1, 'sec-foundations'); return false;" style="text-decoration:none;">
-          <span class="md-ch1-badge">CHAPTER 01</span>
-          <span class="md-ch1-title">Arrival &amp; Welcome</span>
-        </a>
-      </div>
-
-      <!-- Upcoming Chapters -->
-      <div class="md-upcoming-section">
-        <div class="md-upcoming-label">Upcoming SOP Chapters</div>
-        <div class="md-upcoming-list">
-          <div class="md-upcoming-item"><span class="md-up-num">02</span><span class="md-up-title">Chapter 2</span><span class="md-up-badge">Soon</span></div>
-          <div class="md-upcoming-item"><span class="md-up-num">03</span><span class="md-up-title">Chapter 3</span><span class="md-up-badge">Soon</span></div>
-          <div class="md-upcoming-item"><span class="md-up-num">04</span><span class="md-up-title">Chapter 4</span><span class="md-up-badge">Soon</span></div>
-        </div>
-      </div>
+      <!-- Chapters -->
+      <div class="md-ch1-card"><a class="md-ch1-head dropdown-item" data-ch="1" href="#sec-foundations" onclick="goToView(1); return false;" style="text-decoration:none;"><span class="md-ch1-badge">CHAPTER 01</span><span class="md-ch1-title">Lead Management</span></a></div>
+      <div class="md-ch1-card"><a class="md-ch1-head dropdown-item" data-ch="2" href="#sec-foundations-2" onclick="goToView(4); return false;" style="text-decoration:none;"><span class="md-ch1-badge">CHAPTER 02</span><span class="md-ch1-title">Welcome and Hospitality</span></a></div>
+      <div class="md-upcoming-section"><div class="md-upcoming-label">Upcoming SOP Chapters</div><div class="md-upcoming-list"><div class="md-upcoming-item"><span class="md-up-num">03</span><span class="md-up-title">Needs Analysis and Product Demonstration</span><span class="md-up-badge">Soon</span></div><div class="md-upcoming-item"><span class="md-up-num">04</span><span class="md-up-title">Test Drive</span><span class="md-up-badge">Soon</span></div></div></div>
     </div>
   </div>
 
@@ -6611,23 +6814,8 @@ button:active:not([disabled]),
     </div>
   </div>
 
-  <!-- ============ CHAPTER 1 FLOATING SMART MENU ============ -->
-  <nav class="ch1-smart-menu" id="ch1SmartMenu" aria-label="Chapter 1 Quick Navigation">
-    <button type="button" class="c1m-btn active" data-target="sec-foundations" data-view="1" onclick="jumpToCh1Section('sec-foundations', 1)">
-      <span class="c1m-dot"></span>
-      <span>Arrival &amp; Welcome</span>
-    </button>
-    <div class="c1m-sep"></div>
-    <button type="button" class="c1m-btn" data-target="process-flow" data-view="2" onclick="jumpToCh1Section('process-flow', 2)">
-      <span class="c1m-dot"></span>
-      <span>Process Flow</span>
-    </button>
-    <div class="c1m-sep"></div>
-    <button type="button" class="c1m-btn" data-target="sec-metrics" data-view="3" onclick="jumpToCh1Section('sec-metrics', 3)">
-      <span class="c1m-dot"></span>
-      <span>Success Metrics</span>
-    </button>
-  </nav>
+  <!-- ============ CHAPTER FLOATING SMART MENU (built by JS) ============ -->
+  <nav class="ch1-smart-menu" id="ch1SmartMenu" aria-label="Chapter quick navigation"></nav>
 
   <div class="main">
 
@@ -6655,7 +6843,7 @@ button:active:not([disabled]),
         <!-- Executive CTA Group (Island Architecture with Button-in-Button Trailing Icon) -->
         <div class="hero-cta-group">
           <a href="#sec-foundations" onclick="goToView(1); return false;" class="hero-btn-primary">
-            <span>Explore Chapter 01 · Arrival &amp; Welcome</span>
+            <span>Explore Chapter 01 · Lead Management</span>
             <span class="hero-btn-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
@@ -6677,472 +6865,22 @@ button:active:not([disabled]),
       </div>
       <div class="hx-groups">
         <div class="hx-group">
-          <button type="button" class="hx-row" onclick="goToView(1)">
-            <span class="hx-num">01</span>
-            <span class="hx-name">Chapter 1 · Arrival and Welcome</span>
-            <span class="hx-arrow">&rarr;</span>
-          </button>
-          <button type="button" class="hx-row" disabled>
-            <span class="hx-num">02</span>
-            <span class="hx-name">Chapter 2</span>
-            <span class="hx-soon">Coming soon</span>
-          </button>
-          <button type="button" class="hx-row" disabled>
-            <span class="hx-num">03</span>
-            <span class="hx-name">Chapter 3</span>
-            <span class="hx-soon">Coming soon</span>
-          </button>
-          <button type="button" class="hx-row" disabled>
-            <span class="hx-num">04</span>
-            <span class="hx-name">Chapter 4</span>
-            <span class="hx-soon">Coming soon</span>
-          </button>
+          <button type="button" class="hx-row" onclick="goToView(1)"><span class="hx-num">01</span><span class="hx-name">Chapter 1 · Lead Management</span><span class="hx-arrow">&rarr;</span></button>
+          <button type="button" class="hx-row" onclick="goToView(4)"><span class="hx-num">02</span><span class="hx-name">Chapter 2 · Welcome and Hospitality</span><span class="hx-arrow">&rarr;</span></button>
+          <button type="button" class="hx-row" disabled><span class="hx-num">03</span><span class="hx-name">Chapter 3 · Needs Analysis and Product Demonstration</span><span class="hx-soon">Coming soon</span></button>
+          <button type="button" class="hx-row" disabled><span class="hx-num">04</span><span class="hx-name">Chapter 4 · Test Drive</span><span class="hx-soon">Coming soon</span></button>
         </div>
       </div>
     </section>
 
 
-    <!-- ============ SECTION 1: FOUNDATIONAL PILLARS ============ -->
-    <section class="chap" id="sec-foundations">
-      <div class="chap-head reveal">
-        <div class="ch-thumb" aria-hidden="true"></div>
-        <svg class="cover-grid" width="100%" height="100%" style="position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0.26;" aria-hidden="true">
-          <rect width="100%" height="100%" fill="url(#gridpat)"/>
-        </svg>
-        <div class="chap-num">CHAPTER 1 · SECTION 01</div>
-        <h2 class="sec-title">Arrival &amp; Welcome</h2>
-        <div class="rule"></div>
-      </div>
-
-      <div class="prose reveal">
-        <div class="role-chips"><span class="role-chip">Security Guard</span><span class="role-chip">Valet</span><span class="role-chip">Hostess</span><span class="role-chip">Sales Consultant</span><span class="role-chip">Sales Manager</span></div>
-        
-        <div class="bento-grid-2">
-          
-          <!-- Card 1: Customer Expectations -->
-          <div class="jsw-card-clean search-target">
-            <h3 class="card-title-lg">Customer Expectations</h3>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; padding: 0; margin: 0;">
-              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: var(--grey-700);">
-                <span style="color: #161513; font-weight: 800;">•</span>
-                <span>Lorem ipsum</span>
-              </li>
-              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: var(--grey-700);">
-                <span style="color: #161513; font-weight: 800;">•</span>
-                <span>Dolor sit ametconsectetur adipiscing elit</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Card 2: Objective -->
-          <div class="jsw-card-clean search-target">
-            <h3 class="card-title-lg">Objective</h3>
-            <p style="font-size: 14.5px; color: var(--grey-700); line-height: 1.65; margin: 0;">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-
-          <!-- Card 3: JSW Differentiator -->
-          <div class="jsw-card-clean search-target">
-            <h3 class="card-title-lg">JSW Differentiator</h3>
-            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; padding: 0; margin: 0;">
-              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: #161513; font-weight: 700;">
-                <span>•</span>
-                <span style="color: var(--grey-700); font-weight: normal;">Lorem ipsum</span>
-              </li>
-              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: #161513; font-weight: 700;">
-                <span>•</span>
-                <span style="color: var(--grey-700); font-weight: normal;">Dolor sit ametconsectetur adipiscing elit</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Card 4: Enablers -->
-          <div class="jsw-card-clean search-target">
-            <h3 class="card-title-lg">Enablers</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-              <div>
-                <h5 style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #161513; margin-bottom: 8px;">Tools</h5>
-                <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px; padding: 0; margin: 0;">
-                  <li style="padding: 7px 11px; background: var(--paper); border: 1px solid var(--line-200); border-radius: 6px; font-size: 13px; font-weight: 600;">Tool 1</li>
-                  <li style="padding: 7px 11px; background: var(--paper); border: 1px solid var(--line-200); border-radius: 6px; font-size: 13px; font-weight: 600;">Tool 2</li>
-                  <li style="padding: 7px 11px; background: var(--paper); border: 1px solid var(--line-200); border-radius: 6px; font-size: 13px; font-weight: 600;">Tool 3</li>
-                </ul>
-              </div>
-              <div>
-                <h5 style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--grey-500); margin-bottom: 8px;">Checklists (Download)</h5>
-                <div style="display: flex; flex-direction: column; gap: 6px;">
-                  <a href="assets/checklists/JSW_APEX_Checklist_01_Security_Gate_Arrival_Triage.docx" download="JSW_APEX_Checklist_01_Security_Gate_Arrival_Triage.docx" class="checklist-dl-row" title="Download Checklist 01">
-                    <span style="display: flex; align-items: center; gap: 8px;">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      <strong>Checklist 1</strong>
-                    </span>
-                    <span class="checklist-badge">DOCX &darr;</span>
-                  </a>
-                  <a href="assets/checklists/JSW_APEX_Checklist_02_Hostess_Greeting_Lounge_Hospitality.docx" download="JSW_APEX_Checklist_02_Hostess_Greeting_Lounge_Hospitality.docx" class="checklist-dl-row" title="Download Checklist 02">
-                    <span style="display: flex; align-items: center; gap: 8px;">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      <strong>Checklist 2</strong>
-                    </span>
-                    <span class="checklist-badge">DOCX &darr;</span>
-                  </a>
-                  <a href="assets/checklists/JSW_APEX_Checklist_03_Consultant_Briefing_Handoff_Audit.docx" download="JSW_APEX_Checklist_03_Consultant_Briefing_Handoff_Audit.docx" class="checklist-dl-row" title="Download Checklist 03">
-                    <span style="display: flex; align-items: center; gap: 8px;">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      <strong>Checklist 3</strong>
-                    </span>
-                    <span class="checklist-badge">DOCX &darr;</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 5: Success Metrics Overview (from JSW SOP Elements) -->
-          <div class="jsw-card-clean search-target" style="grid-column: span 2;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
-              <div>
-                <h3 class="card-title-lg" style="margin-bottom: 4px;">Success Metrics</h3>
-                <p style="font-size: 14px; color: var(--grey-700); margin: 0;">Quantitative benchmarks governing stakeholder arrival excellence.</p>
-              </div>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 16px;">
-              <div style="background: var(--paper); border: 1px solid var(--line-200); border-radius: 10px; padding: 14px 16px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                  <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #161513; letter-spacing: 1px;">KPI 1</span>
-                  <span style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--grey-500); font-weight: 600;">Security Guard</span>
-                </div>
-                <div style="font-size: 13px; font-weight: 600; color: #161513; margin-top: 6px;">Gate reception &amp; triage evaluation ratio</div>
-              </div>
-              <div style="background: var(--paper); border: 1px solid var(--line-200); border-radius: 10px; padding: 14px 16px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                  <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #161513; letter-spacing: 1px;">KPI 2</span>
-                  <span style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--grey-500); font-weight: 600;">Hostess</span>
-                </div>
-                <div style="font-size: 13px; font-weight: 600; color: #161513; margin-top: 6px;">Welcome greeting &amp; hospitality compliance %</div>
-              </div>
-            </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION 2: PROCESS FLOW & STANDARDS TABLE ============ -->
-    <section class="chap alt" id="process-flow">
-      <span id="sec-process-flow" style="display:block; position:relative; top:-75px; visibility:hidden; pointer-events:none;"></span>
-
-      <div class="prose reveal">
-        
-        <!-- Interactive Flowchart Card -->
-        <div class="rf-flow search-target">
-          <div class="rf-phase">
-            <div class="rf-phase-header">
-              <div class="rf-phase-title">
-                Process Flow
-              </div>
-              <span class="card-badge">CLICK A STEP TO VIEW ITS STANDARD BELOW</span>
-            </div>
-
-            <!-- 4 Steps + Decision Node Exactly matching JSW SOP Elements (1).docx SmartArt -->
-            <div class="rf-flowchart">
-
-              <!-- Step 1 Node -->
-              <div class="rf-step-card rf-node" id="node-step-1" onclick="flowClickStep(1)" title="Click to view Step 1 standard below">
-                <div class="rf-step-top">
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="rf-step-num">01</span>
-                    <span class="rf-step-role">Sales Manager</span>
-                  </div>
-                </div>
-                <div class="rf-step-text" style="font-size: 13.5px; color: #454340; line-height: 1.5; margin-top: 4px;">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </div>
-                <div class="step-enablers-row" style="margin-top: auto; padding-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
-                  <span class="enabler-pill">Tool 1</span>
-                  <span class="enabler-pill checklist-pill" onclick="downloadChecklist(1)" title="Click to download Checklist 1">Checklist 1 &darr;</span>
-                </div>
-              </div>
-
-              <div class="rf-connector" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-
-              <!-- Decision Node from SmartArt: a real rhombus connected directly by the arrows on either side -->
-              <div class="rf-decision-diamond">
-                <span class="rf-decision-tag">DECISION</span>
-                <div class="rf-decision-title">Customer Allocation</div>
-                <div class="rf-decision-sub">Hostess Routing</div>
-              </div>
-
-              <div class="rf-connector" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-
-              <!-- Step 2 Node -->
-              <div class="rf-step-card rf-node" id="node-step-2" onclick="flowClickStep(2)" title="Click to view Step 2 standard below">
-                <div class="rf-step-top">
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="rf-step-num">02</span>
-                    <span class="rf-step-role">Hostess</span>
-                  </div>
-                </div>
-                <div class="rf-step-text" style="font-size: 13.5px; color: #454340; line-height: 1.5; margin-top: 4px;">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </div>
-                <div class="step-enablers-row" style="margin-top: auto; padding-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
-                  <span class="enabler-pill">Tool 2</span>
-                  <span class="enabler-pill">Tool 3</span>
-                </div>
-              </div>
-
-              <div class="rf-connector" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-
-              <!-- Step 3 Node -->
-              <div class="rf-step-card rf-node" id="node-step-3" onclick="flowClickStep(3)" title="Click to view Step 3 standard below">
-                <div class="rf-step-top">
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="rf-step-num">03</span>
-                    <span class="rf-step-role">Sales Consultant</span>
-                  </div>
-                </div>
-                <div class="rf-step-text" style="font-size: 13.5px; color: #454340; line-height: 1.5; margin-top: 4px;">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </div>
-                <div class="step-enablers-row" style="margin-top: auto; padding-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
-                  <span class="enabler-pill checklist-pill" onclick="downloadChecklist(2)" title="Click to download Checklist 2">Checklist 2 &darr;</span>
-                  <span class="enabler-pill checklist-pill" onclick="downloadChecklist(3)" title="Click to download Checklist 3">Checklist 3 &darr;</span>
-                </div>
-              </div>
-
-              <div class="rf-connector" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-
-              <!-- Step 4 Node -->
-              <div class="rf-step-card rf-node" id="node-step-4" onclick="flowClickStep(4)" title="Click to view Step 4 standard below">
-                <div class="rf-step-top">
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="rf-step-num">04</span>
-                    <span class="rf-step-role">Sales Consultant</span>
-                  </div>
-                </div>
-                <div class="rf-step-text" style="font-size: 13.5px; color: #454340; line-height: 1.5; margin-top: 4px;">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </div>
-                <div class="step-enablers-row" style="margin-top: auto; padding-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
-                  <span class="enabler-pill checklist-pill" onclick="downloadChecklist(3)" title="Click to download Checklist 3">Checklist 3 &darr;</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <!-- THE JSW PROCESS STANDARDS TABLE -->
-        <div id="sec-standards" style="margin-top: 36px;">
-          
-          <div class="standards-filter-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 12px; padding: 12px 18px; background: #161513; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.12);">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-family: var(--font-display); font-weight: 800; font-size: 13.5px; letter-spacing: 0.05em; color: #FFFFFF; text-transform: uppercase;">The JSW Process Standards</span>
-            </div>
-            <div class="sfb-btns" style="display: flex; gap: 6px; flex-wrap: wrap;">
-              <button class="sfb-btn" id="btnFilterAll" onclick="showAllTableSteps()" type="button" style="border-color: rgba(255, 255, 255, 0.35); color: #FFFFFF;">SHOW ALL</button>
-            </div>
-          </div>
-
-          <div class="standards-table-wrapper">
-            <table class="proc-table" id="standardsTable">
-              <thead>
-                <tr>
-                  <th style="width: 14%;">What</th>
-                  <th style="width: 22%;">Who</th>
-                  <th style="width: 44%;">How</th>
-                  <th style="width: 20%;">Enabler</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Default placeholder (hidden once any step or Show All is clicked) -->
-                <tr id="step-row-placeholder">
-                  <td colspan="4" style="text-align: center; padding: 28px 16px; color: var(--grey-500); font-size: 13.5px;">Click a step above to view its process standard.</td>
-                </tr>
-
-                <!-- Row 1 -->
-                <tr id="step-row-1" style="display: none;" data-step="1">
-                  <td>
-                    <span class="proc-step-num">Step 1</span>
-                  </td>
-                  <td>
-                    <strong style="font-size: 15px; color: #161513;">Sales Manager</strong>
-                  </td>
-                  <td>
-                    <p style="margin: 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <p style="margin-top: 6px; margin-bottom: 0;">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  </td>
-                  <td>
-                    <div style="font-weight: 700; color: #161513;">Tool 1</div>
-                    <div style="font-weight: 700; color: #161513; margin-top: 4px; cursor: pointer; text-decoration: underline;" onclick="downloadChecklist(1)" title="Download Checklist 1">Checklist 1 &darr;</div>
-                  </td>
-                </tr>
-
-                <!-- Row 2 -->
-                <tr id="step-row-2" style="display: none;" data-step="2">
-                  <td>
-                    <span class="proc-step-num">Step 2</span>
-                  </td>
-                  <td>
-                    <strong style="font-size: 15px; color: #161513;">Hostess</strong>
-                  </td>
-                  <td>
-                    <p style="margin: 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <p style="margin-top: 6px; margin-bottom: 0;">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  </td>
-                  <td>
-                    <div style="font-weight: 700; color: #161513;">Tool 2</div>
-                    <div style="font-weight: 700; color: #161513; margin-top: 4px;">Tool 3</div>
-                  </td>
-                </tr>
-
-                <!-- Row 3 -->
-                <tr id="step-row-3" style="display: none;" data-step="3">
-                  <td>
-                    <span class="proc-step-num">Step 3</span>
-                  </td>
-                  <td>
-                    <strong style="font-size: 15px; color: #161513;">Sales Consultant</strong>
-                  </td>
-                  <td>
-                    <p style="margin: 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <p style="margin-top: 6px; margin-bottom: 0;">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  </td>
-                  <td>
-                    <div style="font-weight: 700; color: #161513; cursor: pointer; text-decoration: underline;" onclick="downloadChecklist(2)" title="Download Checklist 2">Checklist 2 &darr;</div>
-                    <div style="font-weight: 700; color: #161513; margin-top: 4px; cursor: pointer; text-decoration: underline;" onclick="downloadChecklist(3)" title="Download Checklist 3">Checklist 3 &darr;</div>
-                  </td>
-                </tr>
-
-                <!-- Row 4 -->
-                <tr id="step-row-4" style="display: none;" data-step="4">
-                  <td>
-                    <span class="proc-step-num">Step 4</span>
-                  </td>
-                  <td>
-                    <strong style="font-size: 15px; color: #161513;">Sales Consultant</strong>
-                  </td>
-                  <td>
-                    <p style="margin: 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <p style="margin-top: 6px; margin-bottom: 0;">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  </td>
-                  <td>
-                    <div style="font-weight: 700; color: #161513; cursor: pointer; text-decoration: underline;" onclick="downloadChecklist(3)" title="Download Checklist 3">Checklist 3 &darr;</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ============ SECTION 2: SUCCESS METRICS ============ -->
-    <section class="chap alt" id="sec-metrics">
-      <div class="chap-head reveal">
-        <div class="ch-thumb" aria-hidden="true"></div>
-        <svg class="cover-grid" width="100%" height="100%" style="position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0.26;" aria-hidden="true">
-          <rect width="100%" height="100%" fill="url(#gridpat)"/>
-        </svg>
-        <div class="chap-num">CHAPTER 1 · SECTION 03</div>
-        <h2 class="sec-title">Arrival &amp; Welcome</h2>
-        <div class="rule"></div>
-      </div>
-
-      <div class="prose reveal">
-        <div class="sub-chap-bar"><span class="scb-badge">Success Metrics &amp; Performance Governance</span></div>
-        <div class="role-chips"><span class="role-chip">Security Guard</span><span class="role-chip">Valet</span><span class="role-chip">Hostess</span><span class="role-chip">Sales Consultant</span><span class="role-chip">Sales Manager</span></div>
-
-        <div class="kpi-bento">
-          
-          <!-- KPI 1 Card -->
-          <div class="kpi-card search-target">
-            <div class="card-kicker-row">
-              <span class="card-badge">KPI 1</span>
-            </div>
-            <h3 style="font-family: var(--font-display); font-size: 20px; font-weight: 800; color: #161513; margin-bottom: 4px;">Gate Reception &amp; Triage Evaluation Ratio</h3>
-            <p style="font-size: 14px; font-weight: 600; color: var(--grey-500); margin-bottom: 12px;">Owner – Security Guard</p>
-
-            <div class="formula-banner">
-              <div class="formula-label">Formula</div>
-              <div class="formula-code">(a + b + c) / y</div>
-            </div>
-
-            <!-- KPI 1 Interactive Sandbox -->
-            <div class="formula-box">
-              <div class="fb-inputs-row">
-                <div class="fb-field">
-                  <label>a</label>
-                  <input type="number" id="in_a" value="12" oninput="evalKpi1()">
-                </div>
-                <div class="fb-field">
-                  <label>b</label>
-                  <input type="number" id="in_b" value="18" oninput="evalKpi1()">
-                </div>
-                <div class="fb-field">
-                  <label>c</label>
-                  <input type="number" id="in_c" value="30" oninput="evalKpi1()">
-                </div>
-                <div class="fb-field">
-                  <label>y</label>
-                  <input type="number" id="in_y" value="6" oninput="evalKpi1()">
-                </div>
-              </div>
-              <div class="fb-result">
-                <span class="fb-res-label">Result:</span>
-                <span class="fb-res-val" id="kpi1_val">10.00</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- KPI 2 Card -->
-          <div class="kpi-card search-target">
-            <div class="card-kicker-row">
-              <span class="card-badge">KPI 2</span>
-            </div>
-            <h3 style="font-family: var(--font-display); font-size: 20px; font-weight: 800; color: #161513; margin-bottom: 4px;">Welcome Greeting &amp; Hospitality Compliance</h3>
-            <p style="font-size: 14px; font-weight: 600; color: var(--grey-500); margin-bottom: 12px;">Owner – Hostess</p>
-
-            <div class="formula-banner">
-              <div class="formula-label">Formula</div>
-              <div class="formula-code">(x / y) * 100</div>
-            </div>
-
-            <!-- KPI 2 Interactive Sandbox -->
-            <div class="formula-box">
-              <div class="fb-inputs-row" style="grid-template-columns: 1fr 1fr;">
-                <div class="fb-field">
-                  <label>x</label>
-                  <input type="number" id="in_x" value="48" oninput="evalKpi2()">
-                </div>
-                <div class="fb-field">
-                  <label>y</label>
-                  <input type="number" id="in_y2" value="50" oninput="evalKpi2()">
-                </div>
-              </div>
-              <div class="fb-result">
-                <span class="fb-res-label">Result:</span>
-                <span class="fb-res-val" id="kpi2_val">96.00%</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
+    <!-- ============ CHAPTERS 1-2 (generated from JSW Sales SOP All Chapters.docx) ============ -->
+    <section class="chap" id="sec-foundations"><div class="chap-head reveal"><div class="ch-thumb" aria-hidden="true"></div><svg class="cover-grid" width="100%" height="100%" style="position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0.26;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#gridpat)"/></svg><div class="chap-num">CHAPTER 1 · SECTION 01</div><h2 class="sec-title">Lead Management</h2><div class="rule"></div></div><div class="prose reveal"><div class="sub-chap-bar"><span class="scb-badge">Overview</span></div><div class="pf-chip-rows"><div class="pf-chip-row"><span class="pf-row-label">Experience pillars</span><div class="role-chips"><span class="role-chip">Transparent</span><span class="role-chip">Tech-enabled</span><span class="role-chip">Peace of Mind</span><span class="role-chip">Community</span><span class="role-chip">Personalised</span><span class="role-chip">Larger than Life</span><span class="role-chip">Effortless</span><span class="role-chip">Non-intrusive</span></div></div><div class="pf-chip-row"><span class="pf-row-label">Roles</span><div class="role-chips"><span class="role-chip">Sales Consultant</span><span class="role-chip">Customer Relationship Executive</span></div></div></div><div class="bento-grid-2 pf-bento"><div class="jsw-card-clean search-target "><h3 class="card-title-lg">Purpose</h3><p class="pf-p">To standardise the flow of all types of enquiries coming to the dealership from various channels.</p></div><div class="jsw-card-clean search-target "><h3 class="card-title-lg">Benefit to Dealership</h3><ul class="pf-list"><li>No enquiry drop offs from OEM to call centre to dealership</li><li>Standardised information leading to efficient enquiry management</li><li>Timely appointment confirmation increases showroom visits</li></ul></div><div class="jsw-card-clean search-target "><h3 class="card-title-lg">Benefit to Customer</h3><ul class="pf-list"><li>Instant acknowledgement and personalized contact within minutes</li><li>A confirmed showroom visit or test drive slot</li><li>Customers easily transition into the physical journey</li></ul></div><div class="jsw-card-clean search-target "><h3 class="card-title-lg">JSW Motors Differentiator</h3><ul class="pf-list"><li>Profile builder</li></ul></div><div class="jsw-card-clean search-target pf-span2"><h3 class="card-title-lg">Lead sources</h3><div class="pf-field"><span class="pf-p">The enquiries can be classified into three high-level categories:</span></div><ul class="pf-list"><li>Digital</li><li>Physical</li><li>Telephonic</li></ul><p class="pf-p">These three category of leads flow to the JSW Motors dealership and are divided into fours sources:</p><ul class="pf-list"><li>SOURCE 1. Call centre qualified leads in DMS from JSW Motors</li><li>SOURCE 2. Experience centre leads in DMS</li><li>SOURCE 3. Direct to dealer website/ social/ event/ referral/ missed call leads</li><li>SOURCE 4. Dealer tele-in inbound call</li></ul></div></div></div></section>
+<section class="chap alt" id="process-flow"><div class="chap-head reveal"><div class="ch-thumb" aria-hidden="true"></div><svg class="cover-grid" width="100%" height="100%" style="position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0.26;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#gridpat)"/></svg><div class="chap-num">CHAPTER 1 · SECTION 02</div><h2 class="sec-title">Lead Management</h2><div class="rule"></div></div><div class="prose reveal"><div class="sub-chap-bar"><span class="scb-badge">Process Flow &amp; Standards</span></div><div class="pf-split" data-ch="1"><div class="pf-chart"><div class="pf-bar"><span class="pf-bar-title">Process Flow</span><span class="pf-bar-hint">Click on the steps for more details</span></div><div class="pf-chart-body"><div class="pf-flow" data-flow="1"><div class="pf-group-label">Lead sources</div><div class="pf-sources"><button type="button" class="pf-node " data-ch="1" data-card="c1-r0" aria-pressed="false"><span class="pf-no">Source 1</span><span class="pf-node-text">Call centre qualified leads in DMS from JSW Motors</span><span class="pf-who-tag">System</span></button><button type="button" class="pf-node " data-ch="1" data-card="c1-r1" aria-pressed="false"><span class="pf-no">Source 2</span><span class="pf-node-text">Experience centre leads in DMS</span><span class="pf-who-tag">System</span></button><button type="button" class="pf-node " data-ch="1" data-card="c1-r2" aria-pressed="false"><span class="pf-no">Source 3</span><span class="pf-node-text">Direct to dealer website/ social/ event/ referral/ missed call leads</span><span class="pf-who-tag">System</span></button><button type="button" class="pf-node " data-ch="1" data-card="c1-r3" aria-pressed="false"><span class="pf-no">Source 4</span><span class="pf-node-text">Dealer tele-in inbound call</span><span class="pf-who-tag">CRE</span></button></div><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="1" data-card="c1-r4" aria-pressed="false"><span class="pf-no">1</span><span class="pf-node-text">Outbound call within 30 mins</span><span class="pf-who-tag">CRE</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node pf-sub-step" data-ch="1" data-card="c1-r5" aria-pressed="false"><span class="pf-no">1.1</span><span class="pf-node-text">Follow-up cycle</span><span class="pf-who-tag">CRE</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node pf-sub-step" data-ch="1" data-card="c1-r6" aria-pressed="false"><span class="pf-no">1.2</span><span class="pf-node-text">If still no reply, mark it &#x27;Lost&#x27; with reason</span><span class="pf-who-tag">CRE</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node pf-sub-step" data-ch="1" data-card="c1-r7" aria-pressed="false"><span class="pf-no">2.1</span><span class="pf-node-text">Qualify the lead</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node pf-sub-step" data-ch="1" data-card="c1-r8" aria-pressed="false"><span class="pf-no">2.2</span><span class="pf-node-text">Assign to SC</span><span class="pf-who-tag">CRE</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="1" data-card="c1-r9" aria-pressed="false"><span class="pf-no">3</span><span class="pf-node-text">Outbound call within 1 hour</span><span class="pf-who-tag">Sales Consultant</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node pf-sub-step" data-ch="1" data-card="c1-r10" aria-pressed="false"><span class="pf-no">3.1</span><span class="pf-node-text">Follow-up cycle</span><span class="pf-who-tag">Sales Consultant</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node pf-sub-step" data-ch="1" data-card="c1-r11" aria-pressed="false"><span class="pf-no">3.2</span><span class="pf-node-text">If still no reply, mark it &#x27;Lost&#x27; with reason</span><span class="pf-who-tag">CRE</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="1" data-card="c1-r12" aria-pressed="false"><span class="pf-no">4</span><span class="pf-node-text">Invite for showroom visit or test drive</span><span class="pf-who-tag">Sales Consultant</span></button><div class="pf-link" aria-hidden="true"></div><div class="pf-ends"><div class="pf-end">Test drive: move to Chapter 4</div><div class="pf-end">Showroom walk-in: move to Chapter 2</div></div></div></div></div><aside class="pf-panel" aria-label="JSW Motors Process Standards"><div class="pf-bar pf-panel-bar"><span class="pf-bar-title">JSW Motors Process Standards</span><span class="pf-bar-actions"><button type="button" class="pf-showall">Show all</button><button type="button" class="pf-close" aria-label="Close standards panel">&times;</button></span></div><div class="pf-panel-body" aria-live="polite"><div class="pf-empty"><span class="pf-empty-ico" aria-hidden="true"></span><p>Select a step in the flowchart to see its standard here.</p></div><article class="pf-card search-target" id="c1-r0" hidden><header class="pf-card-head"><span class="pf-card-no">Source 1</span><h4>Call centre qualified leads in DMS from JSW Motors</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">System</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>JSW Motors receives leads from various physical and digital sources like:</li><li>JSW Motors website – Website/ CX app</li><li>Paid &amp; Organic Media &amp; QR Code - Meta &amp; Google Ads, Organic Search, Print Media and Events QR Code, Events and Community Registrations</li><li>Automotive Aggregators - Auto portal / others/ Used car</li><li>Central Call Centre – WhatsApp chatbot, tele-in, missed call, Tele out (Sales + Service + Campaign)</li><li>The call centre qualifies these leads and shares them with the dealer.</li><li>The qualified leads are visible to the CRE in DMS.</li><li>Leads carry name, phone number, vehicle interested, test drive interest and showroom visit interest.</li><li>It may also have some optional information in the lead’s profile builder based on the needs analysis questions asked by the call centre agent.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">DMS</span><span class="pf-chip">Profile builder</span></div></div></article><article class="pf-card search-target" id="c1-r1" hidden><header class="pf-card-head"><span class="pf-card-no">Source 2</span><h4>Experience centre leads in DMS</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">System</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>These are walk-in, digital and tele-in leads captured at the experience centre.</li><li>These leads flow into the dealer DMS with all details filled up.</li><li>These are warm leads and are prioritised in the assignment queue.</li><li>Most of the EC leads are received for enquiry or post booking.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">DMS</span></div></div></article><article class="pf-card search-target" id="c1-r2" hidden><header class="pf-card-head"><span class="pf-card-no">Source 3</span><h4>Direct to dealer website/ social/ event/ referral/ missed call leads</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">System</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>These are the digital or physical leads directly coming to the dealer from dealer’s website, social platforms or events.</li><li>All direct-to-dealer leads land in the same DMS queue, tagged by source.</li><li>Event and referral leads are uploaded the same day by CRE.</li><li>If dealer digital enquiry comes after business hours, WhatsApp message to be auto-triggered.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">DMS</span></div></div></article><article class="pf-card search-target" id="c1-r3" hidden><header class="pf-card-head"><span class="pf-card-no">Source 4</span><h4>Dealer tele-in inbound call</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">CRE</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>These are direct tele-in leads at the dealership.</li><li>Answer within three rings; never let an inbound call go to a missed call.</li><li>Greet with the JSW Motors standard opening and the CRE&#x27;s name.</li><li>Capture name, contact number, model of interest and how they heard of JSW Motors.</li><li>Create the lead in DMS while on the call and route it to Step 1.1.</li></ul><blockquote>&quot;Good morning, JSW Motors [Dealership Name], [CRE Name] speaking. How may I help you today?&quot;<br>(after the query) &quot;Certainly, sir/madam. May I have your name and the best number to reach you on? I&#x27;ll have our Sales Consultant, who knows the [model] best, call you back.&quot;</blockquote></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">DMS</span></div></div></article><article class="pf-card search-target" id="c1-r4" hidden><header class="pf-card-head"><span class="pf-card-no">1</span><h4>Outbound call within 30 mins</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">CRE</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>CRE calls every direct-to-dealer lead from SOURCE 3 within 30 minutes of it landing in the DMS.</li><li>If the customer is not connected, move to 1.1, else move to 2.1.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">DMS</span></div></div></article><article class="pf-card search-target" id="c1-r5" hidden><header class="pf-card-head"><span class="pf-card-no">1.1</span><h4>Follow-up cycle</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">CRE</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Do a follow-up call each day for 5 days.</li><li>Attempt contact at different times of day, not the same slot repeatedly.</li></ul><blockquote>&quot;Hello Mr/Mrs [Name], this is [Name] from JSW Motors. I tried reaching you about your enquiry for the [model]. Do let me know a good time to call - or simply reply here and I&#x27;ll share the details on WhatsApp. Thank you.&quot;</blockquote><ul><li>Send a WhatsApp follow-up after every unanswered call, so the customer has a number to call back on.</li><li>After each successful follow-up, update the following in SC app:</li></ul><p class="pf-sub">1. Follow-up type done → (a) Showroom Visit (Y/N) (b) Test Drive Scheduled (Y/N) (c) Call (Y/N) (d) Home Visit (Y/N)</p><p class="pf-sub">2. Category → (a) Interested (b) Not interested (c) Not sure (d) No response</p><p class="pf-sub">3. Remarks (blank space to be filled)</p><p class="pf-sub">4. Next Action (same fields as follow-up type &amp; date)</p><p class="pf-sub">5. Likely Purchase timeline</p></div></div></article><article class="pf-card search-target" id="c1-r6" hidden><header class="pf-card-head"><span class="pf-card-no">1.2</span><h4>If still no reply, mark it &#x27;Lost&#x27; with reason</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">CRE</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>If after 15 days, enquiry is non-contactable, mark this enquiry as &quot;Lost&quot;.</li><li>A reason is mandatory - no lead must be closed as a blank &#x27;Lost&#x27;.</li></ul></div></div></article><article class="pf-card search-target" id="c1-r7" hidden><header class="pf-card-head"><span class="pf-card-no">2.1</span><h4>Qualify the lead</h4></header><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Confirm name, model of interest, city and preferred time to visit:</li></ul><blockquote>&quot;Good morning, am I speaking with Mr/Mrs [Name]? This is [CRE Name] from JSW Motors, [Dealership Name]. You enquired about the [model] a few minutes ago. May I take two minutes to understand what you&#x27;re looking for, so I can connect you to the right person?&quot;</blockquote><ul><li>Capture details in profile builder.</li></ul></div></div></article><article class="pf-card search-target" id="c1-r8" hidden><header class="pf-card-head"><span class="pf-card-no">2.2</span><h4>Assign to SC</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">CRE</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Hand the qualified lead to the Sales Consultant.</li><li>Check the SCs available as per their calendar in the app.</li><li>Assign the enquiry to the available SC.</li></ul><p class="pf-note">If enquiries are not assigned to SC for 30 minutes since receipt in DMS, they will be &quot;Auto escalated&quot; to CRM. Parallelly, a common ‘unassigned enquiry’ pool is created with visibility to all SCs to choose from. A capping (configurable) of maximum 3 enquiries per day can be picked up from this unassigned enquiry pool.</p></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">App</span></div></div></article><article class="pf-card search-target" id="c1-r9" hidden><header class="pf-card-head"><span class="pf-card-no">3</span><h4>Outbound call within 1 hour</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">Sales Consultant</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Call within 1 hour of assignment.</li><li>Before calling, understand the needs from the profile builder - usage, family, current car, timeline, exchange and finance intent.</li><li>If customer is contacted, proceed to step 4, else move to step 3.1.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">SC App</span></div></div></article><article class="pf-card search-target" id="c1-r10" hidden><header class="pf-card-head"><span class="pf-card-no">3.1</span><h4>Follow-up cycle</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">Sales Consultant</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>1st SC: Do a follow-up call each day for 5 days.</li><li>Attempt contact at different times of day, not the same slot repeatedly.</li></ul><blockquote>&quot;Hello Mr/Mrs [Name], this is [SC Name] from JSW Motors. I tried reaching you about your enquiry for the [model]. Do let me know a good time to call - or simply reply here and I&#x27;ll share the details on WhatsApp. Thank you.&quot;</blockquote><ul><li>Send a WhatsApp follow-up after every unanswered call, so the customer has a number to call back on.</li><li>After each successful follow-up, update the following in SC app:</li></ul><p class="pf-sub">1. Follow-up type done → (a) Showroom Visit (Y/N) (b) Test Drive Scheduled (Y/N) (c) Call (Y/N) (d) Home Visit (Y/N)</p><p class="pf-sub">2. Category → (a) Interested (b) Not interested (c) Not sure (d) No response</p><p class="pf-sub">3. Remarks (blank space to be filled)</p><p class="pf-sub">4. Next Action (same fields as follow-up type &amp; date)</p><p class="pf-sub">5. Likely Purchase timeline</p><ul><li>If non-contactable for 5 days, mark &quot;Closed&quot; in SC App against the enquiry.</li><li>This “Closed” Enquiry comes to Dealer CRE queue.</li><li>Dealer CRE calls “Closed” enquiry.</li><li>If contacted, CRE reassigns to 2nd SC; repeat the above cycle.</li><li>Only 2 SCs can be assigned by CRE to an enquiry.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">SC App</span></div></div></article><article class="pf-card search-target" id="c1-r11" hidden><header class="pf-card-head"><span class="pf-card-no">3.2</span><h4>If still no reply, mark it &#x27;Lost&#x27; with reason</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">CRE</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>If after 15 days, enquiry is non-contactable, mark this enquiry as &quot;Lost&quot;.</li><li>A reason is mandatory - no lead must be closed as a blank &#x27;Lost&#x27;.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">DMS lost-reason</span><span class="pf-chip">SC App</span></div></div></article><article class="pf-card search-target" id="c1-r12" hidden><header class="pf-card-head"><span class="pf-card-no">4</span><h4>Invite for showroom visit or test drive</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">Sales Consultant</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Understand the customer’s needs and respond to their queries.</li><li>Complete the profile builder in SC app as per the conversation with the customer.</li><li>Close the call with a specific invitation of either a test drive or a showroom visit:</li></ul><blockquote>&quot;Based on what you&#x27;ve told me, I think the [model] is worth 30 minutes of your time. Would [MENTION DATE AND TIME] suit you for a test drive? I&#x27;ll keep the car ready and be there myself to receive you.&quot;</blockquote><ul><li>For test drive, move to chapter 4, else for showroom walk-in, move to chapter 2.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">SFDC</span><span class="pf-chip">SC App</span></div></div></article></div></aside></div></div></section>
+<section class="chap alt" id="sec-metrics"><div class="chap-head reveal"><div class="ch-thumb" aria-hidden="true"></div><svg class="cover-grid" width="100%" height="100%" style="position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0.26;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#gridpat)"/></svg><div class="chap-num">CHAPTER 1 · SECTION 03</div><h2 class="sec-title">Lead Management</h2><div class="rule"></div></div><div class="prose reveal"><div class="sub-chap-bar"><span class="scb-badge">Success Metrics</span></div><p class="pf-owner-line">KPI Owner: CRE</p><div class="kpi-bento pf-kpis"><div class="kpi-card search-target"><div class="card-kicker-row"><span class="card-badge">KPI 1</span></div><h3 class="pf-kpi-title">Lead Assignment to SC TAT</h3><div class="pf-field"><span class="pf-label">What it measures</span><p class="pf-p">How long a lead sits without an owner</p></div><div class="pf-field"><span class="pf-label">Formula</span><div class="pf-formula"><span class="pf-f-l">Lead assignment to SC TAT =</span><span class="pf-f-t">Average minutes between lead shared with dealer and SC assignment</span></div></div></div><div class="kpi-card search-target"><div class="card-kicker-row"><span class="card-badge">KPI 2</span></div><h3 class="pf-kpi-title">Lead Contact by CRE TAT</h3><div class="pf-field"><span class="pf-label">What it measures</span><p class="pf-p">Whether the 30-minute first-call standard is actually met</p></div><div class="pf-field"><span class="pf-label">Formula</span><div class="pf-formula"><span class="pf-f-l">Lead contact by CRE TAT =</span><span class="pf-frac"><span class="pf-num">Leads contacted within 30 mins of recieving in DMS</span><span class="pf-den">Total leads recieved in DMS</span></span><span class="pf-f-x">&times; 100</span></div></div></div><div class="kpi-card search-target"><div class="card-kicker-row"><span class="card-badge">KPI 3</span></div><h3 class="pf-kpi-title">Lead Contact by SC TAT</h3><div class="pf-field"><span class="pf-label">What it measures</span><p class="pf-p">Whether the 1 hour first-call standard is actually met</p></div><div class="pf-field"><span class="pf-label">Formula</span><div class="pf-formula"><span class="pf-f-l">Lead contact by SC TAT =</span><span class="pf-frac"><span class="pf-num">Leads contacted within 1 hr of recieving in SC app</span><span class="pf-den">Total leads recieved in SC app</span></span><span class="pf-f-x">&times; 100</span></div></div></div></div></div></section>
+<section class="chap" id="sec-foundations-2"><div class="chap-head reveal"><div class="ch-thumb" aria-hidden="true"></div><svg class="cover-grid" width="100%" height="100%" style="position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0.26;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#gridpat)"/></svg><div class="chap-num">CHAPTER 2 · SECTION 01</div><h2 class="sec-title">Welcome and Hospitality</h2><div class="rule"></div></div><div class="prose reveal"><div class="sub-chap-bar"><span class="scb-badge">Overview</span></div><div class="pf-chip-rows"><div class="pf-chip-row"><span class="pf-row-label">Experience pillars</span><div class="role-chips"><span class="role-chip">Tech-enabled</span><span class="role-chip">Peace of Mind</span><span class="role-chip">Effortless</span></div></div><div class="pf-chip-row"><span class="pf-row-label">Roles</span><div class="role-chips"><span class="role-chip">Valet</span><span class="role-chip">Driver</span><span class="role-chip">Security Guard</span><span class="role-chip">Hostess</span></div></div></div><div class="bento-grid-2 pf-bento"><div class="jsw-card-clean search-target "><h3 class="card-title-lg">Purpose</h3><p class="pf-p">Deliver a welcoming first interaction that builds trust and foundation for positive relationship</p></div><div class="jsw-card-clean search-target "><h3 class="card-title-lg">Benefit to Dealership</h3><ul class="pf-list"><li>Smooth guided transition into the showroom</li><li>Accurate lead data recorded at source enabling better lead management</li></ul></div><div class="jsw-card-clean search-target "><h3 class="card-title-lg">Benefit to Customer</h3><ul class="pf-list"><li>Convenient valet parking and vehicle handling from arrival to departure</li><li>Warm welcome and minimal wait-time at comfortable lounge</li><li>Profile verification ensuring personalized assistance matching customer preferences</li></ul></div><div class="jsw-card-clean search-target "><h3 class="card-title-lg">JSW Motors Differentiator</h3><ul class="pf-list"><li>Profile builder via QR code scanning</li></ul></div><div class="jsw-card-clean search-target pf-span2"><h3 class="card-title-lg">Checklists</h3><div class="pf-dl"><a class="checklist-dl-row" href="assets/checklists/JSW_APEX_Checklist_01_Security_Gate_Arrival_Triage.docx" download="JSW_APEX_Checklist_01_Security_Gate_Arrival_Triage.docx"><span><strong>Checklist 1</strong> Security gate arrival triage</span><span class="checklist-badge">DOCX &darr;</span></a><a class="checklist-dl-row" href="assets/checklists/JSW_APEX_Checklist_02_Hostess_Greeting_Lounge_Hospitality.docx" download="JSW_APEX_Checklist_02_Hostess_Greeting_Lounge_Hospitality.docx"><span><strong>Checklist 2</strong> Hostess greeting and lounge hospitality</span><span class="checklist-badge">DOCX &darr;</span></a><a class="checklist-dl-row" href="assets/checklists/JSW_APEX_Checklist_03_Consultant_Briefing_Handoff_Audit.docx" download="JSW_APEX_Checklist_03_Consultant_Briefing_Handoff_Audit.docx"><span><strong>Checklist 3</strong> Consultant briefing and handoff audit</span><span class="checklist-badge">DOCX &darr;</span></a></div></div></div></div></section>
+<section class="chap alt" id="process-flow-2"><div class="chap-head reveal"><div class="ch-thumb" aria-hidden="true"></div><svg class="cover-grid" width="100%" height="100%" style="position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0.26;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#gridpat)"/></svg><div class="chap-num">CHAPTER 2 · SECTION 02</div><h2 class="sec-title">Welcome and Hospitality</h2><div class="rule"></div></div><div class="prose reveal"><div class="sub-chap-bar"><span class="scb-badge">Process Flow &amp; Standards</span></div><div class="pf-split" data-ch="2"><div class="pf-chart"><div class="pf-bar"><span class="pf-bar-title">Process Flow</span><span class="pf-bar-hint">Click on the steps for more details</span></div><div class="pf-tabs" role="tablist" aria-label="Process flows"><button type="button" role="tab" class="pf-tab is-on" data-flow="a" aria-selected="true"><span class="pf-tab-k">Process Flow 1</span><span class="pf-tab-t">Arrival in the Dealership Premises</span></button><button type="button" role="tab" class="pf-tab" data-flow="b" aria-selected="false"><span class="pf-tab-k">Process Flow 2</span><span class="pf-tab-t">Welcome in the Showroom</span></button></div><div class="pf-chart-body"><div class="pf-flow" data-flow="a"><div class="pf-start">Physical journey starts: customer arrives in the dealership premises</div><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-a0" aria-pressed="false"><span class="pf-no">1</span><span class="pf-node-text">Spot the incoming vehicle or walk-in customer</span><span class="pf-who-tag">Valet Driver</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-a1" aria-pressed="false"><span class="pf-no">2</span><span class="pf-node-text">Greet the customer with a smile and eye contact</span><span class="pf-who-tag">Valet Driver</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-a2" aria-pressed="false"><span class="pf-no">3</span><span class="pf-node-text">Note down the vehicle number in the vehicle entry register</span><span class="pf-who-tag">Valet Driver</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-decision" data-ch="2" data-card="c2-a3" aria-pressed="false"><span class="pf-dia" aria-hidden="true"></span><span>Interested in valet service?</span></button><div class="pf-link" aria-hidden="true"></div><div class="pf-branches"><div class="pf-branch pf-no-br"><span class="pf-br-tag">No</span><button type="button" class="pf-node " data-ch="2" data-card="c2-a4" aria-pressed="false"><span class="pf-no">3.1</span><span class="pf-node-text">Guide the customer to the designated customer parking space</span><span class="pf-who-tag">Valet Driver</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-a8" aria-pressed="false"><span class="pf-no">3.3</span><span class="pf-node-text">Guide the customer to the showroom entrance</span><span class="pf-who-tag">Valet Driver</span></button></div><div class="pf-branch pf-yes-br"><span class="pf-br-tag">Yes</span><button type="button" class="pf-node " data-ch="2" data-card="c2-a5" aria-pressed="false"><span class="pf-no">3.2</span><span class="pf-node-text">Open the door and take car keys</span><span class="pf-who-tag">Valet Driver</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-a6" aria-pressed="false"><span class="pf-no">3.2.1</span><span class="pf-node-text">Check for customer’s belonging in their presence</span><span class="pf-who-tag">Valet Driver</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-a7" aria-pressed="false"><span class="pf-no">3.2.2</span><span class="pf-node-text">Share the valet ticket and confirm the vehicle return process</span><span class="pf-who-tag">Valet Driver</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-a8" aria-pressed="false"><span class="pf-no">3.3</span><span class="pf-node-text">Guide the customer to the showroom entrance</span><span class="pf-who-tag">Valet Driver</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-a7" aria-pressed="false"><span class="pf-no">3.3.1</span><span class="pf-node-text">Park the vehicle in designated parking area</span><span class="pf-who-tag">Valet Driver</span></button></div></div><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node pf-grey" data-ch="2" data-card="c2-a9" aria-pressed="false"><span class="pf-no">4</span><span class="pf-node-text">Welcome the customer and open the showroom door</span><span class="pf-who-tag">Security Guard</span></button></div><div class="pf-flow" data-flow="b" hidden><button type="button" class="pf-node pf-grey" data-ch="2" data-card="c2-a9" aria-pressed="false"><span class="pf-no">4</span><span class="pf-node-text">Greet the customer and open the showroom door</span><span class="pf-who-tag">Security Guard</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-b0" aria-pressed="false"><span class="pf-no">5</span><span class="pf-node-text">Welcome the incoming customer and introduce yourself</span><span class="pf-who-tag">Hostess</span></button><div class="pf-link pf-link-dash" aria-hidden="true"></div><button type="button" class="pf-node pf-system" data-ch="2" data-card="c2-b10" aria-pressed="false"><span class="pf-no">11</span><span class="pf-node-text">Showroom feedback is auto-triggered</span><span class="pf-who-tag">System</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-b1" aria-pressed="false"><span class="pf-no">6</span><span class="pf-node-text">Request the customer to scan the QR code and confirm their vehicle of interest</span><span class="pf-who-tag">Hostess</span><span class="pf-star" title="JSW Motors Differentiator" role="img" aria-label="JSW Motors Differentiator">&#9733;</span></button><div class="pf-link" aria-hidden="true"></div><div class="pf-decision pf-static"><span class="pf-dia" aria-hidden="true"></span><span>Customer scans QR code?</span></div><div class="pf-link" aria-hidden="true"></div><div class="pf-branches"><div class="pf-branch pf-no-br"><span class="pf-br-tag">No</span><button type="button" class="pf-node " data-ch="2" data-card="c2-b2" aria-pressed="false"><span class="pf-no">6.1</span><span class="pf-node-text">Manually fill the enquiry form</span><span class="pf-who-tag">Hostess</span></button></div><div class="pf-branch pf-yes-br"><span class="pf-br-tag">Yes</span><div class="pf-skip" aria-hidden="true"></div></div></div><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-b3" aria-pressed="false"><span class="pf-no">6.2</span><span class="pf-node-text">Walk the customer to the lounge and offer seating</span><span class="pf-who-tag">Hostess</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-b4" aria-pressed="false"><span class="pf-no">7</span><span class="pf-node-text">Share the menu card and confirm choice of beverage</span><span class="pf-who-tag">Hostess</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-b5" aria-pressed="false"><span class="pf-no">8</span><span class="pf-node-text">Request the pantry staff to serve beverage as per customer’s preference, ensuring it’s served on time</span><span class="pf-who-tag">Hostess</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-b6" aria-pressed="false"><span class="pf-no">9</span><span class="pf-node-text">Inform the customer that sales consultant will join them shortly</span><span class="pf-who-tag">Hostess</span></button><div class="pf-link" aria-hidden="true"></div><button type="button" class="pf-node " data-ch="2" data-card="c2-b7" aria-pressed="false"><span class="pf-no">10</span><span class="pf-node-text">Check the Sales Consultant’s availability on the floor and on the app</span><span class="pf-who-tag">Hostess</span></button><div class="pf-link" aria-hidden="true"></div><div class="pf-decision pf-static"><span class="pf-dia" aria-hidden="true"></span><span>Is the Sales Consultant available?</span></div><div class="pf-link" aria-hidden="true"></div><div class="pf-branches"><div class="pf-branch pf-yes-br"><span class="pf-br-tag">Yes</span><button type="button" class="pf-node " data-ch="2" data-card="c2-b8" aria-pressed="false"><span class="pf-no">10.1</span><span class="pf-node-text">Handover customer details to the SC and assign them the enquiry on the app</span><span class="pf-who-tag">Hostess</span></button></div><div class="pf-branch pf-no-br"><span class="pf-br-tag">No</span><button type="button" class="pf-node " data-ch="2" data-card="c2-b9" aria-pressed="false"><span class="pf-no">10.2</span><span class="pf-node-text">Communicate SC availability timeline to the customer</span><span class="pf-who-tag">Hostess</span></button></div></div><div class="pf-link" aria-hidden="true"></div><div class="pf-end pf-end-wide">Move to Chapter 3 Needs Analysis and Product Demo</div></div></div></div><aside class="pf-panel" aria-label="JSW Motors Process Standards"><div class="pf-bar pf-panel-bar"><span class="pf-bar-title">JSW Motors Process Standards</span><span class="pf-bar-actions"><button type="button" class="pf-showall">Show all</button><button type="button" class="pf-close" aria-label="Close standards panel">&times;</button></span></div><div class="pf-panel-body" aria-live="polite"><div class="pf-empty"><span class="pf-empty-ico" aria-hidden="true"></span><p>Select a step in the flowchart to see its standard here.</p></div><article class="pf-card search-target" id="c2-a0" hidden><header class="pf-card-head"><span class="pf-card-no">1</span><h4>Spot the incoming vehicle or walk-in customer</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">Valet-in charge</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><p class="pf-note">Always be stationed at the dealership premise entrance.</p><ul><li>Responsibilities: valet desk management, vehicle registration, key and driver management.</li><li>Spot the incoming vehicle or walk-in customer proactively.</li><li>If the customer is interested in valet service, move to 2.1, else move to 2.2.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">Vehicle entry register</span></div></div></article><article class="pf-card search-target" id="c2-a1" hidden><header class="pf-card-head"><span class="pf-card-no">2</span><h4>Greet the customer with a smile and eye contact</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">Valet-in charge</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Welcome the customer with a smile and eye contact.</li></ul></div></div></article><article class="pf-card search-target" id="c2-a2" hidden><header class="pf-card-head"><span class="pf-card-no">3</span><h4>Note down the vehicle number in vehicle entry register</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">Valet-in charge</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Note down the vehicle number in vehicle entry register.</li></ul></div></div></article><article class="pf-card search-target" id="c2-a3" hidden><header class="pf-card-head"><h4>Customer interested in Valet Service</h4></header><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Offer valet service to every customer arriving by vehicle.</li></ul></div></div></article><article class="pf-card search-target" id="c2-a4" hidden><header class="pf-card-head"><span class="pf-card-no">3.1</span><h4>No: Guide to parking area</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">Valet-in charge</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Guide customer to the designated visitor parking area.</li></ul></div></div></article><article class="pf-card search-target" id="c2-a5" hidden><header class="pf-card-head"><span class="pf-card-no">3.2</span><h4>Yes:</h4></header><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Open the vehicle door for the customer and family/friends and accept the vehicle keys.</li></ul></div></div></article><article class="pf-card search-target" id="c2-a6" hidden><header class="pf-card-head"><span class="pf-card-no">3.2.1</span><h4>Check for customer’s belonging in their presence</h4></header><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Check customer’s belongings in the car in customer’s presence.</li></ul></div></div></article><article class="pf-card search-target" id="c2-a7" hidden><header class="pf-card-head"><span class="pf-card-no">3.2.2</span><h4>Share the valet ticket and confirm the vehicle return process</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">Driver</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Confirm that the customer can return the token to him to get the vehicle back.</li><li>Share the valet token with the customer.</li><li>Park the vehicle in the designated visitor parking area.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">Valet token</span></div></div></article><article class="pf-card search-target" id="c2-a8" hidden><header class="pf-card-head"><span class="pf-card-no">3.3</span><h4>Guide the customer to showroom entrance</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">Valet-in charge</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Guide the customer towards the showroom entrance.</li></ul></div></div></article><article class="pf-card search-target" id="c2-a9" hidden><header class="pf-card-head"><span class="pf-card-no">4</span><h4>Welcome the customer and open the showroom door</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">Security Guard</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><p class="pf-note">Always be stationed at the showroom entrance.</p><ul><li>Open the showroom door for all customers.</li><li>Acknowledge the customer as soon as they enter the showroom, with a smile and eye contact.</li></ul></div></div></article><article class="pf-card search-target" id="c2-b0" hidden><header class="pf-card-head"><span class="pf-card-no">5</span><h4>Welcome the customer and introduce yourself</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">HS</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Spot the entering customer and introduce yourself by name:</li></ul><blockquote>“Hello sir/madam, Welcome to JSW Motors! I am [Hostess Name], your Hostess for the day. It is wonderful to have you here. Could you please share your phone number with me? This helps us ensure our team has all the details to make your JSW Motors journey effortless.”</blockquote></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">Tablet</span><span class="pf-chip">Hostess app</span><span class="pf-chip">QR Code</span></div></div></article><article class="pf-card search-target" id="c2-b1" hidden><header class="pf-card-head"><span class="pf-card-no">6</span><h4>Request the customer to scan QR Code and confirm their vehicle of interest</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">HS</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Request the customer to scan the QR code and fill their name and phone number. For existing customer, pre-filled details will be visible. Once the QR form is submitted by the customer, the enquiry is visible in hostess tab.</li><li>Using your tablet or phone, on the hostess app, verify the customer’s vehicle of interest.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">Appointment Recognition Moment Script</span></div></div></article><article class="pf-card search-target" id="c2-b2" hidden><header class="pf-card-head"><span class="pf-card-no">6.1</span><h4>No</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">HS</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>If the customer does not scan the QR code, create the lead manually by entering the customer’s name and phone number in the hostess app.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">Tablet</span><span class="pf-chip">Hostess App</span></div></div></article><article class="pf-card search-target" id="c2-b3" hidden><header class="pf-card-head"><span class="pf-card-no">6.2</span><h4>Yes: Walk the customer to the lounge and offer seating</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">HS</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Personally walk the customer to the seating lounge and offer seating.</li><li>Proactively request the pantry staff to serve drinking water.</li><li>Ensure that the pantry staff serves water in sealed glass bottles instead of plastic bottles to align with the brand’s sustainability DNA.</li></ul></div></div></article><article class="pf-card search-target" id="c2-b4" hidden><header class="pf-card-head"><span class="pf-card-no">7</span><h4>Share the menu card and confirm the choice of beverage</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">HS</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Share the menu card with the customer and confirm their choice of beverage:</li></ul><blockquote>&quot;Here&#x27;s our beverage menu, sir/madam. Please let me know what we can serve you today. We&#x27;ll have it ready in a few minutes.&quot;</blockquote></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">Menu Card</span><span class="pf-chip">F&amp;B Checklist</span></div></div></article><article class="pf-card search-target" id="c2-b5" hidden><header class="pf-card-head"><span class="pf-card-no">8</span><h4>Request the pantry staff to serve the beverage as per customer’s preference, ensuring its served on time</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">HS</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Ensure that the pantry staff serves the beverage only in JSW Motors branded high-quality crockery.</li><li>Inform the pantry staff about the customer’s choice of beverage</li></ul></div></div></article><article class="pf-card search-target" id="c2-b6" hidden><header class="pf-card-head"><span class="pf-card-no">9</span><h4>Inform the customer that sales consultant will join them shortly</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">HS</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Inform the customer that a Sales Consultant will join them shortly and, in the meanwhile, they may engage with the brochures and reading material available in the seating lounge.</li></ul><blockquote>&quot;Your Sales Consultant will join you shortly. In the meantime, do make yourself comfortable. There are brochures and reading material on the table.&quot;</blockquote><ul><li>Ensure that the pantry staff serves beverages on time without keeping customers waiting for long.</li></ul></div></div></article><article class="pf-card search-target" id="c2-b7" hidden><header class="pf-card-head"><span class="pf-card-no">10</span><h4>Check the sales consultant’s availability on the floor and on the app</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">HS</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Check Sales Consultant availability on the floor and on the app. Available time slots without any prior comitement of appointment or test drive will be visible on the hostess app.</li></ul></div></div></article><article class="pf-card search-target" id="c2-b8" hidden><header class="pf-card-head"><span class="pf-card-no">10.1</span><h4>Yes: Hand over the customer’s details to the SC and assign them the enquiry on the app</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">HS</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>While the customer is seated in the lounge, walk up to the available SC and inform them about the customer.</li><li>Based on their availability, assign them the lead on the app and block their calendar.</li><li>Handover the basic details like name, time when they arrived, what refreshements they were offered, and their vehicle of interest.</li></ul><blockquote>&quot;[SC Name], you have a customer waiting. Mr/Mrs [Customer Name] walked in at [time] and is seated in the lounge at [seat/table number]. Their vehicle of interest is [model name]. [Appointment customer: this is the appointment booked for [time].] [Walk-in: this is a walk-in, no prior appointment.] They&#x27;re accompanied by [number] guests. Please do join them - I&#x27;ve told them you&#x27;ll be with them shortly and in the meanwhile served them a cold drink as they especially requested for it due to the heat today.&quot;</blockquote></div></div></article><article class="pf-card search-target" id="c2-b9" hidden><header class="pf-card-head"><span class="pf-card-no">10.2</span><h4>Communicate SC availability timeline to the customer</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">HS</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Proactively communicate the SC wait time to the customer.</li><li>If all the SCs are unavailable beyond the committed window, the Team Lead followed by the Sales Manager must engage with the customer.</li></ul></div></div></article><article class="pf-card search-target" id="c2-b10" hidden><header class="pf-card-head"><span class="pf-card-no">11</span><h4>Showroom feedback is auto-triggered</h4></header><div class="pf-field"><span class="pf-label">Who</span><span class="pf-who">SFDC/ Call Centre Agent</span></div><div class="pf-field"><span class="pf-label">How</span><div class="pf-how"><ul><li>Feedback is triggered automatically at the correct TAT based on the customer&#x27;s journey.</li><li>Trigger 1 of Voice to Text WhatsApp feedback:</li><li>4 hours after submitting QR code form at showroom visit without test drive</li><li>1 hour after TD ends OTP verification</li><li>If no response on trigger 1, trigger 2 of star rating feedback link sent on WhatsApp and Email:</li><li>16 hours after showroom visit without test drive</li><li>13 hours after TD ends OTP verification</li><li>If no response on trigger 2, trigger 3 of call centre calling the customer for feedback collection:</li><li>40 hours after showroom visit without test drive</li><li>37 hours after TD ends OTP verification</li><li>The feeback loop closes when the response is received on any one of the above feedback triggers.</li><li>Trigger 3 is the last follow up for feedback.</li><li>In case, the customer visits multiple times, feedback is triggered only for the first visit.</li></ul></div></div><div class="pf-field"><span class="pf-label">Enabler</span><div class="pf-chips"><span class="pf-chip">Showroom feedback questions</span></div></div></article></div></aside></div></div></section>
+<section class="chap alt" id="sec-metrics-2"><div class="chap-head reveal"><div class="ch-thumb" aria-hidden="true"></div><svg class="cover-grid" width="100%" height="100%" style="position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0.26;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#gridpat)"/></svg><div class="chap-num">CHAPTER 2 · SECTION 03</div><h2 class="sec-title">Welcome and Hospitality</h2><div class="rule"></div></div><div class="prose reveal"><div class="sub-chap-bar"><span class="scb-badge">Success Metrics</span></div><p class="pf-owner-line">KPI Owner – Hostess</p><div class="kpi-bento pf-kpis"><div class="kpi-card search-target"><div class="card-kicker-row"><span class="card-badge">KPI 1</span></div><h3 class="pf-kpi-title">Lead handover TAT</h3><div class="pf-field"><span class="pf-label">What it measures</span><p class="pf-p">Time from lead creation or walk-in till time to assign a Sales Consultant</p></div></div><div class="kpi-card search-target"><div class="card-kicker-row"><span class="card-badge">KPI 2</span></div><h3 class="pf-kpi-title">Showroom experience / SSI</h3></div></div></div></section>
 
     <!-- ============ FOOTER ============ -->
 
@@ -7255,79 +6993,129 @@ button:active:not([disabled]),
       }
     }, { passive: true });
 
-    // 3. Process Flowchart Step Filter Engine
-    // Strictly fulfills comment:
-    // "Soham, as we click on each step from the flowchart, the table below should open up. Only the particular step row should open, not all steps.
-    // Eg Click on Step 1 from flowchart - step 1 row from the table below opens.
-    // Click on step 2 from the flowchart - step 1 row disappears and step 2 row opens."
-    window.flowClickStep = function(stepNum) {
-      for (var i = 1; i <= 4; i++) {
-        var card = document.getElementById('node-step-' + i);
-        var pulse = document.getElementById('pulse-' + i);
-        var btn = document.getElementById('btnFilter' + i);
-        if (card) card.classList.toggle('is-active', i === stepNum);
-        if (pulse) pulse.style.display = (i === stepNum ? 'inline-flex' : 'none');
-        if (btn) btn.classList.toggle('active', i === stepNum);
+    // 3. Process flowchart + standards panel (split view; bottom sheet on phones)
+    (function() {
+      var mq = window.matchMedia('(max-width: 959px)');
+      var lastTrigger = null;
+
+      function splitOf(el) { return el.closest('.pf-split'); }
+      function sheetOpen() { return document.querySelector('.pf-panel.is-open'); }
+
+      function markNodes(sp, cardId) {
+        sp.querySelectorAll('[data-card]').forEach(function(n) {
+          var on = !!cardId && n.getAttribute('data-card') === cardId;
+          n.classList.toggle('is-active', on);
+          n.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
       }
-      var btnAll = document.getElementById('btnFilterAll');
-      if (btnAll) btnAll.classList.remove('active');
 
-      var roles = { 1: 'Sales Manager', 2: 'Hostess', 3: 'Sales Consultant', 4: 'Sales Consultant' };
-      var sfbBadge = document.getElementById('sfbBadge');
-      var sfbText = document.getElementById('sfbText');
-      if (sfbBadge) sfbBadge.textContent = 'STEP ' + stepNum + ' EXCLUSIVE';
-      if (sfbText) sfbText.textContent = roles[stepNum] || ('Step ' + stepNum);
+      function showCards(sp, ids) {
+        var shown = 0;
+        sp.querySelectorAll('.pf-card').forEach(function(c) {
+          var on = ids === 'all' || ids.indexOf(c.id) !== -1;
+          c.hidden = !on;
+          if (on) shown++;
+        });
+        var empty = sp.querySelector('.pf-empty');
+        if (empty) empty.hidden = shown > 0;
+        sp.querySelector('.pf-panel-body').scrollTop = 0;
+      }
 
-      var rows = document.querySelectorAll('#standardsTable tbody tr');
-      rows.forEach(function(row) {
-        var rowStep = parseInt(row.getAttribute('data-step'), 10);
-        if (rowStep === stepNum) {
-          row.style.display = '';
-          row.classList.add('active-row');
-        } else {
-          row.style.display = 'none';
-          row.classList.remove('active-row');
+      function openSheet(sp) {
+        if (!mq.matches) return;
+        var panel = sp.querySelector('.pf-panel');
+        panel.classList.add('is-open');
+        document.body.classList.add('pf-lock');
+        var cl = panel.querySelector('.pf-close');
+        if (cl) cl.focus({ preventScroll: true });
+      }
+
+      function closeSheet(restore) {
+        var p = sheetOpen();
+        if (p) p.classList.remove('is-open');
+        document.body.classList.remove('pf-lock');
+        if (restore && lastTrigger) { try { lastTrigger.focus({ preventScroll: true }); } catch (e) {} }
+      }
+
+      function select(trigger) {
+        var sp = splitOf(trigger);
+        var id = trigger.getAttribute('data-card');
+        lastTrigger = trigger;
+        markNodes(sp, id);
+        showCards(sp, [id]);
+        sp.classList.remove('is-all');
+        openSheet(sp);
+      }
+
+      function showAll(btn) {
+        var sp = splitOf(btn);
+        lastTrigger = btn;
+        markNodes(sp, null);
+        showCards(sp, 'all');
+        sp.classList.add('is-all');
+        openSheet(sp);
+      }
+
+      function reset(sp) {
+        markNodes(sp, null);
+        showCards(sp, []);
+        sp.classList.remove('is-all');
+      }
+
+      function switchFlow(tab) {
+        var sp = splitOf(tab);
+        var fid = tab.getAttribute('data-flow');
+        sp.querySelectorAll('.pf-tab').forEach(function(t) {
+          var on = t === tab;
+          t.classList.toggle('is-on', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        sp.querySelectorAll('.pf-flow').forEach(function(f) { f.hidden = f.getAttribute('data-flow') !== fid; });
+        reset(sp);
+      }
+
+      document.addEventListener('click', function(e) {
+        var t = e.target.closest ? e.target.closest('.pf-node[data-card], .pf-decision[data-card], .pf-showall, .pf-close, .pf-tab') : null;
+        if (!t) {
+          if (sheetOpen() && !e.target.closest('.pf-panel')) closeSheet(true);
+          return;
         }
+        if (t.classList.contains('pf-close')) {
+          if (mq.matches) closeSheet(true); else reset(splitOf(t));
+          return;
+        }
+        if (t.classList.contains('pf-tab')) { switchFlow(t); return; }
+        if (t.classList.contains('pf-showall')) { showAll(t); return; }
+        select(t);
       });
 
-      var sec = document.getElementById('sec-standards');
-      if (sec) {
-        var rect = sec.getBoundingClientRect();
-        if (rect.top < 80 || rect.bottom > window.innerHeight) {
-          sec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }
-    };
-
-    window.showAllTableSteps = function() {
-      for (var i = 1; i <= 4; i++) {
-        var card = document.getElementById('node-step-' + i);
-        var pulse = document.getElementById('pulse-' + i);
-        var btn = document.getElementById('btnFilter' + i);
-        if (card) card.classList.remove('is-active');
-        if (pulse) pulse.style.display = 'none';
-        if (btn) btn.classList.remove('active');
-      }
-      var btnAll = document.getElementById('btnFilterAll');
-      if (btnAll) btnAll.classList.add('active');
-
-      var sfbBadge = document.getElementById('sfbBadge');
-      var sfbText = document.getElementById('sfbText');
-      if (sfbBadge) sfbBadge.textContent = 'ALL STEPS SHOWN';
-      if (sfbText) sfbText.textContent = 'Showing Steps 1–4';
-
-      var placeholder = document.getElementById('step-row-placeholder');
-      if (placeholder) placeholder.style.display = 'none';
-
-      var rows = document.querySelectorAll('#standardsTable tbody tr[data-step]');
-      rows.forEach(function(row) {
-        row.style.display = '';
-        row.classList.remove('active-row');
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sheetOpen()) closeSheet(true);
       });
 
-      var sec = document.getElementById('sec-standards');
-      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+      // leaving phone width while a sheet is open: drop the lock
+      var onMq = function() { if (!mq.matches) closeSheet(false); };
+      if (mq.addEventListener) mq.addEventListener('change', onMq); else mq.addListener(onMq);
+
+      window.pfCloseAll = function() {
+        closeSheet(false);
+        document.querySelectorAll('.pf-split').forEach(reset);
+      };
+
+      // search result -> open that standard in its panel
+      window.pfOpenCard = function(card) {
+        var sp = splitOf(card);
+        if (!sp) return;
+        var trig = sp.querySelector('.pf-chart [data-card="' + card.id + '"]');
+        if (!trig) return;
+        var flow = trig.closest('.pf-flow');
+        var tab = flow && sp.querySelector('.pf-tab[data-flow="' + flow.getAttribute('data-flow') + '"]');
+        if (tab && !tab.classList.contains('is-on')) switchFlow(tab);
+        select(trig);
+        if (!mq.matches) trig.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      };
+    })();
+
 
     // 4. Dropdown Menu Trigger
     window.toggleMenu = function(force) {
@@ -7408,7 +7196,7 @@ button:active:not([disabled]),
         var target = window._searchMatches[idx].el;
         window.toggleSearchModal(false);
         if (typeof window.revealElementView === 'function') window.revealElementView(target);
-        window.showAllTableSteps();
+        if (target.classList && target.classList.contains('pf-card') && window.pfOpenCard) { window.pfOpenCard(target); return; }
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
         target.style.outline = '2px solid var(--gold)';
         target.style.outlineOffset = '4px';
@@ -7416,57 +7204,50 @@ button:active:not([disabled]),
       }
     };
 
-    // 6. Quantitative Formula Calculators
-    window.evalKpi1 = function() {
-      var a = parseFloat(document.getElementById('in_a').value) || 0;
-      var b = parseFloat(document.getElementById('in_b').value) || 0;
-      var c = parseFloat(document.getElementById('in_c').value) || 0;
-      var y = parseFloat(document.getElementById('in_y').value) || 1;
-      var res = (a + b + c) / y;
-      var el = document.getElementById('kpi1_val');
-      if (el) el.textContent = res.toFixed(2);
-    };
-
-    window.evalKpi2 = function() {
-      var x = parseFloat(document.getElementById('in_x').value) || 0;
-      var y = parseFloat(document.getElementById('in_y2').value) || 1;
-      var res = (x / y) * 100;
-      var el = document.getElementById('kpi2_val');
-      if (el) el.textContent = res.toFixed(2) + '%';
-    };
-
     // 7. Section Views & Full Jitter Dock Navigation System (HR Portal Architecture)
     var current = 0;
 
     (function() {
-      var VIEWS = [
-        { name: 'Table of Contents',              num: 'MANUAL',     ids: ['cover', 'homeIndex'] },
-        { name: 'Foundational Elements',          num: 'SECTION 01', ids: ['sec-foundations'] },
-        { name: 'Process Flow & Standards',       num: 'SECTION 02', ids: ['process-flow'] },
-        { name: 'Success Metrics',                num: 'SECTION 03', ids: ['sec-metrics'] }
+      var CHAPTERS = [
+        { n: 1, name: 'Lead Management',          ids: ['sec-foundations',   'process-flow',   'sec-metrics'] },
+        { n: 2, name: 'Welcome and Hospitality',  ids: ['sec-foundations-2', 'process-flow-2', 'sec-metrics-2'] }
       ];
+      var SECTIONS = ['Overview', 'Process Flow', 'Success Metrics'];
 
-      var ID_TO_VIEW = {
-        'cover': 0, 'homeIndex': 0,
-        'sec-foundations': 1, 'foundations': 1,
-        'process-flow': 2, 'sec-process-flow': 2, 'sec-standards': 2, 'standardsTable': 2, 'standards': 2,
-        'sec-metrics': 3, 'metrics': 3
-      };
+      var VIEWS = [ { name: 'Table of Contents', num: 'MANUAL', ids: ['cover', 'homeIndex'], ch: 0, sec: 0 } ];
+      var ID_TO_VIEW = { 'cover': 0, 'homeIndex': 0 };
+      CHAPTERS.forEach(function(c) {
+        c.ids.forEach(function(id, k) {
+          VIEWS.push({
+            name: 'Chapter ' + c.n + ' · ' + SECTIONS[k],
+            title: SECTIONS[k],
+            num: 'CHAPTER 0' + c.n + ' · SECTION 0' + (k + 1),
+            ids: [id], ch: c.n, sec: k + 1
+          });
+          ID_TO_VIEW[id] = VIEWS.length - 1;
+        });
+      });
+      // legacy anchors (chapter 1)
+      ID_TO_VIEW['foundations'] = 1;
+      ID_TO_VIEW['sec-process-flow'] = 2; ID_TO_VIEW['sec-standards'] = 2; ID_TO_VIEW['standardsTable'] = 2; ID_TO_VIEW['standards'] = 2;
+      ID_TO_VIEW['metrics'] = 3;
 
-      VIEWS.forEach(function(v){
-        v.els = v.ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
+      VIEWS.forEach(function(v) {
+        v.els = v.ids.map(function(id) { return document.getElementById(id); }).filter(Boolean);
       });
 
-      function esc(s){
-        return String(s).replace(/[&<>"]/g, function(c){
-          return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c];
+      function esc(s) {
+        return String(s).replace(/[&<>"]/g, function(c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
         });
       }
+      function chapterName(n) { return CHAPTERS[n - 1].name; }
+      function viewIndex(ch, sec) { return 1 + (ch - 1) * 3 + (sec - 1); }
 
-      // Build previous / next chapter-nav bars for inside each section
+      // Previous / next bars at the end of each section
       var navBars = [];
       for (var i = 1; i < VIEWS.length; i++) {
-        (function(i){
+        (function(i) {
           var host = VIEWS[i].els[VIEWS[i].els.length - 1];
           if (!host) return;
           var nav = document.createElement('div');
@@ -7476,72 +7257,82 @@ button:active:not([disabled]),
           prev.type = 'button';
           prev.className = 'cn-btn cn-prev';
           prev.innerHTML =
-            '<span class="cn-kicker"><span class="cn-arrow">&lsaquo;</span> ' +
-            (i === 1 ? 'Back to Contents' : 'Previous') + '</span>' +
-            '<span class="cn-title">' + esc(VIEWS[i-1].name) + '</span>';
-          prev.addEventListener('click', function(){ window.goToView(i-1); });
+            '<span class="cn-kicker"><span class="cn-arrow">&lsaquo;</span> ' + (i === 1 ? 'Back to Contents' : 'Previous') + '</span>' +
+            '<span class="cn-title">' + esc(i === 1 ? VIEWS[0].name : navTitle(i - 1)) + '</span>';
+          prev.addEventListener('click', function() { window.goToView(i - 1); });
 
           var next = document.createElement('button');
           next.type = 'button';
           next.className = 'cn-btn cn-next';
           if (i === VIEWS.length - 1) {
             next.setAttribute('disabled', '');
-            next.innerHTML =
-              '<span class="cn-kicker">Next Chapter</span>' +
-              '<span class="cn-title">Chapter 2 (Coming Soon)</span>';
+            next.innerHTML = '<span class="cn-kicker">Next Chapter</span><span class="cn-title">Chapter 3 (Coming Soon)</span>';
           } else {
-            next.innerHTML =
-              '<span class="cn-kicker">Next <span class="cn-arrow">&rsaquo;</span></span>' +
-              '<span class="cn-title">' + esc(VIEWS[i+1].name) + '</span>';
-            next.addEventListener('click', function(){ window.goToView(i+1); });
+            next.innerHTML = '<span class="cn-kicker">Next <span class="cn-arrow">&rsaquo;</span></span><span class="cn-title">' + esc(navTitle(i + 1)) + '</span>';
+            next.addEventListener('click', function() { window.goToView(i + 1); });
           }
-
           nav.appendChild(prev);
           nav.appendChild(next);
           host.appendChild(nav);
           navBars[i] = nav;
         })(i);
       }
-
-      function updateChrome(idx){
-        // Update topbar center
-        var tc = document.getElementById('tbCenter');
-        if (tc) {
-          tc.textContent = 'Sales SOP Manual';
-        }
-
-        // Update topbar progress
-        var tp = document.getElementById('topbarProgress');
-        if (tp) {
-          var pct = idx === 0 ? 0 : Math.round((idx / (VIEWS.length - 1)) * 100);
-          tp.style.width = pct + '%';
-        }
-
-        // Update Jitter Dock capsule
-        var jNum = document.getElementById('jitterChNum');
-        var jTitle = document.getElementById('jitterChTitle');
-        var jPrev = document.getElementById('jitterPrev');
-        var jNext = document.getElementById('jitterNext');
-
-        if (jNum) jNum.textContent = VIEWS[idx].num;
-        if (jTitle) jTitle.textContent = VIEWS[idx].name;
-        if (jPrev) jPrev.disabled = (idx === 0);
-        if (jNext) jNext.disabled = (idx === VIEWS.length - 1);
-
-        // Update menu active states
-        document.querySelectorAll('.hero-cell, .dropdown-item').forEach(function(a){
-          var href = (a.getAttribute('href') || '').replace('#', '');
-          a.classList.toggle('active', ID_TO_VIEW[href] === idx);
-        });
+      function navTitle(idx) {
+        var v = VIEWS[idx];
+        return v.sec === 1 ? 'Chapter ' + v.ch + ' · ' + chapterName(v.ch) : v.title;
       }
 
-      window.goToView = function(idx, subId){
+      var smart = document.getElementById('ch1SmartMenu');
+      var smartCh = -1;
+      function buildSmart(ch) {
+        if (!smart || ch === smartCh) return;
+        smartCh = ch;
+        var html = '<span class="c1m-label">Chapter ' + ch + '</span>';
+        SECTIONS.forEach(function(label, k) {
+          if (k) html += '<div class="c1m-sep"></div>';
+          html += '<button type="button" class="c1m-btn" data-view="' + viewIndex(ch, k + 1) + '"><span class="c1m-dot"></span><span>' + esc(label) + '</span></button>';
+        });
+        smart.innerHTML = html;
+      }
+      if (smart) smart.addEventListener('click', function(e) {
+        var b = e.target.closest('.c1m-btn');
+        if (b) window.goToView(parseInt(b.getAttribute('data-view'), 10));
+      });
+
+      function updateChrome(idx) {
+        var v = VIEWS[idx];
+        var tc = document.getElementById('tbCenter');
+        if (tc) tc.textContent = 'Sales SOP Manual';
+
+        var tp = document.getElementById('topbarProgress');
+        if (tp) tp.style.width = (idx === 0 ? 0 : Math.round((idx / (VIEWS.length - 1)) * 100)) + '%';
+
+        if (v.ch) {
+          buildSmart(v.ch);
+          smart.querySelectorAll('.c1m-btn').forEach(function(b) {
+            b.classList.toggle('active', parseInt(b.getAttribute('data-view'), 10) === idx);
+          });
+        }
+
+        document.querySelectorAll('.hero-cell, .dropdown-item').forEach(function(a) {
+          var ch = a.getAttribute('data-ch');
+          var on = ch ? parseInt(ch, 10) === v.ch : ID_TO_VIEW[(a.getAttribute('href') || '').replace('#', '')] === idx;
+          a.classList.toggle('active', on);
+        });
+
+        document.title = idx === 0
+          ? 'APEX — A Playbook for Experience Excellence'
+          : 'Chapter ' + v.ch + ' · ' + chapterName(v.ch) + ' — APEX';
+      }
+
+      window.goToView = function(idx, subId) {
         if (typeof idx !== 'number' || idx < 0 || idx >= VIEWS.length) idx = 0;
         current = idx;
+        if (typeof window.pfCloseAll === 'function') window.pfCloseAll();
 
-        VIEWS.forEach(function(v, vi){
+        VIEWS.forEach(function(v, vi) {
           var on = (vi === idx);
-          v.els.forEach(function(el){ el.classList.toggle('cv-off', !on); });
+          v.els.forEach(function(el) { el.classList.toggle('cv-off', !on); });
           if (navBars[vi]) navBars[vi].classList.toggle('cv-off', !on);
         });
 
@@ -7555,12 +7346,10 @@ button:active:not([disabled]),
           canvas.style.visibility = isHome ? 'visible' : 'hidden';
         }
         if (typeof window.toggleIntroParticles === 'function') window.toggleIntroParticles(isHome);
-
         if (typeof window.toggleMenu === 'function') window.toggleMenu(false);
         updateChrome(idx);
 
-        // Trigger TVS banner zoom
-        VIEWS[idx].els.forEach(function(el){
+        VIEWS[idx].els.forEach(function(el) {
           var thumb = el.querySelector ? el.querySelector('.ch-thumb') : null;
           if (thumb) {
             thumb.classList.remove('in-view');
@@ -7580,100 +7369,36 @@ button:active:not([disabled]),
         }
 
         window.scrollTo(0, 0);
-        if (subId) {
+        if (subId && subId !== VIEWS[idx].ids[0]) {
           var sub = document.getElementById(subId);
-          if (sub) setTimeout(function(){ sub.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
-        }
-        updateCh1SmartActive(subId);
-      };
-
-      window.goHome = function(){ window.goToView(0); };
-
-      window.jumpToCh1Section = function(targetId, targetView) {
-        if (typeof targetView !== 'number') targetView = 1;
-        if (current !== targetView) {
-          window.goToView(targetView, targetId);
-        } else {
-          var el = document.getElementById(targetId);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            if (history.replaceState) history.replaceState(null, '', '#' + targetId);
-          }
-          updateCh1SmartActive(targetId);
+          if (sub) setTimeout(function() { sub.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
         }
       };
 
-            function updateCh1SmartActive(forcedTargetId) {
-        var buttons = document.querySelectorAll('#ch1SmartMenu .c1m-btn');
-        if (!buttons.length) return;
-        if (current === 0) return;
+      window.goHome = function() { window.goToView(0); };
+      window.jumpToCh1Section = function(targetId, targetView) { window.goToView(typeof targetView === 'number' ? targetView : 1, targetId); };
 
-        var activeTarget = forcedTargetId;
-        if (!activeTarget) {
-          if (current === 1) {
-            activeTarget = 'sec-foundations';
-          } else if (current === 2) {
-            activeTarget = 'process-flow';
-          } else if (current === 3) {
-            activeTarget = 'sec-metrics';
-          }
-        }
-
-        buttons.forEach(function(btn) {
-          var t = btn.getAttribute('data-target');
-          btn.classList.toggle('active', t === activeTarget || (activeTarget === 'sec-standards' && t === 'process-flow'));
-        });
-      }
-
-      window.addEventListener('scroll', function() {
-        if (current > 0) {
-          updateCh1SmartActive();
-        }
-      }, { passive: true });
-
-      window.revealElementView = function(el){
+      window.revealElementView = function(el) {
         for (var i = 0; i < VIEWS.length; i++) {
-          if (VIEWS[i].els.some(function(root){ return root.contains(el); })) {
+          if (VIEWS[i].els.some(function(root) { return root.contains(el); })) {
             if (i !== current) window.goToView(i);
             return;
           }
         }
       };
 
-      // Wire up Jitter Dock buttons
-      var jitterPrevBtn = document.getElementById('jitterPrev');
-      if (jitterPrevBtn) {
-        jitterPrevBtn.addEventListener('click', function(){
-          if (current > 0) window.goToView(current - 1);
-        });
-      }
-      var jitterNextBtn = document.getElementById('jitterNext');
-      if (jitterNextBtn) {
-        jitterNextBtn.addEventListener('click', function(){
-          if (current < VIEWS.length - 1) window.goToView(current + 1);
-        });
-      }
-      var jitterCurrBtn = document.getElementById('jitterCurrent');
-      if (jitterCurrBtn) {
-        jitterCurrBtn.addEventListener('click', function(){
-          window.toggleMenu();
-        });
-      }
-
-      function viewFromHash(){
+      function viewFromHash() {
         var id = (location.hash || '').replace('#', '');
         return ID_TO_VIEW.hasOwnProperty(id) ? ID_TO_VIEW[id] : 0;
       }
-
-      window.addEventListener('hashchange', function(){
+      window.addEventListener('hashchange', function() {
         var target = viewFromHash();
         if (target !== current) window.goToView(target);
       });
 
-      // Initial view resolution
-      var initial = viewFromHash();
-      window.goToView(initial, (location.hash || '').replace('#', ''));
+      window.goToView(viewFromHash(), (location.hash || '').replace('#', ''));
     })();
+
   </script>
 
 </body>
