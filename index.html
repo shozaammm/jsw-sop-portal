@@ -884,7 +884,7 @@ kbd{
 .st-en span{padding:5px 10px;border-radius:999px;background:var(--jx-soft);border:1px solid var(--jx-line);font-size:12.5px;font-weight:600;color:var(--jx-ink)}
 .who{justify-self:start;display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:999px;background:var(--jx-soft-2);font-size:12.5px;font-weight:650;color:var(--jx-ink)}
 @media (max-width:1180px){
-  .split{grid-template-columns:1fr}
+  .split{grid-template-columns:minmax(0,1fr)}
   .split-std{position:static;max-height:none}
   .std-list{overflow:visible}
 }
@@ -936,13 +936,14 @@ kbd{
 .nd-ic .ic:hover,.ic.star:hover{background:#F9C80E;box-shadow:inset 0 0 0 1px var(--jx-ink);color:var(--jx-ink)}
 .nd.is-on .ic:hover{color:var(--jx-ink)}
 .split{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
-@media (max-width:1180px){.split{grid-template-columns:1fr}}
+@media (max-width:1180px){.split{grid-template-columns:minmax(0,1fr)}}
 
 /* legend: three separate cards, each with the same round chip used on the steps */
 .lg{gap:10px;margin:2px 0 16px}
 .lg-i{gap:10px;background:#fff;border-radius:999px;padding:6px 16px 6px 6px;box-shadow:var(--jx-shadow);font-size:14px;font-weight:650;color:var(--jx-ink)}
 .lg-c{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#F1F1EF;box-shadow:inset 0 0 0 1px var(--jx-line-2);font-style:normal;font-size:16px;line-height:1}
 .lg-c svg{width:17px;height:17px;stroke-width:2.1}
+.pop{box-sizing:border-box}
 </style>
 </head><body>
 <a class="jx-skip" href="#jxMain">Skip to content</a>
