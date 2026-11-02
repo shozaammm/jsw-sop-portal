@@ -1084,8 +1084,14 @@ function drawFlow(fc){
       else {var y=(a.b+b.t)/2;pts=[[a.cx,a.b],[a.cx,y],[b.cx,y],[b.cx,b.t]]}
       lp=[a.cx+(lab?26:0),a.b+18];
     } else if(m==='vhv'){var y2=(a.b+b.t)/2;pts=[[a.cx,a.b],[a.cx,y2],[b.cx,y2],[b.cx,b.t]];lp=[a.cx,a.b+14]}
-    else if(m==='sd:r'){pts=[[a.r,a.cy],[b.cx,a.cy],[b.cx,b.t]];lp=[a.r+20,a.cy-12]}
-    else if(m==='sd:l'){pts=[[a.l,a.cy],[b.cx,a.cy],[b.cx,b.t]];lp=[a.l-20,a.cy-12]}
+    else if(m==='sd:r'){
+      if(b.cx<=a.r){pts=[[b.cx,a.b],[b.cx,b.t]];lp=[b.cx+26,(a.b+b.t)/2]}
+      else{pts=[[a.r,a.cy],[b.cx,a.cy],[b.cx,b.t]];lp=[a.r+20,a.cy-12]}
+    }
+    else if(m==='sd:l'){
+      if(b.cx>=a.l){pts=[[b.cx,a.b],[b.cx,b.t]];lp=[b.cx-26,(a.b+b.t)/2]}
+      else{pts=[[a.l,a.cy],[b.cx,a.cy],[b.cx,b.t]];lp=[a.l-20,a.cy-12]}
+    }
     else if(m==='ds:r'){pts=[[a.cx,a.b],[a.cx,b.cy],[b.l,b.cy]];lp=[a.cx,a.b+14]}
     else if(m==='ds:l'){pts=[[a.cx,a.b],[a.cx,b.cy],[b.r,b.cy]];lp=[a.cx,a.b+14]}
     else if(m==='h:r'){pts=[[a.r,a.cy],[b.l,a.cy]];lp=[(a.r+b.l)/2,a.cy-12]}
@@ -1130,14 +1136,13 @@ function showPop(ic){
   var type=ic.dataset.ic, host=ic.closest('[data-key]'), sp=ic.closest('[data-flow]'), key=host&&host.dataset.key;
   var st=sp&&key?$('.st[data-key="'+key+'"]',sp):null, title='', kind, body=[], en=[];
   if(type==='star'){
-    kind='JSW Motors Differentiator'; title=st?$('.st-t span',st).textContent.replace('★','').trim():'';
+    kind='JSW Motors Differentiator'; title='';
     $$('#ch2-diff .diff div').forEach(function(d){body.push({t:d.textContent.trim()})});
   } else if(st){
-    title=$('.st-t span',st).textContent.replace('★','').trim();
     var lines=$$('dd p',st).map(function(p){return{t:p.textContent.trim(),q:p.classList.contains('q')}});
     $$('dd.st-en span',st).forEach(function(x){en.push(x.textContent)});
     if(type==='script'){kind='Script'; title=''; en=[]; body=lines.filter(function(l){return l.q})}
-    else{kind='Notification'; en=[]; body=(NOTE[key]?[{t:NOTE[key]}]:[])}
+    else{kind='Notification'; title=''; en=[]; body=(NOTE[key]?[{t:NOTE[key]}]:[])}
   } else return;
   var svg=type==='star'?'<span style="font-size:18px;line-height:1">★</span>':ic.innerHTML;
   pop=document.createElement('div'); pop.className='pop'; pop.setAttribute('role','dialog'); pop.setAttribute('aria-label',kind);
