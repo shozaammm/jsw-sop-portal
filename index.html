@@ -1136,7 +1136,7 @@ document.addEventListener('click',function(e){
 
 /* ---------- icon popovers: Script / Notification / Differentiator, text taken from the step's own card ---------- */
 var pop=null;
-var AUD=[['Hello sir/madam','script-1'],['Here\'s our beverage','script-2'],['Your Sales Consultant','script-3']],aud=null;
+var AUD=[['Hello sir/madam','script-1'],['Here\'s our beverage','script-2'],['Your Sales Consultant','script-3'],['[SC Name]','script-4']],aud=null;
 function stopAud(){if(aud){aud.pause();aud=null}}
 function closePop(){stopAud();if(pop){pop.remove();pop=null}}
 var NOTE={'3':'Enquiry visible in hostess app','3.1':'Enquiry visible in hostess app','7.1':'Enquiry visible in SC app','8':'Customer gets feedback notification on WhatsApp and Email'};
@@ -1167,7 +1167,7 @@ function showPop(ic){
     pb.onclick=function(){
       if(aud&&!aud.paused){stopAud();setBtn(false);return}
       stopAud();
-      aud=new Audio('assets/audio/'+hit[1]+'.mp3?v=2');
+      aud=new Audio('assets/audio/'+hit[1]+'.mp3?v=3');
       setBtn(true);
       aud.onended=function(){setBtn(false);aud=null};
       aud.play().catch(function(){setBtn(false);stopAud()});
