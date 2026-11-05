@@ -924,6 +924,13 @@ kbd{
 .pop-x svg{margin:0 auto;display:block}
 .pop-b{display:grid;gap:8px;font-size:14px;line-height:1.55;color:var(--jx-text)}
 .pop-b p{margin:0}
+.pop-play{justify-self:start;display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:8px 14px;border:1px solid var(--jx-ink);border-radius:999px;background:var(--jx-ink);color:#fff;font:600 12px/1 inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .2s var(--jx-ease),color .2s var(--jx-ease),transform .15s var(--jx-ease)}
+.pop-play:hover{background:var(--jx-text)}
+.pop-play:focus-visible{outline:2px solid var(--jx-ink);outline-offset:2px}
+.pop-play:active{transform:scale(.97)}
+.pop-play.on{background:#fff;color:var(--jx-ink)}
+.pop-play.on:hover{background:var(--jx-soft-2)}
+.pop-play svg{width:14px;height:14px;fill:currentColor;flex:0 0 auto}
 .pop-b p.q{font-style:italic;color:var(--jx-ink)}
 .pop-en{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .pop-en span{padding:4px 10px;border-radius:999px;background:var(--jx-soft);border:1px solid var(--jx-line);font-size:12.5px;font-weight:600;color:var(--jx-ink)}
@@ -1129,7 +1136,9 @@ document.addEventListener('click',function(e){
 
 /* ---------- icon popovers: Script / Notification / Differentiator, text taken from the step's own card ---------- */
 var pop=null;
-function closePop(){if(pop){pop.remove();pop=null}}
+var AUD=[['Hello sir/madam','script-1'],['Here\'s our beverage','script-2'],['Your Sales Consultant','script-3']],aud=null;
+function stopAud(){if(aud){aud.pause();aud=null}}
+function closePop(){stopAud();if(pop){pop.remove();pop=null}}
 var NOTE={'3':'Enquiry visible in hostess app','3.1':'Enquiry visible in hostess app','7.1':'Enquiry visible in SC app','8':'Customer gets feedback notification on WhatsApp and Email'};
 function showPop(ic){
   closePop();
@@ -1149,6 +1158,22 @@ function showPop(ic){
   pop.innerHTML='<div class="pop-h">'+svg+'<div><p class="pop-k">'+esc(kind)+'</p>'+(title?'<p class="pop-t">'+esc(title)+'</p>':'')+'</div><button class="pop-x" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="pop-b">'+
     body.map(function(l){return '<p'+(l.q?' class="q"':'')+'>'+esc(l.t)+'</p>'}).join('')+'</div>'+
     (en.length&&type!=='star'?'<div class="pop-en">'+en.map(function(x){return '<span>'+esc(x)+'</span>'}).join('')+'</div>':'');
+  var qt=type==='script'&&body[0]?body[0].t.replace(/^[\u201c"]/,''):'', hit=AUD.filter(function(a){return qt.indexOf(a[0])===0})[0];
+  if(hit){
+    var pb=document.createElement('button'); pb.type='button'; pb.className='pop-play';
+    var playIco='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>', pauseIco='<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>';
+    function setBtn(playing){pb.classList.toggle('on',playing); pb.innerHTML=(playing?pauseIco:playIco)+'<span>'+(playing?'Pause':'Listen')+'</span>'}
+    setBtn(false);
+    pb.onclick=function(){
+      if(aud&&!aud.paused){stopAud();setBtn(false);return}
+      stopAud();
+      aud=new Audio('assets/audio/'+hit[1]+'.mp3');
+      setBtn(true);
+      aud.onended=function(){setBtn(false);aud=null};
+      aud.play().catch(function(){setBtn(false);stopAud()});
+    };
+    $('.pop-b',pop).appendChild(pb);
+  }
   document.body.appendChild(pop);
   var r=ic.getBoundingClientRect(), w=pop.offsetWidth, h=pop.offsetHeight;
   var x=Math.min(Math.max(12,r.left+r.width/2-w/2),innerWidth-w-12), y=r.bottom+8; if(y+h>innerHeight-12) y=Math.max(12,r.top-h-8);
