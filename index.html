@@ -1167,7 +1167,7 @@ function showPop(ic){
     pb.onclick=function(){
       if(aud&&!aud.paused){stopAud();setBtn(false);return}
       stopAud();
-      aud=new Audio('assets/audio/'+hit[1]+'.mp3?v=4');
+      aud=new Audio('assets/audio/'+hit[1]+'.mp3?t='+Date.now());
       setBtn(true);
       aud.onended=function(){setBtn(false);aud=null};
       aud.play().catch(function(){setBtn(false);stopAud()});
