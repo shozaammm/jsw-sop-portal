@@ -960,44 +960,45 @@ kbd{
 .fc-lane.l1{background:#E4EAF0}
 .fc-lane.l2{background:#E9EFE6}
 
-/* ---------- Process Flow Walkthrough Bar & Button ---------- */
-.flow-header-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:2px 0 16px}
-.flow-header-row .lg{margin:0}
-.vw-bar-wrap{display:flex;align-items:center;gap:10px}
-.vw-btn{display:inline-flex;align-items:center;gap:14px;background:var(--jx-ink);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 18px 6px 8px;box-shadow:0 4px 18px -4px rgba(0,0,0,.22),0 1px 3px rgba(0,0,0,.15);cursor:pointer;text-align:left;transition:all .25s var(--jx-ease);position:relative;overflow:hidden;user-select:none}
-.vw-btn:hover{background:#000;border-color:rgba(255,255,255,.35);transform:translateY(-1.5px);box-shadow:0 8px 24px -6px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2)}
-.vw-btn:active{transform:translateY(0)}
-.vw-icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);flex-shrink:0}
-.vw-eq{display:flex;align-items:flex-end;gap:2.5px;height:15px;width:15px}
-.vw-eq i{display:block;flex:1;background:#fff;border-radius:2px;height:4px;transition:height .2s ease}
-.vw-content{display:flex;flex-direction:column;gap:2px}
-.vw-title-line{display:flex;align-items:center;gap:8px}
-.vw-title{font-size:13.5px;font-weight:700;letter-spacing:-.01em;color:#fff;line-height:1.2}
-.vw-badge{display:inline-block;font-size:10px;font-weight:750;letter-spacing:.04em;text-transform:uppercase;background:rgba(255,255,255,.16);color:#fff;padding:2px 7px;border-radius:999px;line-height:1.2}
-.vw-desc{font-size:11.5px;font-weight:500;color:rgba(255,255,255,.72);line-height:1.2;white-space:nowrap}
-.vw-action-arrow{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff;color:var(--jx-ink);margin-left:4px;flex-shrink:0;transition:transform .2s ease}
-.vw-action-arrow svg{width:11px;height:11px;fill:currentColor;margin-left:1px}
-.vw-btn:hover .vw-action-arrow{transform:scale(1.1)}
+/* ---------- Process Flow Walkthrough (beside Script in .lg) ---------- */
+.vw-trigger{cursor:pointer;border:1px solid var(--jx-line-2);background:#fff;color:var(--jx-ink);font-family:inherit;user-select:none;outline:none;-webkit-tap-highlight-color:transparent;transition:background .15s ease,border-color .15s ease,transform .15s cubic-bezier(.16,1,.3,1),box-shadow .15s ease}
+.vw-trigger:hover{border-color:var(--jx-ink);transform:translateY(-1px);box-shadow:0 4px 14px rgba(36,36,36,.12)}
+.vw-trigger:active{transform:scale(.97)}
+.vw-trigger-c{background:var(--jx-ink)!important;color:#fff!important;box-shadow:none!important}
+.vw-trigger-c svg{width:13px;height:13px;margin-left:2px}
+.vw-trigger-tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;background:#F1F1EF;color:var(--jx-text);padding:2px 7px;border-radius:999px;line-height:1.2;margin-left:2px}
 
-.vw-player{display:none;align-items:center;justify-content:space-between;gap:14px;background:var(--jx-ink);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 14px 6px 14px;box-shadow:0 8px 28px -6px rgba(0,0,0,.35);position:relative;overflow:hidden;min-width:0;max-width:640px;width:100%}
-.vw-player.is-active{display:flex}
-.vw-player-progress-track{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12)}
-.vw-player-progress-bar{height:100%;width:0%;background:#34D399;transition:width .3s ease}
-.vw-player-info{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
-.vw-player-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:750;background:rgba(255,255,255,.14);color:#fff;padding:3px 8px;border-radius:999px;flex-shrink:0}
-.vw-player-dot{width:7px;height:7px;border-radius:50%;background:#34D399;box-shadow:0 0 8px #34D399;animation:dotPulse 1.2s infinite}
-@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
-.vw-player-text{display:flex;flex-direction:column;min-width:0}
-.vw-player-step-title{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
-.vw-player-step-sub{font-size:11px;font-weight:500;color:rgba(255,255,255,.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.vw-player-controls{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.vw-ctrl-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.15);cursor:pointer;transition:all .2s ease}
-.vw-ctrl-btn:hover{background:rgba(255,255,255,.24);transform:scale(1.06)}
-.vw-ctrl-btn svg{width:13px;height:13px;fill:currentColor}
-.vw-ctrl-btn.play-pause{background:#fff;color:var(--jx-ink);width:32px;height:32px}
-.vw-ctrl-btn.play-pause:hover{background:#f0f0f0}
-.vw-ctrl-btn.close{background:transparent;border-color:transparent;color:rgba(255,255,255,.6);margin-left:2px}
+.vw-player{display:none;align-items:center;gap:12px;background:var(--jx-ink);color:#fff;border-radius:999px;padding:5px 6px 5px 12px;box-shadow:var(--jx-shadow);position:relative;overflow:hidden;user-select:none;box-sizing:border-box}
+.vw-player.is-active{display:inline-flex}
+
+.vw-step-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;letter-spacing:.02em;background:rgba(255,255,255,.12);color:#F4F4F5;padding:3px 9px;border-radius:999px;flex-shrink:0;line-height:1.3}
+
+.vw-player-info{display:flex;flex-direction:column;min-width:0;max-width:320px}
+.vw-player-title{font-size:12.5px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.vw-player-sub{font-size:10.5px;font-weight:500;color:rgba(255,255,255,.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+
+.vw-player-controls{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.vw-speed-btn{display:inline-flex;align-items:center;justify-content:center;height:26px;min-width:36px;padding:0 7px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.16);font-size:11px;font-weight:700;font-family:ui-monospace,SFMono-Regular,monospace;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:background .15s ease,transform .15s cubic-bezier(.16,1,.3,1)}
+.vw-speed-btn:hover{background:rgba(255,255,255,.24)}
+.vw-speed-btn:active{transform:scale(.95)}
+.vw-speed-btn:focus-visible{outline:2px solid rgba(255,255,255,.5);outline-offset:1px}
+
+.vw-ctrl-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;border:none;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:background .15s ease,transform .15s cubic-bezier(.16,1,.3,1)}
+.vw-ctrl-btn:hover{background:rgba(255,255,255,.24)}
+.vw-ctrl-btn:active{transform:scale(.94)}
+.vw-ctrl-btn:focus-visible{outline:2px solid rgba(255,255,255,.5);outline-offset:1px}
+.vw-ctrl-btn svg{width:12px;height:12px}
+
+.vw-ctrl-btn.play-pause{background:#fff;color:var(--jx-ink);width:30px;height:30px;outline:none;border:none}
+.vw-ctrl-btn.play-pause:hover{background:#E4E4E7}
+.vw-ctrl-btn.play-pause:focus-visible{outline:2px solid rgba(255,255,255,.7);outline-offset:2px}
+.vw-ctrl-btn.play-pause svg{width:13px;height:13px}
+
+.vw-ctrl-btn.close{background:transparent;color:rgba(255,255,255,.55);margin-left:1px}
 .vw-ctrl-btn.close:hover{color:#fff;background:rgba(255,255,255,.16)}
+
+.vw-player-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.1)}
+.vw-player-bar{height:100%;width:0%;background:#D4D4D8;transition:width .25s ease-out}
 
 .nd.is-narrating{outline:3px solid #111113!important;outline-offset:3px;box-shadow:0 0 0 6px rgba(17,17,19,.15),0 8px 24px rgba(0,0,0,.18)!important;animation:narratePulse 2s infinite ease-in-out}
 .nd.dec.is-narrating>span{outline:3px solid #111113;outline-offset:3px;box-shadow:0 0 0 6px rgba(17,17,19,.15);animation:narratePulse 2s infinite ease-in-out}
@@ -1038,51 +1039,38 @@ kbd{
 </div></section>
 <section class="ch-sec" id="ch2-flow2">
 <h2>Process Flow 2: Welcome in the Showroom</h2><p class="ch-hint">Click on the steps for more details:</p>
-<div class="flow-header-row">
-  <div class="lg">
-    <span class="lg-i"><i class="lg-c">★</i>JSW Motors Differentiator</span>
-    <span class="lg-i"><i class="lg-c"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></i>Notifications</span>
-    <span class="lg-i"><i class="lg-c"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></i>Script</span>
-  </div>
-  <div class="vw-bar-wrap">
-    <button type="button" class="vw-btn" id="btnVoiceWalkthrough" aria-label="Voice Entire Process: Step-by-step audio narration of flowchart steps and standards">
-      <span class="vw-icon">
-        <span class="vw-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      </span>
-      <span class="vw-content">
-        <span class="vw-title-line">
-          <span class="vw-title">Voice Entire Process</span>
-          <span class="vw-badge">Audio Guide</span>
-        </span>
-        <span class="vw-desc">Narrates flowchart steps &amp; right-side standards step-by-step</span>
-      </span>
-      <span class="vw-action-arrow" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </span>
-    </button>
-    <div class="vw-player" id="vwPlayer" role="region" aria-label="Walkthrough Audio Player">
-      <div class="vw-player-progress-track"><div class="vw-player-progress-bar" id="vwProgressBar"></div></div>
-      <div class="vw-player-info">
-        <span class="vw-player-badge"><span class="vw-player-dot"></span><span id="vwStepPill">Step 1 of 14</span></span>
-        <div class="vw-player-text">
-          <span class="vw-player-step-title" id="vwStepTitle">Open the showroom door</span>
-          <span class="vw-player-step-sub" id="vwStepSub">Security Guard · Greets &amp; opens door</span>
-        </div>
-      </div>
-      <div class="vw-player-controls">
-        <button type="button" class="vw-ctrl-btn" id="vwBtnPrev" title="Previous Step" aria-label="Previous step">
-          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-        </button>
-        <button type="button" class="vw-ctrl-btn play-pause" id="vwBtnPlayPause" title="Pause" aria-label="Pause walkthrough">
-          <svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
-        </button>
-        <button type="button" class="vw-ctrl-btn" id="vwBtnNext" title="Next Step" aria-label="Next step">
-          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-        </button>
-        <button type="button" class="vw-ctrl-btn close" id="vwBtnStop" title="Stop Walkthrough" aria-label="Stop walkthrough">
-          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </div>
+<div class="lg">
+  <span class="lg-i"><i class="lg-c">★</i>JSW Motors Differentiator</span>
+  <span class="lg-i"><i class="lg-c"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></i>Notifications</span>
+  <span class="lg-i"><i class="lg-c"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></i>Script</span>
+  <button type="button" class="lg-i vw-trigger" id="btnVoiceWalkthrough" aria-label="Voice Entire Process: Audio narration of flowchart steps and standards">
+    <i class="lg-c vw-trigger-c">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72a1 1 0 001.53.85l10.66-6.86a1 1 0 000-1.7L9.53 4.29A1 1 0 008 5.14z"/></svg>
+    </i>
+    <span>Voice Entire Process</span>
+    <span class="vw-trigger-tag">Flow &amp; Standards</span>
+  </button>
+  <div class="vw-player" id="vwPlayer" role="region" aria-label="Walkthrough Audio Player">
+    <div class="vw-player-progress"><div class="vw-player-bar" id="vwProgressBar"></div></div>
+    <span class="vw-step-badge" id="vwStepPill">Step 1 / 14</span>
+    <div class="vw-player-info">
+      <span class="vw-player-title" id="vwStepTitle">Open the showroom door</span>
+      <span class="vw-player-sub" id="vwStepSub">Security Guard · Greets &amp; opens door</span>
+    </div>
+    <div class="vw-player-controls">
+      <button type="button" class="vw-speed-btn" id="vwBtnSpeed" title="Playback speed (click to toggle)" aria-label="Change playback speed (currently 1x)">1x</button>
+      <button type="button" class="vw-ctrl-btn" id="vwBtnPrev" title="Previous Step" aria-label="Previous step">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+      </button>
+      <button type="button" class="vw-ctrl-btn play-pause" id="vwBtnPlayPause" title="Pause" aria-label="Pause walkthrough">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+      </button>
+      <button type="button" class="vw-ctrl-btn" id="vwBtnNext" title="Next Step" aria-label="Next step">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+      </button>
+      <button type="button" class="vw-ctrl-btn close" id="vwBtnStop" title="Close Walkthrough" aria-label="Close walkthrough">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" fill="none"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
     </div>
   </div>
 </div>
@@ -1321,6 +1309,23 @@ var VW_STEPS = [
 var vwIndex = -1;
 var vwAudio = null;
 var vwPlaying = false;
+var VW_SPEEDS = [1, 1.25, 1.5, 1.75, 2];
+var vwSpeedIdx = 0;
+var vwSpeed = 1;
+
+function cycleWalkthroughSpeed(){
+  vwSpeedIdx=(vwSpeedIdx+1)%VW_SPEEDS.length;
+  vwSpeed=VW_SPEEDS[vwSpeedIdx];
+  var sBtn=$('#vwBtnSpeed');
+  if(sBtn){
+    sBtn.textContent=vwSpeed+'x';
+    sBtn.setAttribute('title','Speed: '+vwSpeed+'x (click to change)');
+    sBtn.setAttribute('aria-label','Change playback speed (currently '+vwSpeed+'x)');
+  }
+  if(vwAudio){
+    vwAudio.playbackRate=vwSpeed;
+  }
+}
 
 function clearWalkthroughHighlights(){
   $$('.nd.is-narrating, .st.is-narrating').forEach(function(el){el.classList.remove('is-narrating')});
@@ -1338,28 +1343,28 @@ function updateWalkthroughUI(){
   var btn=$('#btnVoiceWalkthrough'), player=$('#vwPlayer');
   if(!btn||!player) return;
   if(vwIndex===-1){
-    btn.style.display='inline-flex';
-    btn.classList.remove('is-playing');
-    player.classList.remove('is-active','is-playing');
+    btn.style.display='';
+    player.classList.remove('is-active');
   } else {
     btn.style.display='none';
     player.classList.add('is-active');
-    player.classList.toggle('is-playing',vwPlaying);
     var item=VW_STEPS[vwIndex];
     $('#vwStepTitle').textContent=item.title;
     $('#vwStepSub').textContent=item.sub;
-    var pillText=(vwIndex===0?'Intro':(vwIndex===VW_STEPS.length-1?'Finish':'Step '+vwIndex+' of '+(VW_STEPS.length-2)));
+    var pillText=(vwIndex===0?'Intro':(vwIndex===VW_STEPS.length-1?'Finish':'Step '+vwIndex+' / '+(VW_STEPS.length-2)));
     $('#vwStepPill').textContent=pillText;
     var pct=Math.round(((vwIndex+1)/VW_STEPS.length)*100);
     $('#vwProgressBar').style.width=pct+'%';
+    var sBtn=$('#vwBtnSpeed');
+    if(sBtn) sBtn.textContent=vwSpeed+'x';
     var pp=$('#vwBtnPlayPause');
     if(pp){
       if(vwPlaying && vwAudio && !vwAudio.paused){
-        pp.innerHTML='<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>';
+        pp.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>';
         pp.setAttribute('title','Pause Walkthrough');
         pp.setAttribute('aria-label','Pause walkthrough');
       } else {
-        pp.innerHTML='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+        pp.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
         pp.setAttribute('title','Resume Walkthrough');
         pp.setAttribute('aria-label','Resume walkthrough');
       }
@@ -1395,6 +1400,7 @@ function playWalkthroughStep(index){
 
   if(!vwAudio){vwAudio=new Audio()}
   vwAudio.src='assets/audio/walkthrough/'+item.file+'.mp3?t='+Date.now();
+  vwAudio.playbackRate=vwSpeed;
   vwPlaying=true;
   updateWalkthroughUI();
 
@@ -1458,6 +1464,8 @@ var nxBtn=$('#vwBtnNext');
 if(nxBtn){nxBtn.onclick=function(){if(vwIndex<VW_STEPS.length-1)playWalkthroughStep(vwIndex+1); else stopWalkthrough()}}
 var stBtn=$('#vwBtnStop');
 if(stBtn){stBtn.onclick=stopWalkthrough}
+var spdBtn=$('#vwBtnSpeed');
+if(spdBtn){spdBtn.onclick=cycleWalkthroughSpeed}
 
 /* ---------- search ---------- */
 var pal=null, idx=null;
