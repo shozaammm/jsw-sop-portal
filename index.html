@@ -959,6 +959,50 @@ kbd{
 .fc-lane.l0{background:#ECEAE4}
 .fc-lane.l1{background:#E4EAF0}
 .fc-lane.l2{background:#E9EFE6}
+
+/* ---------- Process Flow Walkthrough Bar & Button ---------- */
+.flow-header-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:2px 0 16px}
+.flow-header-row .lg{margin:0}
+.vw-bar-wrap{display:flex;align-items:center;gap:10px}
+.vw-btn{display:inline-flex;align-items:center;gap:14px;background:var(--jx-ink);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 18px 6px 8px;box-shadow:0 4px 18px -4px rgba(0,0,0,.22),0 1px 3px rgba(0,0,0,.15);cursor:pointer;text-align:left;transition:all .25s var(--jx-ease);position:relative;overflow:hidden;user-select:none}
+.vw-btn:hover{background:#000;border-color:rgba(255,255,255,.35);transform:translateY(-1.5px);box-shadow:0 8px 24px -6px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2)}
+.vw-btn:active{transform:translateY(0)}
+.vw-icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);flex-shrink:0}
+.vw-eq{display:flex;align-items:flex-end;gap:2.5px;height:15px;width:15px}
+.vw-eq i{display:block;flex:1;background:#fff;border-radius:2px;height:4px;transition:height .2s ease}
+.vw-content{display:flex;flex-direction:column;gap:2px}
+.vw-title-line{display:flex;align-items:center;gap:8px}
+.vw-title{font-size:13.5px;font-weight:700;letter-spacing:-.01em;color:#fff;line-height:1.2}
+.vw-badge{display:inline-block;font-size:10px;font-weight:750;letter-spacing:.04em;text-transform:uppercase;background:rgba(255,255,255,.16);color:#fff;padding:2px 7px;border-radius:999px;line-height:1.2}
+.vw-desc{font-size:11.5px;font-weight:500;color:rgba(255,255,255,.72);line-height:1.2;white-space:nowrap}
+.vw-action-arrow{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#fff;color:var(--jx-ink);margin-left:4px;flex-shrink:0;transition:transform .2s ease}
+.vw-action-arrow svg{width:11px;height:11px;fill:currentColor;margin-left:1px}
+.vw-btn:hover .vw-action-arrow{transform:scale(1.1)}
+
+.vw-player{display:none;align-items:center;justify-content:space-between;gap:14px;background:var(--jx-ink);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 14px 6px 14px;box-shadow:0 8px 28px -6px rgba(0,0,0,.35);position:relative;overflow:hidden;min-width:0;max-width:640px;width:100%}
+.vw-player.is-active{display:flex}
+.vw-player-progress-track{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12)}
+.vw-player-progress-bar{height:100%;width:0%;background:#34D399;transition:width .3s ease}
+.vw-player-info{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.vw-player-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:750;background:rgba(255,255,255,.14);color:#fff;padding:3px 8px;border-radius:999px;flex-shrink:0}
+.vw-player-dot{width:7px;height:7px;border-radius:50%;background:#34D399;box-shadow:0 0 8px #34D399;animation:dotPulse 1.2s infinite}
+@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+.vw-player-text{display:flex;flex-direction:column;min-width:0}
+.vw-player-step-title{font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.vw-player-step-sub{font-size:11px;font-weight:500;color:rgba(255,255,255,.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vw-player-controls{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.vw-ctrl-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.15);cursor:pointer;transition:all .2s ease}
+.vw-ctrl-btn:hover{background:rgba(255,255,255,.24);transform:scale(1.06)}
+.vw-ctrl-btn svg{width:13px;height:13px;fill:currentColor}
+.vw-ctrl-btn.play-pause{background:#fff;color:var(--jx-ink);width:32px;height:32px}
+.vw-ctrl-btn.play-pause:hover{background:#f0f0f0}
+.vw-ctrl-btn.close{background:transparent;border-color:transparent;color:rgba(255,255,255,.6);margin-left:2px}
+.vw-ctrl-btn.close:hover{color:#fff;background:rgba(255,255,255,.16)}
+
+.nd.is-narrating{outline:3px solid #111113!important;outline-offset:3px;box-shadow:0 0 0 6px rgba(17,17,19,.15),0 8px 24px rgba(0,0,0,.18)!important;animation:narratePulse 2s infinite ease-in-out}
+.nd.dec.is-narrating>span{outline:3px solid #111113;outline-offset:3px;box-shadow:0 0 0 6px rgba(17,17,19,.15);animation:narratePulse 2s infinite ease-in-out}
+.st.is-narrating{border-left:4px solid #fff!important;box-shadow:inset 4px 0 0 #fff}
+@keyframes narratePulse{0%,100%{transform:translateY(-2px)}50%{transform:translateY(0)}}
 </style>
 </head><body>
 <a class="jx-skip" href="#jxMain">Skip to content</a>
@@ -993,7 +1037,55 @@ kbd{
 <aside class="split-std" aria-label="JSW Motors Process Standards"><div class="std-h"><h3>JSW Motors Process Standards</h3></div><div class="std-list"><article class="st" data-key="1" id="f1-1"><h4 class="st-t"><span>1. Spot the incoming vehicle or walk-in customer</span></h4><dl><div><dt>Who</dt><dd><span class="who">Valet Driver</span></dd></div><div><dt>How</dt><dd><p>*Always be stationed at the dealership premise entrance.</p><p>Spot the incoming vehicle or walk-in customer proactively.</p></dd></div></dl></article><article class="st" data-key="2" id="f1-2"><h4 class="st-t"><span>2. Greet the customer with a smile and eye contact</span></h4><dl><div><dt>Who</dt><dd><span class="who">Valet Driver</span></dd></div><div><dt>How</dt><dd><p>Welcome the customer with a smile and eye contact.</p></dd></div></dl></article><article class="st" data-key="3" id="f1-3"><h4 class="st-t"><span>3. Note down the vehicle number in vehicle entry register</span></h4><dl><div><dt>Who</dt><dd><span class="who">Valet In-charge</span></dd></div><div><dt>How</dt><dd><p>*Valet in-charge is responsible for valet desk management, vehicle registration, key and driver management.</p><p>Note down the vehicle number in vehicle entry register.</p></dd></div><div><dt>Enabler</dt><dd class="st-en"><span>Vehicle entry register</span></dd></div></dl></article><article class="st" data-key="4" id="f1-4"><h4 class="st-t"><span>4. Offer valet service</span></h4><dl><div><dt>How</dt><dd><p>Offer valet service to every customer arriving by vehicle.</p><p>If the customer is not interested in valet service, move to 3.1, else move to 3.2</p></dd></div></dl></article><article class="st" data-key="4.1" id="f1-4.1"><h4 class="st-t"><span>4.1 Guide the customer to the designated customer parking space</span></h4><dl><div><dt>Who</dt><dd><span class="who">Valet Driver</span></dd></div><div><dt>How</dt><dd><p>Guide customer to the designated visitor parking area.</p></dd></div></dl></article><article class="st" data-key="4.2" id="f1-4.2"><h4 class="st-t"><span>4.2 Open the door and take car keys</span></h4><dl><div><dt>Who</dt><dd><span class="who">Valet Driver</span></dd></div><div><dt>How</dt><dd><p>Open the vehicle door for the customer and family/friends and accept the vehicle keys.</p></dd></div></dl></article><article class="st" data-key="4.2.1" id="f1-4.2.1"><h4 class="st-t"><span>4.2.1 Check for customer’s belonging in their presence</span></h4><dl><div><dt>Who</dt><dd><span class="who">Valet Driver</span></dd></div><div><dt>How</dt><dd><p>Check customer’s belongings in the car in their presence.</p></dd></div></dl></article><article class="st" data-key="4.2.2" id="f1-4.2.2"><h4 class="st-t"><span>4.2.2 Share the valet ticket and confirm the vehicle return process</span></h4><dl><div><dt>Who</dt><dd><span class="who">Valet Driver</span></dd></div><div><dt>How</dt><dd><p>Share the valet token with the customer.</p><p>Confirm that the customer can return the token to him to get the vehicle back.</p></dd></div><div><dt>Enabler</dt><dd class="st-en"><span>Valet token</span></dd></div></dl></article><article class="st" data-key="4.3" id="f1-4.3"><h4 class="st-t"><span>4.3 Guide the customer to the showroom entrance</span></h4><dl><div><dt>Who</dt><dd><span class="who">Valet Driver</span></dd></div><div><dt>How</dt><dd><p>Guide the customer towards the showroom entrance.</p></dd></div></dl></article><article class="st" data-key="4.3.1" id="f1-4.3.1"><h4 class="st-t"><span>4.3.1 Park the vehicle in designated parking area</span></h4><dl><div><dt>Who</dt><dd><span class="who">Valet Driver</span></dd></div><div><dt>How</dt><dd><p>Park the vehicle in the designated visitor parking area.</p></dd></div></dl></article><article class="st" data-key="5" id="f1-5"><h4 class="st-t"><span>5. Welcome the customer and open the showroom door</span></h4><dl><div><dt>Who</dt><dd><span class="who">Security Guard</span></dd></div><div><dt>How</dt><dd><p>*Always be stationed at the showroom entrance.</p><p>Open the showroom door for all customers.</p><p>Acknowledge the customer as soon as they enter the showroom, with a smile and eye contact.</p></dd></div></dl></article></div></aside>
 </div></section>
 <section class="ch-sec" id="ch2-flow2">
-<h2>Process Flow 2: Welcome in the Showroom</h2><p class="ch-hint">Click on the steps for more details:</p><div class="lg"><span class="lg-i"><i class="lg-c">★</i>JSW Motors Differentiator</span><span class="lg-i"><i class="lg-c"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></i>Notifications</span><span class="lg-i"><i class="lg-c"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></i>Script</span></div>
+<h2>Process Flow 2: Welcome in the Showroom</h2><p class="ch-hint">Click on the steps for more details:</p>
+<div class="flow-header-row">
+  <div class="lg">
+    <span class="lg-i"><i class="lg-c">★</i>JSW Motors Differentiator</span>
+    <span class="lg-i"><i class="lg-c"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></i>Notifications</span>
+    <span class="lg-i"><i class="lg-c"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></i>Script</span>
+  </div>
+  <div class="vw-bar-wrap">
+    <button type="button" class="vw-btn" id="btnVoiceWalkthrough" aria-label="Voice Entire Process: Step-by-step audio narration of flowchart steps and standards">
+      <span class="vw-icon">
+        <span class="vw-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </span>
+      <span class="vw-content">
+        <span class="vw-title-line">
+          <span class="vw-title">Voice Entire Process</span>
+          <span class="vw-badge">Audio Guide</span>
+        </span>
+        <span class="vw-desc">Narrates flowchart steps &amp; right-side standards step-by-step</span>
+      </span>
+      <span class="vw-action-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+    </button>
+    <div class="vw-player" id="vwPlayer" role="region" aria-label="Walkthrough Audio Player">
+      <div class="vw-player-progress-track"><div class="vw-player-progress-bar" id="vwProgressBar"></div></div>
+      <div class="vw-player-info">
+        <span class="vw-player-badge"><span class="vw-player-dot"></span><span id="vwStepPill">Step 1 of 14</span></span>
+        <div class="vw-player-text">
+          <span class="vw-player-step-title" id="vwStepTitle">Open the showroom door</span>
+          <span class="vw-player-step-sub" id="vwStepSub">Security Guard · Greets &amp; opens door</span>
+        </div>
+      </div>
+      <div class="vw-player-controls">
+        <button type="button" class="vw-ctrl-btn" id="vwBtnPrev" title="Previous Step" aria-label="Previous step">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button type="button" class="vw-ctrl-btn play-pause" id="vwBtnPlayPause" title="Pause" aria-label="Pause walkthrough">
+          <svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+        </button>
+        <button type="button" class="vw-ctrl-btn" id="vwBtnNext" title="Next Step" aria-label="Next step">
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+        <button type="button" class="vw-ctrl-btn close" id="vwBtnStop" title="Stop Walkthrough" aria-label="Stop walkthrough">
+          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="split" data-flow="f2" data-sec="flow2" data-title="Process Flow 2: Welcome in the Showroom">
 <div class="split-flow"><div class="fc-scroll"><div class="fc" id="fc2" style="grid-template-columns:minmax(0,150fr) minmax(0,430fr) minmax(0,240fr)" data-edges='[["m1", "m2", "h:r"], ["m2", "m3", "v"], ["m3", "q1", "v"], ["q1", "m31", "v", "NO"], ["q1", "m32", "rail", "YES"], ["m31", "m32", "v"], ["m32", "m4", "v"], ["m4", "m5", "v"], ["m5", "m6", "v"], ["m6", "m7", "v"], ["m7", "q2", "v"], ["q2", "m71", "sd:l", "YES"], ["q2", "m72", "sd:r", "NO"], ["m72", "m8", "sd:r"], ["m71", "m8", "ds:r"], ["m8", "end2", "v"]]'><div class="fc-lane l0" style="grid-column:1;grid-row:1/15" aria-hidden="true"></div><div class="fc-lane l1" style="grid-column:2;grid-row:1/15" aria-hidden="true"></div><div class="fc-lane l2" style="grid-column:3;grid-row:1/15" aria-hidden="true"></div><div class="fc-head" style="grid-column:1;grid-row:1">Security Guard</div><div class="fc-head" style="grid-column:2;grid-row:1">Hostess</div><div class="fc-head" style="grid-column:3;grid-row:1">System</div><div class="fc-cell" style="grid-column:1;grid-row:2"><div role="button" tabindex="0" class="nd " id="m1" data-key="1"><b>1.</b>Open the showroom door</div></div><div class="fc-cell" style="grid-column:2;grid-row:2"><div role="button" tabindex="0" class="nd " id="m2" data-key="2"><b>2.</b>Welcome the customer and introduce yourself<span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="script" aria-label="Script: show details" title="Script"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></span></span></div></div><div class="fc-cell" style="grid-column:2;grid-row:3"><div role="button" tabindex="0" class="nd " id="m3" data-key="3"><b>3.</b>Request the customer to scan the QR code and confirm their vehicle of interest <span class="ic star" role="button" tabindex="0" data-ic="star" aria-label="JSW Motors Differentiator: show details" title="JSW Motors Differentiator">★</span><span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="notif" aria-label="Notification: show details" title="Notification"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></span></span></div></div><div class="fc-cell" style="grid-column:2;grid-row:4"><div role="button" tabindex="0" class="nd dec" id="q1"><span>Customer scans QR code?</span></div></div><div class="fc-cell" style="grid-column:2;grid-row:5"><div role="button" tabindex="0" class="nd " id="m31" data-key="3.1"><b>3.1</b>Manually fill the enquiry form<span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="notif" aria-label="Notification: show details" title="Notification"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></span></span></div></div><div class="fc-cell" style="grid-column:2;grid-row:6"><div role="button" tabindex="0" class="nd " id="m32" data-key="3.2"><b>3.2</b>Walk the customer to the lounge and offer seating</div></div><div class="fc-cell" style="grid-column:2;grid-row:7"><div role="button" tabindex="0" class="nd " id="m4" data-key="4"><b>4.</b>Share the menu card and confirm choice of beverage<span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="script" aria-label="Script: show details" title="Script"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></span></span></div></div><div class="fc-cell" style="grid-column:2;grid-row:8"><div role="button" tabindex="0" class="nd " id="m5" data-key="5"><b>5.</b>Request the pantry staff to serve beverage as per customer’s preference, ensuring it’s served on time</div></div><div class="fc-cell" style="grid-column:2;grid-row:9"><div role="button" tabindex="0" class="nd " id="m6" data-key="6"><b>6.</b>Inform the customer that sales consultant will join them shortly<span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="script" aria-label="Script: show details" title="Script"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></span></span></div></div><div class="fc-cell" style="grid-column:2;grid-row:10"><div role="button" tabindex="0" class="nd " id="m7" data-key="7"><b>7.</b>Check the Sales Consultant’s availability on the floor and on the app</div></div><div class="fc-cell" style="grid-column:2;grid-row:11"><div role="button" tabindex="0" class="nd dec" id="q2"><span>Is the Sales Consultant available?</span></div></div><div class="fc-cell" style="grid-column:2;grid-row:12"><div role="button" tabindex="0" class="nd " id="m71" data-key="7.1"><b>7.1</b>Handover customer details to the SC and assign them the enquiry on the app<span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="notif" aria-label="Notification: show details" title="Notification"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></span><span class="ic" role="button" tabindex="0" data-ic="script" aria-label="Script: show details" title="Script"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></span></span></div><div role="button" tabindex="0" class="nd " id="m72" data-key="7.2"><b>7.2</b>Communicate SC availability timeline to the customer</div></div><div class="fc-cell" style="grid-column:3;grid-row:13"><div role="button" tabindex="0" class="nd sys" id="m8" data-key="8"><b>8.</b>Showroom feedback is auto-triggered<span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="notif" aria-label="Notification: show details" title="Notification"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></span></span></div></div><div class="fc-cell span" style="grid-column:1/4;grid-row:14"><div class="nd end" id="end2">Move to Chapter 3 Needs Analysis and Product Demo</div></div></div></div></div>
 <aside class="split-std" aria-label="JSW Motors Process Standards"><div class="std-h"><h3>JSW Motors Process Standards</h3></div><div class="std-list"><article class="st" data-key="1" id="f2-1"><h4 class="st-t"><span>1. Open the showroom door</span></h4><dl><div><dt>Who</dt><dd><span class="who">Security Guard</span></dd></div><div><dt>How</dt><dd><p>Smile with eye contact and open the showroom door for all customers coming in and going out.</p></dd></div></dl></article><article class="st" data-key="2" id="f2-2"><h4 class="st-t"><span>2. Welcome the customer and introduce yourself</span><span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="script" aria-label="Script: show details" title="Script"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></span></span></h4><dl><div><dt>Who</dt><dd><span class="who">Hostess</span></dd></div><div><dt>How</dt><dd><p>Spot the entering customer and introduce yourself by name:</p><p class="q">“Hello sir/madam, Welcome to JSW Motors! I am [Hostess Name], your Hostess for the day. It is wonderful to have you here. Could you please share your phone number with me? This helps us ensure our team has all the details to make your JSW Motors journey effortless.”</p></dd></div><div><dt>Enabler</dt><dd class="st-en"><span>Tablet</span><span>Hostess app</span></dd></div></dl></article><article class="st" data-key="3" id="f2-3"><h4 class="st-t"><span>3. Request the customer to scan the QR code and confirm their vehicle of interest <span class="ic star" role="button" tabindex="0" data-ic="star" aria-label="JSW Motors Differentiator: show details" title="JSW Motors Differentiator">★</span></span><span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="notif" aria-label="Notification: show details" title="Notification"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></span></span></h4><dl><div><dt>Who</dt><dd><span class="who">Hostess</span></dd></div><div><dt>How</dt><dd><p>Walk the customer to the reception desk.</p><p>Request them to scan the QR code and fill their name and phone number. Once the QR form is submitted by the customer, the enquiry will be visible in hostess tab.</p><p>Using your tablet or phone, on the hostess app, verify the customer’s vehicle of interest.</p></dd></div><div><dt>Enabler</dt><dd class="st-en"><span>QR code</span></dd></div></dl></article><article class="st" data-key="3.1" id="f2-3.1"><h4 class="st-t"><span>3.1 Manually fill the enquiry form</span><span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="notif" aria-label="Notification: show details" title="Notification"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></span></span></h4><dl><div><dt>Who</dt><dd><span class="who">Hostess</span></dd></div><div><dt>How</dt><dd><p>If the customer does not scan the QR code, create the lead manually by entering the customer’s name and phone number in the hostess app.</p></dd></div><div><dt>Enabler</dt><dd class="st-en"><span>Tablet</span><span>Hostess app</span></dd></div></dl></article><article class="st" data-key="3.2" id="f2-3.2"><h4 class="st-t"><span>3.2 Walk the customer to the lounge and offer seating</span></h4><dl><div><dt>Who</dt><dd><span class="who">Hostess</span></dd></div><div><dt>How</dt><dd><p>Personally walk the customer to the seating lounge and offer seating.</p><p>Proactively request the pantry staff to serve drinking water.</p><p>Ensure that the pantry staff serves water in sealed glass bottles instead of plastic bottles to align with the brand’s sustainability DNA.</p></dd></div></dl></article><article class="st" data-key="4" id="f2-4"><h4 class="st-t"><span>4. Share the menu card and confirm choice of beverage</span><span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="script" aria-label="Script: show details" title="Script"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></span></span></h4><dl><div><dt>Who</dt><dd><span class="who">Hostess</span></dd></div><div><dt>How</dt><dd><p>Share the menu card with the customer and confirm their choice of beverage:</p><p class="q">&quot;Here&#x27;s our beverage menu, sir/madam. Please let me know what we can serve you today. We&#x27;ll have it ready in a few minutes.&quot;</p></dd></div><div><dt>Enabler</dt><dd class="st-en"><span>Menu card</span><span>F&amp;B checklist</span></dd></div></dl></article><article class="st" data-key="5" id="f2-5"><h4 class="st-t"><span>5. Request the pantry staff to serve beverage as per customer’s preference, ensuring it’s served on time</span></h4><dl><div><dt>Who</dt><dd><span class="who">Hostess</span></dd></div><div><dt>How</dt><dd><p>Ensure that the pantry staff serves the beverage only in JSW Motors branded high-quality crockery.</p><p>Inform the pantry staff about the customer’s choice of beverage</p></dd></div></dl></article><article class="st" data-key="6" id="f2-6"><h4 class="st-t"><span>6. Inform the customer that sales consultant will join them shortly</span><span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="script" aria-label="Script: show details" title="Script"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></span></span></h4><dl><div><dt>Who</dt><dd><span class="who">Hostess</span></dd></div><div><dt>How</dt><dd><p>Inform the customer that a Sales Consultant will join them shortly and, in the meanwhile, they may engage with the brochures and reading material available in the seating lounge.</p><p class="q">&quot;Your Sales Consultant will join you shortly. In the meantime, do make yourself comfortable. There are brochures and reading material on the table.&quot;</p><p>Ensure that the pantry staff serves beverages on time without keeping customers waiting for long.</p></dd></div></dl></article><article class="st" data-key="7" id="f2-7"><h4 class="st-t"><span>7. Check the Sales Consultant’s availability on the floor and on the app</span></h4><dl><div><dt>Who</dt><dd><span class="who">Hostess</span></dd></div><div><dt>How</dt><dd><p>Check Sales Consultant availability on the floor and on the app. Available time slots without any prior commitment of appointment or test drive will be visible on the hostess app.</p></dd></div><div><dt>Enabler</dt><dd class="st-en"><span>Hostess app</span></dd></div></dl></article><article class="st" data-key="7.1" id="f2-7.1"><h4 class="st-t"><span>7.1 Handover customer details to the SC and assign them the enquiry on the app</span><span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="notif" aria-label="Notification: show details" title="Notification"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></span><span class="ic" role="button" tabindex="0" data-ic="script" aria-label="Script: show details" title="Script"><svg viewBox="0 0 24 24" aria-label="Script"><title>Script</title><path d="M4 5h16v11H9l-5 4z"/></svg></span></span></h4><dl><div><dt>Who</dt><dd><span class="who">Hostess</span></dd></div><div><dt>How</dt><dd><p>While the customer is seated in the lounge, walk up to the available SC and inform them about the customer.</p><p>Based on their availability, assign them the lead on the app and block their calendar.</p><p>Handover the basic details like name, time when they arrived, what refreshments they were offered, and their vehicle of interest.</p><p class="q">&quot;[SC Name], you have a customer waiting. Mr/Mrs [Customer Name] walked in at [time] and is seated in the lounge at [seat/table number]. Their vehicle of interest is [model name]. This is an [Appointment/Walk-in] customer. They&#x27;re accompanied by [number] guests. Please do join them - I&#x27;ve told them you&#x27;ll be with them shortly and in the meanwhile we served them a cold drink as they especially requested for it due to the heat today.&quot;</p></dd></div><div><dt>Enabler</dt><dd class="st-en"><span>Hostess app</span><span>SC app</span></dd></div></dl></article><article class="st" data-key="7.2" id="f2-7.2"><h4 class="st-t"><span>7.2 Communicate SC availability timeline to the customer</span></h4><dl><div><dt>Who</dt><dd><span class="who">Hostess</span></dd></div><div><dt>How</dt><dd><p>Proactively communicate the SC wait time to the customer.</p><p>If all the SCs are unavailable beyond the committed window, the Team Lead followed by the Sales Manager must engage with the customer.</p></dd></div></dl></article><article class="st" data-key="8" id="f2-8"><h4 class="st-t"><span>8. Showroom feedback is auto-triggered</span><span class="nd-ic"><span class="ic" role="button" tabindex="0" data-ic="notif" aria-label="Notification: show details" title="Notification"><svg viewBox="0 0 24 24" aria-label="Notification"><title>Notification</title><path d="M6 17V11a6 6 0 0112 0v6l1.5 2h-15zM10 21h4"/></svg></span></span></h4><dl><div><dt>Who</dt><dd><span class="who">System</span></dd></div><div><dt>How</dt><dd><p>Trigger 1 of Voice to Text WhatsApp feedback:</p><p class="sub">4 hours after submitting QR code form at showroom visit without test drive</p><p class="sub">1 hour after TD ends OTP verification</p><p>If no response on trigger 1, trigger 2 of star rating feedback link sent on WhatsApp and Email:</p><p class="sub">16 hours after showroom visit without test drive</p><p class="sub">13 hours after TD ends OTP verification</p><p>If no response on trigger 2, trigger 3 of call centre calling the customer for feedback collection:</p><p class="sub">40 hours after showroom visit without test drive</p><p class="sub">37 hours after TD ends OTP verification</p><p>The feeback loop closes when the response is received on any one of the above feedback triggers.</p><p>Trigger 3 is the last follow up for feedback.</p><p>In case, the customer visits multiple times, feedback is triggered only for the first visit.</p></dd></div><div><dt>Enabler</dt><dd class="st-en"><span>Showroom feedback questions</span></dd></div></dl></article></div></aside>
@@ -1028,6 +1120,7 @@ function route(){
   $$('.jx-tabbar button[data-go]').forEach(function(b){b.classList.toggle('is-on',b.dataset.go===id)});
   document.title=id==='ch2'?'Chapter 2 · Arrival and Welcome — Standard Operating Procedures - Sales':'Standard Operating Procedures - Sales';
   closeNav();
+  if(typeof stopWalkthrough==='function') stopWalkthrough();
   if(id==='ch2'){ requestAnimationFrame(drawAll); }
   var t=p[1]&&document.getElementById('ch2-'+p[1]);
   if(t){ requestAnimationFrame(function(){t.scrollIntoView({block:'start'})}); } else { window.scrollTo(0,0); }
@@ -1129,8 +1222,22 @@ function pick(flow,key,fromNode){
   } else if(fromNode){ st.scrollIntoView({behavior:'smooth',block:'center'}); }
 }
 document.addEventListener('click',function(e){
-  var n=e.target.closest('.nd[data-key]'); if(n){pick(n.closest('[data-flow]').dataset.flow,n.dataset.key,true);return}
-  var s=e.target.closest('.st[data-key]'); if(s){pick(s.closest('[data-flow]').dataset.flow,s.dataset.key,false)}
+  var n=e.target.closest('.nd[data-key]');
+  if(n){
+    pick(n.closest('[data-flow]').dataset.flow,n.dataset.key,true);
+    if(typeof vwIndex!=='undefined' && vwIndex!==-1 && n.closest('[data-flow]').dataset.flow==='f2'){jumpWalkthroughKey(n.dataset.key)}
+    return;
+  }
+  var s=e.target.closest('.st[data-key]');
+  if(s){
+    pick(s.closest('[data-flow]').dataset.flow,s.dataset.key,false);
+    if(typeof vwIndex!=='undefined' && vwIndex!==-1 && s.closest('[data-flow]').dataset.flow==='f2'){jumpWalkthroughKey(s.dataset.key)}
+    return;
+  }
+  if(typeof vwIndex!=='undefined' && vwIndex!==-1){
+    var dec=e.target.closest('#q1,#q2,#end2');
+    if(dec){jumpWalkthroughNode(dec.id)}
+  }
 });
 
 
@@ -1142,6 +1249,7 @@ function closePop(){stopAud();if(pop){pop.remove();pop=null}}
 var NOTE={'3':'Enquiry visible in hostess app','3.1':'Enquiry visible in hostess app','7.1':'Enquiry visible in SC app','8':'Customer gets feedback notification on WhatsApp and Email'};
 function showPop(ic){
   closePop();
+  if(typeof stopWalkthrough==='function') stopWalkthrough();
   var type=ic.dataset.ic, host=ic.closest('[data-key]'), sp=ic.closest('[data-flow]'), key=host&&host.dataset.key;
   var st=sp&&key?$('.st[data-key="'+key+'"]',sp):null, title='', kind, body=[], en=[];
   if(type==='star'){
@@ -1189,6 +1297,167 @@ document.addEventListener('keydown',function(e){
   if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('.ic,.nd[role=button]')){e.preventDefault();e.target.click()}
 });
 window.addEventListener('scroll',closePop,{passive:true});
+
+/* ---------- Process Flow 2 Voice Walkthrough (Flowchart & Standards) ---------- */
+var VW_STEPS = [
+  { id: 'intro', key: null, nodeId: null, file: 'flow2-intro', title: 'Process Flow 2 Overview', sub: 'Welcome in the Showroom · Introduction' },
+  { id: '1', key: '1', nodeId: 'm1', file: 'flow2-step-1', title: '1. Open the showroom door', sub: 'Security Guard · Greets & opens door' },
+  { id: '2', key: '2', nodeId: 'm2', file: 'flow2-step-2', title: '2. Welcome the customer and introduce yourself', sub: 'Hostess · Welcoming script & lead creation' },
+  { id: '3', key: '3', nodeId: 'm3', file: 'flow2-step-3', title: '3. Request customer to scan QR code', sub: 'Hostess · JSW Differentiator & QR Profile' },
+  { id: 'q1', key: null, nodeId: 'q1', file: 'flow2-decision-1', title: 'Decision: Customer scans QR code?', sub: 'Branch: NO to Step 3.1 · YES to Step 3.2' },
+  { id: '3.1', key: '3.1', nodeId: 'm31', file: 'flow2-step-3-1', title: '3.1 Manually fill the enquiry form', sub: 'Hostess · Manual entry in Hostess App' },
+  { id: '3.2', key: '3.2', nodeId: 'm32', file: 'flow2-step-3-2', title: '3.2 Walk customer to lounge & offer seating', sub: 'Hostess · Water in sealed glass bottles' },
+  { id: '4', key: '4', nodeId: 'm4', file: 'flow2-step-4', title: '4. Share menu card and confirm beverage', sub: 'Hostess · Beverage script & F&B checklist' },
+  { id: '5', key: '5', nodeId: 'm5', file: 'flow2-step-5', title: '5. Request pantry staff to serve beverage', sub: 'Hostess · High-quality branded crockery' },
+  { id: '6', key: '6', nodeId: 'm6', file: 'flow2-step-6', title: '6. Inform customer Sales Consultant will join shortly', sub: 'Hostess · Lounge comfort & brochures' },
+  { id: '7', key: '7', nodeId: 'm7', file: 'flow2-step-7', title: '7. Check SC availability on floor & app', sub: 'Hostess · Check uncommitted time slots' },
+  { id: 'q2', key: null, nodeId: 'q2', file: 'flow2-decision-2', title: 'Decision: Is Sales Consultant available?', sub: 'Branch: YES to Step 7.1 · NO to Step 7.2' },
+  { id: '7.1', key: '7.1', nodeId: 'm71', file: 'flow2-step-7-1', title: '7.1 Handover customer details to SC', sub: 'Hostess · SC briefing & app enquiry assignment' },
+  { id: '7.2', key: '7.2', nodeId: 'm72', file: 'flow2-step-7-2', title: '7.2 Communicate SC availability timeline', sub: 'Hostess · TL & Sales Manager escalation' },
+  { id: '8', key: '8', nodeId: 'm8', file: 'flow2-step-8', title: '8. Showroom feedback auto-triggered', sub: 'System · 3-stage WhatsApp, Email & Call feedback' },
+  { id: 'end2', key: null, nodeId: 'end2', file: 'flow2-end', title: 'Process Complete', sub: 'Transition to Chapter 3 · Needs Analysis' }
+];
+
+var vwIndex = -1;
+var vwAudio = null;
+var vwPlaying = false;
+
+function clearWalkthroughHighlights(){
+  $$('.nd.is-narrating, .st.is-narrating').forEach(function(el){el.classList.remove('is-narrating')});
+}
+
+function stopWalkthrough(){
+  if(vwAudio){vwAudio.pause();vwAudio=null}
+  vwPlaying=false;
+  vwIndex=-1;
+  clearWalkthroughHighlights();
+  updateWalkthroughUI();
+}
+
+function updateWalkthroughUI(){
+  var btn=$('#btnVoiceWalkthrough'), player=$('#vwPlayer');
+  if(!btn||!player) return;
+  if(vwIndex===-1){
+    btn.style.display='inline-flex';
+    btn.classList.remove('is-playing');
+    player.classList.remove('is-active','is-playing');
+  } else {
+    btn.style.display='none';
+    player.classList.add('is-active');
+    player.classList.toggle('is-playing',vwPlaying);
+    var item=VW_STEPS[vwIndex];
+    $('#vwStepTitle').textContent=item.title;
+    $('#vwStepSub').textContent=item.sub;
+    var pillText=(vwIndex===0?'Intro':(vwIndex===VW_STEPS.length-1?'Finish':'Step '+vwIndex+' of '+(VW_STEPS.length-2)));
+    $('#vwStepPill').textContent=pillText;
+    var pct=Math.round(((vwIndex+1)/VW_STEPS.length)*100);
+    $('#vwProgressBar').style.width=pct+'%';
+    var pp=$('#vwBtnPlayPause');
+    if(pp){
+      if(vwPlaying && vwAudio && !vwAudio.paused){
+        pp.innerHTML='<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>';
+        pp.setAttribute('title','Pause Walkthrough');
+        pp.setAttribute('aria-label','Pause walkthrough');
+      } else {
+        pp.innerHTML='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+        pp.setAttribute('title','Resume Walkthrough');
+        pp.setAttribute('aria-label','Resume walkthrough');
+      }
+    }
+  }
+}
+
+function playWalkthroughStep(index){
+  if(index<0 || index>=VW_STEPS.length){stopWalkthrough();return}
+  stopAud();
+  closePop();
+  clearWalkthroughHighlights();
+
+  vwIndex=index;
+  var item=VW_STEPS[vwIndex];
+
+  // Visual synchronization
+  if(item.key){
+    pick('f2',item.key,true);
+    var n=$('.nd[data-key="'+item.key+'"]'); if(n) n.classList.add('is-narrating');
+    var s=$('.st[data-key="'+item.key+'"]'); if(s) s.classList.add('is-narrating');
+  } else if(item.nodeId){
+    $$('.nd.is-on, .st.is-on').forEach(function(el){el.classList.remove('is-on')});
+    var node=$('#'+item.nodeId);
+    if(node){
+      node.classList.add('is-on','is-narrating');
+      node.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+  } else {
+    var h=$('#ch2-flow2');
+    if(h) h.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  if(!vwAudio){vwAudio=new Audio()}
+  vwAudio.src='assets/audio/walkthrough/'+item.file+'.mp3?t='+Date.now();
+  vwPlaying=true;
+  updateWalkthroughUI();
+
+  vwAudio.onended=function(){
+    if(vwIndex<VW_STEPS.length-1){
+      playWalkthroughStep(vwIndex+1);
+    } else {
+      stopWalkthrough();
+    }
+  };
+  vwAudio.onerror=function(){
+    if(vwIndex<VW_STEPS.length-1){playWalkthroughStep(vwIndex+1)}
+    else stopWalkthrough();
+  };
+  vwAudio.play().catch(function(err){
+    console.warn('Playback error:', err);
+    vwPlaying=false;
+    updateWalkthroughUI();
+  });
+}
+
+function toggleWalkthroughPause(){
+  if(!vwAudio) return;
+  if(vwAudio.paused){
+    vwAudio.play().then(function(){
+      vwPlaying=true;
+      updateWalkthroughUI();
+    }).catch(function(){});
+  } else {
+    vwAudio.pause();
+    vwPlaying=false;
+    updateWalkthroughUI();
+  }
+}
+
+function jumpWalkthroughKey(key){
+  for(var i=0;i<VW_STEPS.length;i++){
+    if(VW_STEPS[i].key===key){
+      playWalkthroughStep(i);
+      return;
+    }
+  }
+}
+
+function jumpWalkthroughNode(nodeId){
+  for(var i=0;i<VW_STEPS.length;i++){
+    if(VW_STEPS[i].nodeId===nodeId){
+      playWalkthroughStep(i);
+      return;
+    }
+  }
+}
+
+var btnVW=$('#btnVoiceWalkthrough');
+if(btnVW){btnVW.onclick=function(){playWalkthroughStep(0)}}
+var ppBtn=$('#vwBtnPlayPause');
+if(ppBtn){ppBtn.onclick=toggleWalkthroughPause}
+var prBtn=$('#vwBtnPrev');
+if(prBtn){prBtn.onclick=function(){if(vwIndex>0)playWalkthroughStep(vwIndex-1)}}
+var nxBtn=$('#vwBtnNext');
+if(nxBtn){nxBtn.onclick=function(){if(vwIndex<VW_STEPS.length-1)playWalkthroughStep(vwIndex+1); else stopWalkthrough()}}
+var stBtn=$('#vwBtnStop');
+if(stBtn){stBtn.onclick=stopWalkthrough}
 
 /* ---------- search ---------- */
 var pal=null, idx=null;
